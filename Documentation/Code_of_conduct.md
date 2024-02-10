@@ -151,3 +151,7 @@ These guidelines have been adapted with modifications from Mozilla’s original 
 
 Modifications to these Guidelines
 Mozilla may amend the guidelines from time to time and may also vary the procedures it sets out where appropriate in a particular case. Your agreement to comply with the guidelines will be deemed agreement to any changes to it. This policy does not form part of any Mozilla employee’s contract of employment or otherwise have contractual effect.
+
+References:
+[1] "Mozilla Community Participation Guidelines"
+URL: https://www.mozilla.org/en-US/about/governance/policies/participation/
