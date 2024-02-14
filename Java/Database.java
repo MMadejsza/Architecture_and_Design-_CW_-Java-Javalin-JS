@@ -3,17 +3,19 @@ package Java;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database {
-    List<String> stockNameList = new ArrayList<>();
-    List<Float> stockValueList = new ArrayList<>();
+//Stock data is stored in here for grpahical updates, it also allows the stocks to remian even if an internet connection error occurs
+public class Database implements IRetrieveData {
+    private List<IGetStocks> stocksList = new ArrayList<>();
 
-    public void stockData(IGetStocks stocks){
-        String stockName = stocks.getStocksNames();
-        float stockValue = stocks.getStockValues();
+    //Stores the stock data and formats it
+    public void getStockData(String stockName, float stockValue){
+        Stocks stock = new Stocks(stockName, stockValue);
+        stocksList.add(stock);
     };
 
-    public void addStockData(String stockName, float stockValue){
-        stockNameList.add(stockName);
-        stockValueList.add(stockValue);
+    public List<IGetStocks> getStocksList(){
+        return stocksList;
     }
+
 }
+

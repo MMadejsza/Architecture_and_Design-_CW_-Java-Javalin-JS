@@ -1,6 +1,8 @@
 package Java;
 
 interface IGetStocks {
-    String getStocksNames();
+    //gets the name of a stock
+    String getStockNames();
+    //gets the value of a stock
     float getStockValues();
 }
