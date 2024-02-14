@@ -1,5 +1,5 @@
 package Java;
 
-public class Customer {
+class Customer {
     
 }

@@ -1,5 +1,6 @@
 package Java;
 
-public class IGetStocks {
-    
+interface IGetStocks {
+    String getStocksNames();
+    float getStockValues();
 }
