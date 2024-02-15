@@ -1,8 +1,8 @@
 package Java;
 
 public class Main {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         //Creating new instances for each class
         IRetrieveData database = new Database();
         IRetrieveGraph graph = new Graph(database);
