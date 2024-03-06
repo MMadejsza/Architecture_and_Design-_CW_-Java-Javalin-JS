@@ -12,9 +12,7 @@ public class Login implements ILogin {
     }
 
     public boolean ValidateCredentials() {
-        if (database.checkUser(getLogin(), getPassword())) {
-            return true;
-        } else return false;
+        return database.checkUser(getLogin(), getPassword());
     }
 
     public void GrantAccess() {
