@@ -1,19 +1,30 @@
 package Java.Customer_Manager;
 
-import Java.Graph_Manager.IRetrieveGraph;
+public class Customer implements ICustomer {
 
-public class Customer {
+    private String name;
+    private String password;
 
-    //Gets the data from the graph and uses it. This represents the customer view
-    private IRetrieveGraph graph;
-
-    //Customer Object will be the user once a user interface is established
-    public Customer(IRetrieveGraph graph) {
-        this.graph = graph;
+    // Constructor
+    public Customer(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
-    //Prints the graph in the terminal
-    public void viewStockData() {
-        graph.visualizeData();
+    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
