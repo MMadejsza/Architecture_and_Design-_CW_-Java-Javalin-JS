@@ -19,13 +19,25 @@ public class Database implements IRetrieveData {
     }
 
     public boolean checkUser(String login, String password) {
-        List<Customer> userlist = GetUsersList();
-        return userlist.contains()
-    };
+        List<Customer> usersList = GetUsersList();
+        for (Customer customer : usersList) {
+            if (customer.getName() == login) {
+                if (customer.getPassword() == password) return true; else {
+                    // case if correct login but wrong password
+                    System.out.println("Wrong password");
+                    return false;
+                }
+            }
+        }
+        // case if no customer name found
+        System.out.println("Wrong login");
+        return false;
+    }
 
     public List<IGetStocks> getStocksList() {
         return stocksList;
     }
+
     public List<Customer> GetUsersList() {
         return usersList;
     }
