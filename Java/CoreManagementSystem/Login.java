@@ -22,6 +22,7 @@ public class Login implements ILogin {
             // piece of code calling html/website to remove blocking overlay
         } else {
             // error alert
+            System.out.println("Try to log in again.");
         }
     }
 
