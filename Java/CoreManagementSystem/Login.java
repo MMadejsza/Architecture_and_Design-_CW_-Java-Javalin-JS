@@ -6,9 +6,10 @@ public class Login implements ILogin {
     private String password;
     private Database database;
 
-    public void Login(String login, String password) {
+    public Login(String login, String password, Database database) {
         this.login = login;
         this.password = password;
+        this.database = database;
     }
 
     public boolean ValidateCredentials() {

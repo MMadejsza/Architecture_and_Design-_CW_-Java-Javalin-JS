@@ -1,8 +1,9 @@
 package Java.Graph_Manager;
 
+import java.util.List;
+
 import Java.CoreManagementSystem.IRetrieveData;
 import Java.StocksInfo_Manager.IGetStocks;
-import java.util.List;
 
 //Creates a visual representation of stock values
 public class Graph implements IRetrieveGraph {
@@ -34,10 +35,9 @@ public class Graph implements IRetrieveGraph {
             "----------------------------------------------------------------------------\n"
         );
     }
-
-    //Writes the graph
-    public void visualizeData() {
-        List<IGetStocks> stocksList = dataRetrieved.getStockData();
+    
+    public void visualizeData(){
+        List<IGetStocks> stocksList = dataRetrieved.getStocksList();
         getGraphData(stocksList);
     }
 }
