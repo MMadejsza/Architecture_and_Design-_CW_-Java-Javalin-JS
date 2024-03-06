@@ -1,6 +1,6 @@
-package Java;
+package Java.StocksInfo_Manager;
 
-interface IGetStocks {
+public interface IGetStocks {
     //gets the name of a stock
     String getStockNames();
     //gets the value of a stock

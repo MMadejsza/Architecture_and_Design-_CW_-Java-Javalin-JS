@@ -1,8 +1,10 @@
-package Java;
+package Java.Graph_Manager;
 
 import java.util.List;
 
-interface IRetrieveGraph {
+import Java.StocksInfo_Manager.IGetStocks;
+
+public interface IRetrieveGraph {
     //This interface links the graph to the database and gets all of the data that is stored in the database
     void getGraphData(List<IGetStocks> stocksList);
 

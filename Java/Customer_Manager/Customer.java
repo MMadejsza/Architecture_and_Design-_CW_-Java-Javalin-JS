@@ -1,6 +1,8 @@
-package Java;
+package Java.Customer_Manager;
 
-class Customer {
+import Java.Graph_Manager.IRetrieveGraph;
+
+public class Customer {
 
     //Gets the data from the graph and uses it. This represents the customer view
     private IRetrieveGraph graph;

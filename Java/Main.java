@@ -1,5 +1,11 @@
 package Java;
 
+import Java.CoreManagementSystem.Database;
+import Java.CoreManagementSystem.IRetrieveData;
+import Java.Customer_Manager.Customer;
+import Java.Graph_Manager.Graph;
+import Java.Graph_Manager.IRetrieveGraph;
+
 public class Main {
 
     public static void main(String[] args) {

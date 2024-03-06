@@ -1,9 +1,12 @@
-package Java;
+package Java.Graph_Manager;
 
 import java.util.List;
 
+import Java.CoreManagementSystem.IRetrieveData;
+import Java.StocksInfo_Manager.IGetStocks;
+
 //Creates a visual representation of stock values
-class Graph implements IRetrieveGraph {
+public class Graph implements IRetrieveGraph {
 
     private IRetrieveData dataRetrieved;
 
