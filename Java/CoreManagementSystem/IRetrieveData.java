@@ -2,6 +2,7 @@ package Java.CoreManagementSystem;
 
 import java.util.List;
 
+import Java.Customer_Manager.Customer;
 import Java.StocksInfo_Manager.IGetStocks;
 
 public interface IRetrieveData {
@@ -9,4 +10,5 @@ public interface IRetrieveData {
     void getStockData(String stockName, float stockValue);
     List<IGetStocks> getStocksList();
     boolean checkUser(String login, String password);
+    List<Customer> getUsersList();
 }

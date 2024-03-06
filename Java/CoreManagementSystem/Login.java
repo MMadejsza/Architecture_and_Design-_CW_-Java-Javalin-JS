@@ -12,12 +12,12 @@ public class Login implements ILogin {
         this.database = database;
     }
 
-    public boolean ValidateCredentials() {
+    public boolean validateCredentials() {
         return database.checkUser(getLogin(), getPassword());
     }
 
-    public void GrantAccess() {
-        if (this.ValidateCredentials()) {
+    public void grantAccess() {
+        if (this.validateCredentials()) {
             // piece of code calling html/website to remove blocking overlay
         } else {
             // error alert
@@ -25,6 +25,7 @@ public class Login implements ILogin {
         }
     }
 
+    
     public String getLogin() {
         return login;
     }

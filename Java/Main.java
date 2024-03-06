@@ -23,16 +23,26 @@ public class Main {
 
         Database.usersList.add(new Customer("Adam", "Password"));
         
-        System.out.println("Enter Username: ");
-        String user = scanner.nextLine();
-        System.out.println("Enter Password: ");
-        String password = scanner.nextLine();
-        scanner.close();
+        String user;
+        String password;
+        int x = 1;
+        
         //See all stocks
-        if (database.checkUser(user, password) == true)
+        while (x == 1)
         {
-            graph.visualizeData();
+            System.out.println("Enter Username: ");
+            user = scanner.nextLine();
+            System.out.println("Enter Password: ");
+            password = scanner.nextLine();
+            if(database.checkUser(user, password) == true)
+            {
+                x = 0;
+            }
+            
         }
+        
+        scanner.close();
+        graph.visualizeData();
         
     }
 }
