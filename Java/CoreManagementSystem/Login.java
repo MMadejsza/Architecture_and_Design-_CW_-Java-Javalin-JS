@@ -1,12 +1,10 @@
 package Java.CoreManagementSystem;
 
-import Java.Customer_Manager.Customer;
-
 public class Login implements ILogin {
 
     private String login;
     private String password;
-    private Customer customerManager;
+    private Database database;
 
     public void Login(String login, String password) {
         this.login = login;
@@ -14,12 +12,9 @@ public class Login implements ILogin {
     }
 
     public boolean ValidateCredentials() {
-        // if (customerManager.checkCustomer(getLogin(), getPassword())) {
-        //     return true;
-        // } else return false;
-
-        // test return (to be deleted)
-        return true;
+        if (database.checkUser(getLogin(), getPassword())) {
+            return true;
+        } else return false;
     }
 
     public void GrantAccess() {

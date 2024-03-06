@@ -1,12 +1,10 @@
 package Java.CoreManagementSystem;
 
-import java.util.List;
-
 import Java.StocksInfo_Manager.IGetStocks;
+import java.util.List;
 
 public interface IRetrieveData {
     //This links the database to the stocks class and stores all the stocks
     void getStockData(String stockName, float stockValue);
-    //creates a list to be stored by the database class
-    List<IGetStocks> getStocksList();
+    boolean checkUser(String login, String password);
 }
