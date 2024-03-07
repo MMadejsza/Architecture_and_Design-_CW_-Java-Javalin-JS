@@ -5,3 +5,6 @@
 
 
 ![Screenshot 2024-03-05 124115](https://github.com/MMadejsza/Architecture_and_Design-_--_Coursework/assets/158591813/c9c466ab-2826-4a03-905e-48c27abadb91)
+
+
+![SAD_Persona](https://github.com/MMadejsza/Architecture_and_Design-_--_Coursework/assets/94644679/15f2acd1-fba6-4a1c-b9e2-78107e034d87)
