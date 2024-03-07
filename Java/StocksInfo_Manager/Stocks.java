@@ -1,4 +1,4 @@
-package Java;
+package Java.StocksInfo_Manager;
 
 //This provides structure to the stocks, stocks will be formatted and saved through here
 public class Stocks implements IGetStocks {
