@@ -41,8 +41,27 @@ public class Main {
             
         }
         
+        int input;
+        input = scanner.nextInt();
+        while (input != 0) {
+            switch (input) {
+
+            case 0:
+                break;
+
+            case 1:
+                graph.visualizeData();
+
+            case 2:
+                
+
+            default:
+                System.out.println("There was a bad input please try again\n");
+                break;
+        }
+        }
+        
         scanner.close();
-        graph.visualizeData();
         
     }
 }
