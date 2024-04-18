@@ -9,15 +9,23 @@ html {
 	color: #222;
 	font-size: 10px;
 	--iconPosition: -3.5rem;
+	--navBcg: rgba(255, 255, 255, 0.65);
+	--itemBcg: rgba(255, 255, 255, 0.6);
+	--bRadius: 20px;
+	--shadowColor1: rgba(255, 145, 2, 0.3);
+	--shadowColor2: rgba(255, 145, 2, 0.22);
+	--activeBoxShadow: var(--shadowColor1) 0px 19px 38px, var(--shadowColor2) 0px 15px 12px;
 }
 body {
 	height: 120vh;
 	background-color: whitesmoke;
 }
+
 img {
 	top: 2rem;
 	left: 4rem;
 }
+
 header {
 	position: relative;
 	height: 100vh;
@@ -33,7 +41,7 @@ header > nav {
 	font-size: 3rem;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	background-color: rgba(255, 255, 255, 0.65);
+	background-color: var(--navBcg);
 }
 
 header .nav {
@@ -55,7 +63,7 @@ header .nav ul li {
 	overflow: hidden;
 }
 
-header .nav a {
+.nav a {
 	width: 100%;
 	height: 6rem;
 	margin: 0 2rem;
@@ -101,7 +109,7 @@ header > * {
 header > h1 {
 	top: 50%;
 	padding: 1rem;
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: var(--itemBcg);
 	width: 100%;
 	text-align: center;
 	text-transform: uppercase;
@@ -124,7 +132,7 @@ button {
 }
 button:hover {
 	color: orange;
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: var(--itemBcg);
 }
 section {
 	width: 85%;
@@ -135,6 +143,11 @@ section p {
 	text-align: justify;
 	line-height: 150%;
 	text-indent: 2rem;
+}
+.nav .active,
+.nav .active a {
+	color: orange;
+	text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 915px) and (orientation: landscape) {

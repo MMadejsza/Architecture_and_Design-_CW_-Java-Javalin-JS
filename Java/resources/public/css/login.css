@@ -1,207 +1,38 @@
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-html {
-	font-family: 'Montserrat', sans-serif;
-	color: #222;
-	font-size: 10px;
-	--iconPosition: -3.5rem;
-}
-body {
-	height: 120vh;
-	background-color: whitesmoke;
-}
-img {
-	top: 2rem;
-	left: 4rem;
-}
-
-header > nav {
-	position: sticky;
-	width: 100%;
-	font-size: 3rem;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	background-color: rgba(255, 255, 255, 0.65);
-}
-
-header .nav {
-	width: 100%;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-
-header .nav ul {
-	margin: 0 0 0 auto;
-	display: flex;
-	justify-content: right;
-	list-style: none;
-}
-
-header .nav ul li {
-	position: relative;
-	min-width: 100px;
-	overflow: hidden;
-}
-
-header .nav a {
-	width: 100%;
-	height: 6rem;
-	margin: 0 2rem;
-	padding-right: 1.5rem;
-	line-height: 6rem;
-	text-decoration: none;
-	color: black;
-	transition: 0.2s ease-in-out;
-}
-
-header .nav a::after {
-	content: '';
-	width: calc(100% - var(--iconPosition));
-	height: 3px;
+.loginBox {
 	position: absolute;
-	left: calc(-100% + var(--iconPosition));
-	bottom: 0;
-	background-color: orange;
-	transition: 0.2s ease-in-out;
-	z-index: 1;
-}
-
-header .nav ul i {
-	display: inline-block;
-	margin-right: 1.5rem;
-	left: var(--iconPosition);
-	vertical-align: 2px;
-	font-size: 2.2rem;
-}
-
-header .nav a:hover {
-	color: orange;
-}
-
-header .nav a:hover::after {
-	left: 0;
-}
-
-header {
-	position: relative;
-	height: 100vh;
-	background-image: url('../assets/bg.jpg');
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-header > * {
-	position: absolute;
-}
-
-header > h1 {
+	width: 40%;
+	height: 60vh;
 	top: 50%;
-	padding: 1rem;
-	background-color: rgba(255, 255, 255, 0.6);
-	width: 100%;
-	text-align: center;
-	text-transform: uppercase;
-	font-size: 5rem;
-	letter-spacing: 1px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	border-radius: var(--bRadius);
+	background-color: var(--itemBcg);
 }
-button {
-	bottom: 15vh;
-	right: 8rem;
-	padding: 1rem 3rem;
-	background-color: rgba(0, 0, 0, 0.5);
-	color: white;
-	font-size: 4rem;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	border: 3px solid white;
-	cursor: pointer;
-	transition: 0.3s ease-in-out;
-	overflow: hidden;
-}
-button:hover {
-	color: orange;
-	background-color: rgba(255, 255, 255, 0.5);
-}
-section {
-	width: 85%;
-	margin: 4rem auto 0;
-}
-section p {
-	font-size: 1.8rem;
-	text-align: justify;
-	line-height: 150%;
-	text-indent: 2rem;
+form {
+	height: 40%;
+	margin-top: 20%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
-@media (max-width: 915px) and (orientation: landscape) {
-	header img {
-		width: 25%;
-	}
-	header h1 {
-		font-size: 2.6rem;
-	}
-	header button {
-		bottom: 3rem;
-		right: 4rem;
-		font-size: 2rem;
-	}
+h2 {
+	font-size: 2.5rem;
 }
-@media (max-width: 533px) and (orientation: landscape) {
-	header h1 {
-		font-size: 2rem;
-	}
-	header button {
-		border-width: 2px;
-		bottom: 3rem;
-		right: 4rem;
-		font-size: 1.5rem;
-	}
-	section p {
-		font-size: 1.2rem;
-	}
+
+form input {
+	width: 45%;
+	line-height: 3rem;
+	padding-left: 1.5rem;
+	border-radius: var(--bRadius);
+	font-family: inherit;
+	border: none;
+	background-color: whitesmoke;
+	outline: none;
 }
-@media (max-width: 430px) and (orientation: portrait) {
-	header img {
-		width: 80%;
-		left: 10%;
-	}
-	header h1 {
-		top: 35%;
-		padding: 2rem 6rem;
-		font-size: 3rem;
-		line-height: 180%;
-	}
-	header button {
-		width: 80%;
-		right: 10%;
-		font-size: 1.8rem;
-	}
-	section p {
-		font-size: 1.2rem;
-	}
-}
-@media (max-width: 375px) and (orientation: portrait) {
-	header img {
-		width: 80%;
-		left: 10%;
-	}
-	header h1 {
-		top: 35%;
-		padding: 2rem 6rem;
-		font-size: 3rem;
-		line-height: 180%;
-	}
-	header button {
-		width: 80%;
-		right: 10%;
-		font-size: 1.8rem;
-	}
-	section p {
-		font-size: 1.2rem;
-	}
+form input:focus {
+	box-shadow: var(--activeBoxShadow);
+	color: orange;
 }
