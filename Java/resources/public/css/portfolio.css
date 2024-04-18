@@ -44,10 +44,28 @@ main {
 	background-color: black;
 	opacity: 0.8;
 }
+.graph-label {
+	width: 95%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.graph-label input {
+	min-width: 25%;
+	padding: 0 1.5rem;
+	font-family: inherit;
+	text-align: center;
+	border-radius: var(--bRadius);
+}
+.graph-label input:hover {
+	cursor: pointer;
+}
+.graph-label input:focus {
+	outline: none;
+	box-shadow: rgba(255, 145, 2) 0px 5px 15px;
+}
 
 .graphBox h2 {
-	width: 95%;
 	font-size: 2rem;
-	background-color: black;
-	opacity: 0.8;
 }
