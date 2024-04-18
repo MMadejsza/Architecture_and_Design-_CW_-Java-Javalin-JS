@@ -145,10 +145,12 @@ section p {
 	line-height: 150%;
 	text-indent: 2rem;
 }
-.nav .active,
-.nav .active a {
+.nav a.active {
 	color: orange;
 	text-shadow: var(--activeTxtShadow);
+}
+.nav a.active::after {
+	left: 0;
 }
 
 @media (max-width: 915px) and (orientation: landscape) {
