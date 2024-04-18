@@ -1,7 +1,9 @@
 body {
 	min-height: 100vh;
 }
-
+header > * {
+	position: static;
+}
 main {
 	margin: 5vh auto 0;
 	width: 90%;
