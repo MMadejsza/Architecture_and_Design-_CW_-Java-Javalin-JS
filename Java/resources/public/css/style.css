@@ -1,0 +1,132 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-family: 'Montserrat', sans-serif;
+	color: #222;
+	font-size: 10px;
+}
+img {
+	top: 2rem;
+	left: 4rem;
+}
+
+header {
+	position: relative;
+	height: 100vh;
+	background-image: url('../assets/bg.jpg');
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+header > * {
+	position: absolute;
+}
+
+header > h1 {
+	top: 50%;
+	padding: 1rem;
+	background-color: rgba(255, 255, 255, 0.6);
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 5rem;
+	letter-spacing: 1px;
+}
+button {
+	bottom: 15vh;
+	right: 8rem;
+	padding: 1rem 3rem;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	font-size: 4rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	border: 4px solid white;
+	cursor: pointer;
+}
+button:hover {
+	background-color: rgba(0, 0, 0, 0.7);
+}
+section {
+	width: 85%;
+	margin: 4rem auto 0;
+}
+section p {
+	font-size: 1.4rem;
+	text-align: justify;
+	line-height: 150%;
+	text-indent: 2rem;
+}
+
+@media (max-width: 915px) and (orientation: landscape) {
+	header img {
+		width: 25%;
+	}
+	header h1 {
+		font-size: 2.6rem;
+	}
+	header button {
+		bottom: 3rem;
+		right: 4rem;
+		font-size: 2rem;
+	}
+}
+@media (max-width: 533px) and (orientation: landscape) {
+	header h1 {
+		font-size: 2rem;
+	}
+	header button {
+		border-width: 2px;
+		bottom: 3rem;
+		right: 4rem;
+		font-size: 1.5rem;
+	}
+	section p {
+		font-size: 1.2rem;
+	}
+}
+@media (max-width: 430px) and (orientation: portrait) {
+	header img {
+		width: 80%;
+		left: 10%;
+	}
+	header h1 {
+		top: 35%;
+		padding: 2rem 6rem;
+		font-size: 3rem;
+		line-height: 180%;
+	}
+	header button {
+		width: 80%;
+		right: 10%;
+		font-size: 1.8rem;
+	}
+	section p {
+		font-size: 1.2rem;
+	}
+}
+@media (max-width: 375px) and (orientation: portrait) {
+	header img {
+		width: 80%;
+		left: 10%;
+	}
+	header h1 {
+		top: 35%;
+		padding: 2rem 6rem;
+		font-size: 3rem;
+		line-height: 180%;
+	}
+	header button {
+		width: 80%;
+		right: 10%;
+		font-size: 1.8rem;
+	}
+	section p {
+		font-size: 1.2rem;
+	}
+}
