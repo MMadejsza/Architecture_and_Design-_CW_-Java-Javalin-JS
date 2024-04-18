@@ -9,6 +9,7 @@ main {
 	background-color: var(--itemBcg);
 	opacity: 0.75;
 	border-radius: var(--bRadius);
+	box-shadow: var(--activeBoxShadow);
 }
 
 .contentBox {
@@ -19,7 +20,7 @@ main {
 	place-items: center;
 	gap: 2.5rem;
 	/* grid-template-columns: minmax(400px, 800px) minmax(400px, 800px); */
-	grid-template-columns: repeat(auto-fill, minmax(400px, 650px));
+	grid-template-columns: repeat(auto-fill, minmax(350px, 600px));
 	/* grid-template-rows: minmax(225px, 400px) minmax(225px, 400px); */
 	grid-auto-rows: minmax(225px, 400px);
 }
