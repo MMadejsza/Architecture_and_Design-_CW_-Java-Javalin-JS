@@ -1,0 +1,17 @@
+body {
+	height: auto;
+}
+
+main {
+	position: absolute;
+	width: 90%;
+	min-height: 85vh;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--itemBcg);
+	opacity: 0.75;
+	border-radius: var(--bRadius);
+
+	display: grid;
+}
