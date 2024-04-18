@@ -1,3 +1,6 @@
+body {
+	height: 100vh;
+}
 .loginBox {
 	position: absolute;
 	width: 40%;
@@ -5,9 +8,9 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-
 	border-radius: var(--bRadius);
 	background-color: var(--itemBcg);
+	box-shadow: var(--activeBoxShadow);
 }
 form {
 	height: 40%;

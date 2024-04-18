@@ -15,6 +15,7 @@ html {
 	--shadowColor1: rgba(255, 145, 2, 0.3);
 	--shadowColor2: rgba(255, 145, 2, 0.22);
 	--activeBoxShadow: var(--shadowColor1) 0px 19px 38px, var(--shadowColor2) 0px 15px 12px;
+	--activeTxtShadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 }
 body {
 	height: 120vh;
@@ -135,7 +136,7 @@ button:hover {
 	background-color: var(--itemBcg);
 }
 section {
-	width: 85%;
+	width: 65%;
 	margin: 4rem auto 0;
 }
 section p {
@@ -147,13 +148,10 @@ section p {
 .nav .active,
 .nav .active a {
 	color: orange;
-	text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+	text-shadow: var(--activeTxtShadow);
 }
 
 @media (max-width: 915px) and (orientation: landscape) {
-	header img {
-		width: 25%;
-	}
 	header h1 {
 		font-size: 2.6rem;
 	}
@@ -178,10 +176,6 @@ section p {
 	}
 }
 @media (max-width: 430px) and (orientation: portrait) {
-	header img {
-		width: 80%;
-		left: 10%;
-	}
 	header h1 {
 		top: 35%;
 		padding: 2rem 6rem;
@@ -198,10 +192,6 @@ section p {
 	}
 }
 @media (max-width: 375px) and (orientation: portrait) {
-	header img {
-		width: 80%;
-		left: 10%;
-	}
 	header h1 {
 		top: 35%;
 		padding: 2rem 6rem;
