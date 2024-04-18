@@ -29,6 +29,7 @@ img {
 
 header {
 	position: relative;
+	padding-bottom: 5vh;
 	min-height: 100vh;
 	background-image: url('../assets/bg.jpg');
 	background-attachment: fixed;
@@ -101,10 +102,6 @@ header .nav a:hover {
 
 header .nav a:hover::after {
 	left: 0;
-}
-
-header > * {
-	position: absolute;
 }
 
 header > h1 {
