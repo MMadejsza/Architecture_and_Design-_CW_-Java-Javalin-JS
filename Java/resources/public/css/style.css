@@ -145,6 +145,7 @@ header {
 
 	border-bottom-left-radius: var(--bRadius);
 	border-bottom-right-radius: var(--bRadius);
+	box-shadow: var(--activeBoxShadow);
 }
 header > * {
 	position: absolute;
@@ -182,7 +183,7 @@ button:hover {
 section {
 	max-width: 1560px;
 	width: 65%;
-	margin: 4rem auto 0;
+	margin: 10vh auto 0;
 }
 section p {
 	font-size: 1.8rem;
