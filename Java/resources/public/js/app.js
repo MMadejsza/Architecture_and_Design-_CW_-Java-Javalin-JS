@@ -16,7 +16,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	try {
 		colorInput.addEventListener('input', (e) => {
-			console.log(e.target.value);
+			// make shortcut for html element
+			const root = document.documentElement;
+			// catch picked color
+			let newColor = e.target.value;
+
+			// substitute css variable with picked color
+			root.style.setProperty('--defaultColor', `${newColor}`);
+
+			// catch desired opacity from css
+			let alpha1 = getComputedStyle(root).getPropertyValue('--shadowAlpha1');
+			let alpha2 = getComputedStyle(root).getPropertyValue('--shadowAlpha2');
+			// substitute css variable for shadows with picked opacity
+			const setOpacity = (alpha) =>
+				`${newColor}${Math.floor(alpha * 255)
+					.toString(16)
+					.padStart(2, 0)}`;
+			// set new shadow colors
+			root.style.setProperty('--shadowColor1', `${setOpacity(alpha1)}`);
+			root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
 		});
 	} catch (error) {}
 });

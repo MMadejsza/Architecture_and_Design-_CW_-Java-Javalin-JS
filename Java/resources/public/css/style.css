@@ -12,7 +12,9 @@ html {
 	--navBcg: rgba(0, 0, 0, 0.65);
 	--itemBcg: rgba(0, 0, 0, 0.3);
 	--bRadius: 20px;
-	--defaultColor: orange;
+	--defaultColor: #ffa500;
+	--shadowAlpha1: 0.3;
+	--shadowAlpha2: 0.22;
 	--shadowColor1: rgba(255, 165, 0, 0.3);
 	--shadowColor2: rgba(255, 165, 0, 0.22);
 	--activeBoxShadow: var(--shadowColor1) 0px 19px 38px, var(--shadowColor2) 0px 15px 12px;
