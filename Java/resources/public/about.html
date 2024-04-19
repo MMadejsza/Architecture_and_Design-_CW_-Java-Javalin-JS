@@ -39,12 +39,15 @@
 		<link
 			rel="stylesheet"
 			href="./css/style.css" />
+		<link
+			rel="stylesheet"
+			href="./css/login.css" />
 	</head>
 	<body>
 		<nav class="nav">
 			<ul>
 				<li>
-					<a class="active"><i class="fas fa-home"></i>Home</a>
+					<a href="./index.html"><i class="fas fa-home"></i>Home</a>
 				</li>
 				<li>
 					<a href="./login.html"><i class="fas fa-user"></i>Login</a>
@@ -53,7 +56,11 @@
 					<a href="./portfolio.html"><i class="fas fa-search-dollar"></i>Portfolio</a>
 				</li>
 				<li>
-					<a href="./about.html"><i class="far fa-copyright"></i>About</a>
+					<a
+						href="./about.html"
+						class="active"
+						><i class="far fa-copyright"></i>About</a
+					>
 				</li>
 				<li class="wrench">
 					<i class="fas fa-wrench"></i>
@@ -68,20 +75,17 @@
 			</ul>
 		</nav>
 		<header>
-			<h1>Your stock Management System!</h1>
-			<button><a href="./portfolio.html">Access it!</a></button>
+			<main class="loginBox">
+				<h1>Creators:</h1>
+				<p>MMadejsza</p>
+				<p>AdamT-S</p>
+				<p>Raja108N</p>
+				<p>unaisq1</p>
+			</main>
 		</header>
-		<section>
-			<p>
-				Welcome to our Stock Management System web application! Seamlessly manage your
-				inventory with ease and efficiency. With intuitive features and a user-friendly
-				interface, you can track stocks, update inventory levels, and analyze sales data
-				effortlessly. Stay organized and in control of your business operations. Experience
-				the power of streamlined stock management today!
-			</p>
-		</section>
 		<script
 			src="https://kit.fontawesome.com/4622d99ad4.js"
 			crossorigin="anonymous"></script>
+		<script src="./js/app.js"></script>
 	</body>
 </html>

@@ -82,7 +82,7 @@ img {
 	display: inline-block;
 	margin-right: 1.5rem;
 	left: var(--iconPosition);
-	vertical-align: 2px;
+	/* vertical-align: 2px; */
 	font-size: 2.2rem;
 }
 
