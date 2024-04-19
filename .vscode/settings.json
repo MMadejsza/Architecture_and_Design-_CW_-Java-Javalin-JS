@@ -1,4 +1,4 @@
 {
-	"java.project.sourcePaths": ["Java\\lib"],
-	"java.project.referencedLibraries": []
+	"java.project.sourcePaths": ["."],
+	"java.project.referencedLibraries": ["Java\\lib\\javalin-4.0.0.jar"]
 }

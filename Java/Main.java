@@ -59,6 +59,9 @@ public class Main {
     Javalin app = Javalin.create().start(7000);
 
     // Define a route to handle the button click
+    app.get("/", ctx -> ctx.result(getFileContent("index.html")));
+
+    // Define a route to handle the button click
     app.get(
       "/call-java-function",
       ctx -> {

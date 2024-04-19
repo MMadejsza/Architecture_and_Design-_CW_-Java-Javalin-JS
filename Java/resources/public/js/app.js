@@ -41,4 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
 		});
 	} catch (error) {}
+
+	try {
+		document.querySelector('.accessBtn').addEventListener('click', () => {
+			// Send an HTTP GET request to the server
+			fetch('/call-java-function')
+				.then((response) => response.text())
+				.then((data) => console.log(data))
+				.catch((error) => console.error('Error:', error));
+		});
+	} catch (error) {}
 });
