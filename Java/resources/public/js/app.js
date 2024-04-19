@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	const colorInput = document.querySelector('#inputColor');
 
+	const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
+	console.log(baseColor);
+	colorInput.value = baseColor;
+
 	try {
 		checkbox.addEventListener('change', function () {
 			if (checkbox.checked) {
