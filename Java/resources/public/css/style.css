@@ -86,7 +86,7 @@ img {
 	font-size: 2.2rem;
 }
 
-.nav a:hover,
+a:hover,
 li:hover {
 	color: orange;
 }
@@ -186,6 +186,11 @@ section p {
 	text-align: center;
 	line-height: 150%;
 	text-indent: 2rem;
+}
+button a {
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
 }
 .nav a.active {
 	color: orange;
