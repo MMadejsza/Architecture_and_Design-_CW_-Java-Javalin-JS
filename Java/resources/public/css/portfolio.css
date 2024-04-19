@@ -26,11 +26,24 @@ header > * {
 	gap: 2.5rem;
 	/* grid-template-columns: minmax(400px, 800px) minmax(400px, 800px); */
 	grid-template-columns: repeat(auto-fill, minmax(560px, 600px));
-	/* grid-template-rows: minmax(225px, 400px) minmax(225px, 400px); */
+	grid-template-rows: 8rem;
 	grid-auto-rows: minmax(225px, 400px);
 }
+.addCompanyBox {
+	height: 100%;
+	font-size: 3rem;
+	color: white;
+	grid-row: 1;
+	grid-column-start: 1;
+	grid-column-end: -1;
 
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
 .graphBox {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.8);
@@ -43,7 +56,25 @@ header > * {
 	justify-content: space-evenly;
 	align-items: center;
 }
+.delete {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 3rem;
+	height: 3rem;
+	margin: 1rem;
+	line-height: 3rem;
+	text-align: center;
+	color: rgba(255, 165, 0, 0.8);
+	z-index: 2;
+	transition: 0.3s ease-in-out;
+}
 
+.delete:hover {
+	cursor: pointer;
+	text-shadow: 0 0 7px orange, 0 0 10px orange, 0 0 21px #fff, 0 0 42px orange, 0 0 82px orange,
+		0 0 92px orange, 0 0 102px orange, 0 0 151px orange;
+}
 .graph {
 	width: 95%;
 	height: 85%;
@@ -57,17 +88,18 @@ header > * {
 	align-items: center;
 }
 
-.graph-label input {
+header input {
 	min-width: 25%;
+	min-height: 2.5rem;
 	padding: 0 1.5rem;
 	font-family: inherit;
 	text-align: center;
 	border-radius: var(--bRadius);
 }
-.graph-label input:hover {
+.graphBox input:hover {
 	cursor: pointer;
 }
-.graph-label input:focus {
+header input:focus {
 	outline: none;
 	box-shadow: rgba(255, 145, 2) 0px 5px 15px;
 }
