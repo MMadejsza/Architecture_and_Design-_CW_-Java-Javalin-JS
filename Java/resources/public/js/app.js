@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 	const checkbox = document.getElementById('registerInput');
 	const registerForm = document.querySelector('.registerForm');
-	const deleteBtns = document.querySelectorAll('.delete');
+
+	const colorInput = document.querySelector('#inputColor');
 
 	try {
 		checkbox.addEventListener('change', function () {
@@ -10,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			} else {
 				registerForm.classList.remove('active');
 			}
+		});
+	} catch (error) {}
+
+	try {
+		colorInput.addEventListener('input', (e) => {
+			console.log(e.target.value);
 		});
 	} catch (error) {}
 });

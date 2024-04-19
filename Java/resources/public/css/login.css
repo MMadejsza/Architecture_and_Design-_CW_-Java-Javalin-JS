@@ -109,7 +109,7 @@ input[type='checkbox']::before {
 		50% 30%
 	);
 	transform: scale(0);
-	background-color: orange;
+	background-color: var(--defaultColor);
 	transition: 0.3s ease-in-out;
 }
 input[type='checkbox']:checked::before {

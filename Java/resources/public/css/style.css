@@ -12,8 +12,9 @@ html {
 	--navBcg: rgba(0, 0, 0, 0.65);
 	--itemBcg: rgba(0, 0, 0, 0.3);
 	--bRadius: 20px;
-	--shadowColor1: rgba(255, 145, 2, 0.3);
-	--shadowColor2: rgba(255, 145, 2, 0.22);
+	--defaultColor: orange;
+	--shadowColor1: rgba(255, 165, 0, 0.3);
+	--shadowColor2: rgba(255, 165, 0, 0.22);
 	--activeBoxShadow: var(--shadowColor1) 0px 19px 38px, var(--shadowColor2) 0px 15px 12px;
 	--activeTxtShadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 }
@@ -73,7 +74,7 @@ img {
 	position: absolute;
 	left: calc(-100% + var(--iconPosition));
 	bottom: 0;
-	background-color: orange;
+	background-color: var(--defaultColor);
 	transition: 0.2s ease-in-out;
 	z-index: 1;
 }
@@ -88,7 +89,7 @@ img {
 
 a:hover,
 li:hover {
-	color: orange;
+	color: var(--defaultColor);
 }
 .nav a:hover:not(.active)::after {
 	left: 0;
@@ -173,7 +174,7 @@ button {
 	overflow: hidden;
 }
 button:hover {
-	color: orange;
+	color: var(--defaultColor);
 	background-color: rgba(0, 0, 0, 0.5);
 }
 section {
@@ -193,7 +194,7 @@ button a {
 	text-decoration: none;
 }
 .nav a.active {
-	color: orange;
+	color: var(--defaultColor);
 	text-shadow: var(--activeTxtShadow);
 }
 .nav a.active::after {

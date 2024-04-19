@@ -76,8 +76,9 @@ header > * {
 
 .delete:hover {
 	cursor: pointer;
-	text-shadow: 0 0 7px orange, 0 0 10px orange, 0 0 21px #fff, 0 0 42px orange, 0 0 82px orange,
-		0 0 92px orange, 0 0 102px orange, 0 0 151px orange;
+	text-shadow: 0 0 7px var(--defaultColor), 0 0 10px var(--defaultColor), 0 0 21px #fff,
+		0 0 42px var(--defaultColor), 0 0 82px var(--defaultColor), 0 0 92px var(--defaultColor),
+		0 0 102px var(--defaultColor), 0 0 151px var(--defaultColor);
 }
 .graph {
 	width: 95%;
