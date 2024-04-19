@@ -200,9 +200,6 @@ button a {
 	color: var(--defaultColor);
 	text-shadow: var(--activeTxtShadow);
 }
-.nav a.active::after {
-	/* left: 0; */
-}
 
 @media (max-width: 915px) and (orientation: landscape) {
 	header h1 {
