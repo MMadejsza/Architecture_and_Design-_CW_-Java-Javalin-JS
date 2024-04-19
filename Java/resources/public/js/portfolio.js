@@ -2,6 +2,17 @@ document.addEventListener('DOMContentLoaded', function () {
 	const portfolio = document.querySelector('.contentBox');
 	const addInput = document.querySelector('.addInput');
 
+	const changeGrid = () => {
+		if (portfolio.childElementCount <= 2) {
+			console.log('mniej');
+			portfolio.style.setProperty('grid-template-columns', 'minmax(560px, 800px)');
+		} else
+			portfolio.style.setProperty(
+				'grid-template-columns',
+				'repeat(auto-fill, minmax(560px, 600px))',
+			);
+	};
+
 	const linkActions = () => {
 		const deleteBtns = document.querySelectorAll('.delete');
 
@@ -11,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				parentGraphBox.remove();
 			}),
 		);
+		changeGrid();
 	};
 
 	linkActions();
