@@ -6,6 +6,7 @@ nav {
 }
 
 header > * {
+	min-height: 100vh;
 	position: static;
 	padding-top: 5vh;
 }

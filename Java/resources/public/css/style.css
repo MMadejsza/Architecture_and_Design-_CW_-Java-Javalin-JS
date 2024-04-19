@@ -133,7 +133,7 @@ header {
 	margin: 0 auto;
 	position: relative;
 	padding-bottom: 5vh;
-	min-height: 100vh;
+	min-height: 95vh;
 	background-image: url('../assets/bg.jpg');
 	background-attachment: fixed;
 	background-position: top;

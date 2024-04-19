@@ -1,6 +1,9 @@
 body {
 	min-height: 100vh;
 }
+header {
+	min-height: 100vh;
+}
 .loginBox {
 	position: absolute;
 	width: 40%;
