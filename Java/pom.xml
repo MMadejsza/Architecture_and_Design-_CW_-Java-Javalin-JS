@@ -1,0 +1,14 @@
+<dependencies>
+    <!-- Javalin -->
+    <dependency>
+        <groupId>io.javalin</groupId>
+        <artifactId>javalin</artifactId>
+        <version>4.0.0</version>
+    </dependency>
+    <!-- Kotlin -->
+    <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>1.5.30</version>
+    </dependency>
+</dependencies>
