@@ -36,6 +36,8 @@ img {
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	box-shadow: var(--activeBoxShadow);
+	border-bottom-left-radius: var(--bRadius);
+	border-bottom-right-radius: var(--bRadius);
 	z-index: 2;
 }
 .nav ul {
@@ -91,14 +93,19 @@ img {
 	left: 0;
 }
 header {
+	max-width: 2560px;
+	margin: 0 auto;
 	position: relative;
 	padding-bottom: 5vh;
 	min-height: 100vh;
 	background-image: url('../assets/bg.jpg');
 	background-attachment: fixed;
-	background-position: center;
+	background-position: top;
 	background-repeat: no-repeat;
 	background-size: cover;
+
+	border-bottom-left-radius: var(--bRadius);
+	border-bottom-right-radius: var(--bRadius);
 }
 header > * {
 	position: absolute;
@@ -118,21 +125,23 @@ button {
 	bottom: 15vh;
 	right: 8rem;
 	padding: 1rem 3rem;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: var(--itemBcg);
 	color: white;
 	font-size: 4rem;
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	border: 3px solid white;
+	border-radius: calc(var(--bRadius) / 2);
 	cursor: pointer;
 	transition: 0.3s ease-in-out;
 	overflow: hidden;
 }
 button:hover {
 	color: orange;
-	background-color: var(--itemBcg);
+	background-color: rgba(0, 0, 0, 0.5);
 }
 section {
+	max-width: 1560px;
 	width: 65%;
 	margin: 4rem auto 0;
 }
