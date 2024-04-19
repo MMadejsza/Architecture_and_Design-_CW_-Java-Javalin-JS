@@ -179,6 +179,7 @@ button {
 button:hover {
 	color: var(--defaultColor);
 	background-color: rgba(0, 0, 0, 0.5);
+	box-shadow: var(--activeBoxShadow);
 }
 section {
 	max-width: 1560px;
@@ -195,6 +196,7 @@ button a {
 	cursor: pointer;
 	color: white;
 	text-decoration: none;
+	transition: 0.3s ease-in-out;
 }
 .nav a.active {
 	color: var(--defaultColor);
