@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		const graphBox = document.createElement('div');
 		graphBox.setAttribute('class', 'graphBox');
 		graphBox.innerHTML = `<button class="delete">X</button>
-		<div class="graph"></div>
+		<div class="graph">Graph</div>
 		<div class="graph-label">
 			<input type="date" />
 			<h2>${e.target.value}</h2>
