@@ -1,15 +1,16 @@
 package Java;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 import Java.CoreManagementSystem.Database;
 import Java.CoreManagementSystem.IRetrieveData;
 import Java.Customer_Manager.Customer;
 import Java.Graph_Manager.Graph;
 import Java.Graph_Manager.IRetrieveGraph;
 import io.javalin.Javalin;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class Main {
 
@@ -30,6 +31,7 @@ public class Main {
         ctx.result("Java function called successfully!");
       }
     );
+    System.out.println("Test 1 complete");
 
     //Creating new instances for each class
     Scanner scanner = new Scanner(System.in);
