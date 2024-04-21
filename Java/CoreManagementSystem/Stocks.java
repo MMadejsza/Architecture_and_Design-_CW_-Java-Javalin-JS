@@ -3,11 +3,14 @@ package Java.CoreManagementSystem;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-
-public class Stocks {
+public class Stocks implements IObatainSharePrice {
     int MAX_DATA;
     Date[] dates;
-    int[] stockPrices;
+    int[] AppleStock;
+    int[] GoogleStock;
+    int[] MicrosoftStock;
+    int[] BingStock;
+    int[] WayneStock;
     int currentIndex;
 
     private int getMaxValue(int[] array){
@@ -22,15 +25,15 @@ public class Stocks {
 
     private void AppleStocksInfo() {
         if (currentIndex < MAX_DATA){
-            stockPrices[currentIndex] = (int) (Math.random() * 500) + 200;
+            AppleStock[currentIndex] = (int) (Math.random() * 500) + 200;
             dates[currentIndex] = new Date();
             currentIndex++;
         }
         else{
             for(int i = 0; i< MAX_DATA - 1; i++){
-                stockPrices[i] = stockPrices[i + 1];
+                AppleStock[i] = AppleStock[i + 1];
                 dates[i] = dates[i + 1];
-                stockPrices[MAX_DATA - 1] = (int) (Math.random() * 500) + 200;
+                AppleStock[MAX_DATA - 1] = (int) (Math.random() * 500) + 200;
                 dates[MAX_DATA - 1] = new Date();
             }
         }
@@ -50,108 +53,112 @@ public class Stocks {
     private void GoogleStocksInfo() {
         
         if (currentIndex < MAX_DATA){
-            stockPrices[currentIndex] = (int) (Math.random() * 500) + 200;
+            GoogleStock[currentIndex] = (int) (Math.random() * 1000) + 600;
             dates[currentIndex] = new Date();
             currentIndex++;
         }
         else{
             for(int i = 0; i< MAX_DATA - 1; i++){
-                stockPrices[i] = stockPrices[i + 1];
+                GoogleStock[i] = GoogleStock[i + 1];
                 dates[i] = dates[i + 1];
-                stockPrices[MAX_DATA - 1] = (int) (Math.random() * 500) + 200;
+                GoogleStock[MAX_DATA - 1] = (int) (Math.random() * 1000) + 600;
                 dates[MAX_DATA - 1] = new Date();
             }
         }
     }
 
-    public void GoogleStocksUpdater(){
-        Timer appleTimer = new Timer();
-        appleTimer.schedule(new TimerTask() {
+    public int[] GoogleStocksUpdater(){
+        Timer googleTimer = new Timer();
+        googleTimer.schedule(new TimerTask() {
         @Override
         public void run() {
             GoogleStocksInfo();
         }
     }, 0, 5000);
+    return GoogleStock;
     }
 
     private void MicrosoftStocksInfo() {
         
         if (currentIndex < MAX_DATA){
-            stockPrices[currentIndex] = (int) (Math.random() * 500) + 200;
+            MicrosoftStock[currentIndex] = (int) (Math.random() * 200) + 75;
             dates[currentIndex] = new Date();
             currentIndex++;
         }
         else{
             for(int i = 0; i< MAX_DATA - 1; i++){
-                stockPrices[i] = stockPrices[i + 1];
+                MicrosoftStock[i] = MicrosoftStock[i + 1];
                 dates[i] = dates[i + 1];
-                stockPrices[MAX_DATA - 1] = (int) (Math.random() * 500) + 200;
+                MicrosoftStock[MAX_DATA - 1] = (int) (Math.random() * 200) + 75;
                 dates[MAX_DATA - 1] = new Date();
             }
         }
     }
 
-    public void MicrosoftStocksUpdater(){
-        Timer appleTimer = new Timer();
-        appleTimer.schedule(new TimerTask() {
+    public int[] MicrosoftStocksUpdater(){
+        Timer microsoftTimer = new Timer();
+        microsoftTimer.schedule(new TimerTask() {
         @Override
         public void run() {
             MicrosoftStocksInfo();
         }
     }, 0, 5000);
+    return MicrosoftStock;
     }
 
     private void BingStocksInfo() {
         
         if (currentIndex < MAX_DATA){
-            stockPrices[currentIndex] = (int) (Math.random() * 500) + 200;
+            BingStock[currentIndex] = (int) (Math.random() * 100) + 20;
             dates[currentIndex] = new Date();
             currentIndex++;
         }
         else{
             for(int i = 0; i< MAX_DATA - 1; i++){
-                stockPrices[i] = stockPrices[i + 1];
+                BingStock[i] = BingStock[i + 1];
                 dates[i] = dates[i + 1];
-                stockPrices[MAX_DATA - 1] = (int) (Math.random() * 500) + 200;
+                BingStock[MAX_DATA - 1] = (int) (Math.random() * 100) + 20;
                 dates[MAX_DATA - 1] = new Date();
             }
         }
     }
 
-    public void BingStocksUpdater(){
-        Timer appleTimer = new Timer();
-        appleTimer.schedule(new TimerTask() {
+    public int[] BingStocksUpdater(){
+        Timer bingTimer = new Timer();
+        bingTimer.schedule(new TimerTask() {
         @Override
         public void run() {
             BingStocksInfo();
         }
     }, 0, 5000);
+    return BingStock;
     }
 
     private void WayneEnterprisesStocksInfo() {
         
         if (currentIndex < MAX_DATA){
-            stockPrices[currentIndex] = (int) (Math.random() * 500) + 200;
+            WayneStock[currentIndex] = (int) (Math.random() * 1200) + 200;
             dates[currentIndex] = new Date();
             currentIndex++;
         }
         else{
             for(int i = 0; i< MAX_DATA - 1; i++){
-                stockPrices[i] = stockPrices[i + 1];
+                WayneStock[i] = WayneStock[i + 1];
                 dates[i] = dates[i + 1];
-                stockPrices[MAX_DATA - 1] = (int) (Math.random() * 500) + 200;
+                WayneStock[MAX_DATA - 1] = (int) (Math.random() * 1200) + 200;
                 dates[MAX_DATA - 1] = new Date();
             }
         }
     }
 
-    public void WayneEnterprisesStocksUpdater(){
-        Timer appleTimer = new Timer();
-        appleTimer.schedule(new TimerTask() {
+    public int[] WayneEnterprisesStocksUpdater(){
+        Timer wayneTimer = new Timer();
+        wayneTimer.schedule(new TimerTask() {
         @Override
         public void run() {
             WayneEnterprisesStocksInfo();
         }
     }, 0, 5000);
+    return WayneStock;
     }
 }
