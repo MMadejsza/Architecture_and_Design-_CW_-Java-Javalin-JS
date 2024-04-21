@@ -1,12 +1,14 @@
 package Java;
 
+import java.awt.Component;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
 
 import Java.CoreManagementSystem.Database;
 import Java.CoreManagementSystem.IRetrieveData;
 import Java.Customer_Manager.Customer;
 import Java.Graph_Manager.Graph;
-import Java.Graph_Manager.IRetrieveGraph;
 
 public class Main {
 
@@ -14,7 +16,8 @@ public class Main {
         //Creating new instances for each class
         Scanner scanner = new Scanner(System.in);
         IRetrieveData database = new Database();
-        IRetrieveGraph graph = new Graph(database);
+        Component graph = new Graph(database);
+        JFrame GUI = new JFrame("Stocks and Shares");
         
         //Stocks created for the database
         database.getStockData("Apple", 150.0f);
@@ -42,7 +45,10 @@ public class Main {
         }
         
         scanner.close();
-        graph.visualizeData();
+        GUI.add(graph);
+        GUI.setSize(800,600);
+        GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GUI.setVisible(true);
         
     }
 }

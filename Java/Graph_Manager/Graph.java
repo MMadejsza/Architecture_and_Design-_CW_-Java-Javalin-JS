@@ -1,30 +1,24 @@
 package Java.Graph_Manager;
 
-import java.util.List;
-
-import Java.CoreManagementSystem.IRetrieveData;
-import Java.StocksInfo_Manager.IGetStocks;
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
+
+import Java.CoreManagementSystem.IRetrieveData;
+import Java.CoreManagementSystem.Stocks;
+import Java.StocksInfo_Manager.IGetStocks;
 
 
 //Creates a visual representation of stock values
-public class Graph implements IRetrieveGraph and extends JPanel {
+public class Graph extends JPanel implements IRetrieveGraph  {
 
     private IRetrieveData dataRetrieved;
 
@@ -41,8 +35,6 @@ public class Graph implements IRetrieveGraph and extends JPanel {
         stockPrices = new int[MAX_DATA_POINTS];
         dates = new String[MAX_DATA_POINTS];
 
-        // Generate initial sample data
-        generateInitialData();
 
         // Create Buy button
         JButton buyButton = new JButton("Buy");
@@ -80,17 +72,7 @@ public class Graph implements IRetrieveGraph and extends JPanel {
         buttonPanel.add(buyButton);
         buttonPanel.add(sellButton);
         buttonPanel.add(loginButton);
-        add(buttonPanel, BorderLayout.SOUTH);
-
-        // Start timer to update the graph every 5 seconds
-        Timer timer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateGraph();
-            }
-        });
-        timer.start();
-    }
+        add(buttonPanel, BorderLayout.SOUTH);}
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -108,7 +90,7 @@ public class Graph implements IRetrieveGraph and extends JPanel {
         g2d.drawLine(50, height - 50, width - 50, height - 50); // x-axis
 
         // Drawing y-axis labels (stock prices)
-        int maxValue = getMaxValue(stockPrices);
+        int maxValue = Stocks.getMaxValue(stockPrices);
         for (int i = 0; i <= 10; i++) {
             int y = height - 50 - i * (height - 100) / 10;
             g2d.drawString(String.valueOf(i * maxValue / 10), 25, y + 5);
@@ -132,25 +114,17 @@ public class Graph implements IRetrieveGraph and extends JPanel {
         }
     }
 
-    private void updateGraph() {
-        if (currentIndex < MAX_DATA_POINTS) {
-            // Generate a new random data point
-            Random rand = new Random();
-            stockPrices[currentIndex] = rand.nextInt(200 - 50 + 1) + 50; // Generate random price between 50 and 200
-            dates[currentIndex] = generateRandomDate(); // Generate random date
-            currentIndex++;
-        } else {
-            // Shift all data points to the left
-            for (int i = 0; i < MAX_DATA_POINTS - 1; i++) {
-                stockPrices[i] = stockPrices[i + 1];
-                dates[i] = dates[i + 1];
-            }
-            // Generate a new random data point for the last position
-            Random rand = new Random();
-            stockPrices[MAX_DATA_POINTS - 1] = rand.nextInt(200 - 50 + 1) + 50; // Generate random price between 50 and 200
-            dates[MAX_DATA_POINTS - 1] = generateRandomDate(); // Generate random date
-        }
-        repaint();
+
+    @Override
+    public void getGraphData(List<IGetStocks> stocksList) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getGraphData'");
+    }
+
+    @Override
+    public void visualizeData() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'visualizeData'");
     }
     
 }
