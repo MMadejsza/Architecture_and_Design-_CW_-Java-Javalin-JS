@@ -3,6 +3,7 @@ package Java.CoreManagementSystem;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
 public class Stocks implements IObatainSharePrice {
     int MAX_DATA;
     Date[] dates;
@@ -39,7 +40,7 @@ public class Stocks implements IObatainSharePrice {
         }
     };
 
-    public void AppleStocksUpdater(){
+    public int[] AppleStocksUpdater(){
         Timer appleTimer = new Timer();
         appleTimer.schedule(new TimerTask() {
         @Override
@@ -47,6 +48,7 @@ public class Stocks implements IObatainSharePrice {
             AppleStocksInfo();
         }
     }, 0, 5000);
+    return AppleStock;
     }
     
 
