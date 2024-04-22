@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--  Meta tags  -->
+		<meta charset="UTF-8" />
+		<title>SAD Project</title>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<!-- Website desc for SEO -->
+		<meta
+			name="description"
+			content="Architecture and Design Coursework" />
+		<meta
+			name="author"
+			content="MMadejsza, AdamT-S, Raja108N, unaisq1" />
+		<meta
+			name="keywords"
+			content="SAD, stock, Java, architecture, n-tiered, adapter" />
+
+		<!-- FAVICONS info -->
+		<link
+			rel="icon"
+			href="./favicon.png"
+			type="image/png"
+			sizes="18x18" />
+
+		<!-- Outside styling and links info -->
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com" />
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="./style.css" />
+		<link
+			rel="stylesheet"
+			href="./portfolio.css" />
+	</head>
+	<body>
+		<nav class="nav">
+			<ul>
+				<li>
+					<a href="./"><i class="fas fa-home"></i>Home</a>
+				</li>
+				<li>
+					<a href="./login"><i class="fas fa-user"></i>Login</a>
+				</li>
+				<li>
+					<a class="active"><i class="fas fa-search-dollar"></i>Portfolio</a>
+				</li>
+				<li>
+					<a href="./about"><i class="far fa-copyright"></i>About</a>
+				</li>
+				<li class="wrench">
+					<i class="fas fa-wrench"></i>
+					<ul class="colorSettingsList">
+						<li class="settings">
+							<input
+								type="color"
+								id="inputColor" />
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<header>
+			<main class="contentBox">
+				<div class="addCompanyBox">
+					Add a company
+					<input
+						class="addInput"
+						type="text"
+						placeholder="Company Yahoo Code" />
+				</div>
+			</main>
+		</header>
+		<script
+			src="https://kit.fontawesome.com/4622d99ad4.js"
+			crossorigin="anonymous"></script>
+		<script name="./js/app.js">
+			document.addEventListener('DOMContentLoaded', function () {
+				const checkbox = document.getElementById('registerInput');
+				const registerForm = document.querySelector('.registerForm');
+
+				const colorInput = document.querySelector('#inputColor');
+
+				const baseColor = getComputedStyle(document.documentElement).getPropertyValue(
+					'--defaultColor',
+				);
+				console.log(baseColor);
+				colorInput.value = baseColor;
+
+				try {
+					checkbox.addEventListener('change', function () {
+						if (checkbox.checked) {
+							registerForm.classList.add('active');
+						} else {
+							registerForm.classList.remove('active');
+						}
+					});
+				} catch (error) {}
+
+				try {
+					colorInput.addEventListener('input', (e) => {
+						// make shortcut for html element
+						const root = document.documentElement;
+						// catch picked color
+						let newColor = e.target.value;
+
+						// substitute css variable with picked color
+						root.style.setProperty('--defaultColor', `${newColor}`);
+
+						// catch desired opacity from css
+						let alpha1 = getComputedStyle(root).getPropertyValue('--shadowAlpha1');
+						let alpha2 = getComputedStyle(root).getPropertyValue('--shadowAlpha2');
+						// substitute css variable for shadows with picked opacity
+						const setOpacity = (alpha) =>
+							`${newColor}${Math.floor(alpha * 255)
+								.toString(16)
+								.padStart(2, 0)}`;
+						// set new shadow colors
+						root.style.setProperty('--shadowColor1', `${setOpacity(alpha1)}`);
+						root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
+					});
+				} catch (error) {}
+
+				try {
+					document.querySelector('.accessBtn').addEventListener('click', () => {
+						// Send an HTTP GET request to the server
+						fetch('/call-java-function')
+							.then((response) => response.text())
+							.then((data) => console.log(data))
+							.catch((error) => console.error('Error:', error));
+					});
+				} catch (error) {}
+			});
+		</script>
+		<script name="./js/portfolio.js">
+			document.addEventListener('DOMContentLoaded', function () {
+				const portfolio = document.querySelector('.contentBox');
+				const addInput = document.querySelector('.addInput');
+
+				const changeGrid = () => {
+					if (portfolio.childElementCount <= 2) {
+						console.log('mniej');
+						portfolio.style.setProperty(
+							'grid-template-columns',
+							'minmax(560px, 800px)',
+						);
+					} else
+						portfolio.style.setProperty(
+							'grid-template-columns',
+							'repeat(auto-fill, minmax(560px, 600px))',
+						);
+				};
+
+				const linkActions = () => {
+					const deleteBtns = document.querySelectorAll('.delete');
+
+					[...deleteBtns].forEach((deleteBtn) =>
+						deleteBtn.addEventListener('click', (e) => {
+							const parentGraphBox = deleteBtn.closest('.graphBox');
+							parentGraphBox.remove();
+						}),
+					);
+					changeGrid();
+				};
+
+				linkActions();
+
+				addInput.addEventListener('change', (e) => {
+					console.log(e.target.value);
+					const graphBox = document.createElement('div');
+					graphBox.setAttribute('class', 'graphBox');
+					graphBox.innerHTML = `<button class="delete">X</button>
+					<div class="graph">Graph</div>
+					<div class="graph-label">
+						<input type="date" />
+						<h2>${e.target.value}</h2>
+						<input type="date" />
+					</div>`;
+
+					// portfolio.appendChild(graphBox);
+					portfolio.insertBefore(graphBox, portfolio.firstChild);
+					linkActions();
+
+					e.target.value = '';
+				});
+			});
+		</script>
+	</body>
+</html>

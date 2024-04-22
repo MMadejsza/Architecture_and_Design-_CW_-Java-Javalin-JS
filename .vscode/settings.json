@@ -4,5 +4,6 @@
 		"c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.11.9-hotspot\\lib\\jrt-fs.jar",
 		"Java\\lib\\javalin-4.0.0.jar"
 	],
-	"java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.2.13-hotspot"
+	"java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.2.13-hotspot",
+	"java.configuration.updateBuildConfiguration": "automatic"
 }
