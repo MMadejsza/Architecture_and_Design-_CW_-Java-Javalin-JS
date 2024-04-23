@@ -20,7 +20,8 @@ public class Database implements IRetrieveData {
     List<Customer> usersList = getUsersList();
     for (Customer customer : usersList) {
       if (customer.getName().equals(login)) {
-        if (customer.getPassword().equals(password)) return true; else {
+        if (customer.getPassword().equals(password)) return true; 
+        else {
           // case if correct login but wrong password
           System.out.println("Wrong password");
           return false;
