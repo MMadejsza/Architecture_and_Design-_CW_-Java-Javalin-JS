@@ -58,10 +58,10 @@ img {
 	overflow: hidden;
 }
 
-.nav a,
+a,
 .wrench {
 	display: block;
-	width: 100%;
+	cursor: pointer;
 	height: 6rem;
 	margin: 0 2rem;
 	line-height: 6rem;
@@ -193,15 +193,24 @@ section p {
 	line-height: 150%;
 	text-indent: 2rem;
 }
-button a {
+a {
 	cursor: pointer;
 	color: white;
 	text-decoration: none;
+	text-align: center;
 	transition: 0.3s ease-in-out;
 }
-.nav a.active {
+a.active {
 	color: var(--defaultColor);
 	text-shadow: var(--activeTxtShadow);
+}
+.loginBox a {
+	border-bottom: 1px solid var(--defaultColor);
+	height: 4.5rem;
+}
+
+.stocksElement {
+	display: var(--loginStatus);
 }
 
 @media (max-width: 915px) and (orientation: landscape) {
@@ -259,7 +268,4 @@ button a {
 	section p {
 		font-size: 1.2rem;
 	}
-}
-.stocksElement {
-	display: var(--loginStatus);
 }
