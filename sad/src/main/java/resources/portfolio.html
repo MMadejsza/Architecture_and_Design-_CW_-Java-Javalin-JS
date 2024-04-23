@@ -142,6 +142,7 @@
 				} catch (error) {}
 			});
 		</script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script name="./js/portfolio.js">
 			document.addEventListener('DOMContentLoaded', function () {
 				const portfolio = document.querySelector('.contentBox');
@@ -180,7 +181,10 @@
 					const graphBox = document.createElement('div');
 					graphBox.setAttribute('class', 'graphBox');
 					graphBox.innerHTML = `<button class="delete">X</button>
-					<div class="graph">Graph</div>
+					<div class="graph">
+						//Graph
+						<canvas id="myChart">
+						</div>
 					<div class="graph-label">
 						<input type="date" />
 						<h2>${e.target.value}</h2>
@@ -189,6 +193,30 @@
 
 					// portfolio.appendChild(graphBox);
 					portfolio.insertBefore(graphBox, portfolio.firstChild);
+
+					// CHART PART
+					const ctx = document.getElementById('myChart');
+					new Chart(ctx, {
+						type: 'bar',
+						data: {
+							labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+							datasets: [
+								{
+									label: '# of Votes',
+									data: [12, 19, 3, 5, 2, 30],
+									borderWidth: 0,
+								},
+							],
+						},
+						options: {
+							scales: {
+								y: {
+									beginAtZero: true,
+								},
+							},
+						},
+					});
+					// CHART PART ENDS
 					linkActions();
 
 					e.target.value = '';
