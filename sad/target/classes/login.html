@@ -58,7 +58,7 @@
 				<li>
 					<a href="./about"><i class="far fa-copyright"></i>About</a>
 				</li>
-				<li class="wrench">
+				<li class="wrench stocksElement">
 					<i class="fas fa-wrench"></i>
 					<ul class="colorSettingsList">
 						<li class="settings">
@@ -231,6 +231,9 @@
 								nameInput.value = passwordInput.value = '';
 							} else {
 								setCookie('logged', 'false', 1);
+								setCookie('defaultColor', '#ffa500', 1);
+								setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
+								setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
 								checkFromCookies();
 								nameInput.value = passwordInput.value = '';
 							}
