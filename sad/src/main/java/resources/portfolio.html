@@ -88,13 +88,11 @@
 			document.addEventListener('DOMContentLoaded', function () {
 				const checkbox = document.getElementById('registerInput');
 				const registerForm = document.querySelector('.registerForm');
-
 				const colorInput = document.querySelector('#inputColor');
-
 				const baseColor = getComputedStyle(document.documentElement).getPropertyValue(
 					'--defaultColor',
 				);
-				console.log(baseColor);
+
 				colorInput.value = baseColor;
 
 				try {
@@ -148,63 +146,47 @@
 				const portfolio = document.querySelector('.contentBox');
 				const addInput = document.querySelector('.addInput');
 
-				const changeGrid = () => {
-					if (portfolio.childElementCount <= 2) {
-						console.log('mniej');
-						portfolio.style.setProperty(
-							'grid-template-columns',
-							'minmax(560px, 800px)',
-						);
-					} else
-						portfolio.style.setProperty(
-							'grid-template-columns',
-							'repeat(auto-fill, minmax(560px, 600px))',
-						);
-				};
+				// CHART PART
+				const generateChart = (name, startDate = '2022-02-01', endDate = '2024-12-01') => {
+					console.log(`Traced startDate: ${startDate}
+					Traced endDate: ${endDate}`);
+					// Catch defaultColor
 
-				const linkActions = () => {
-					const deleteBtns = document.querySelectorAll('.delete');
-
-					[...deleteBtns].forEach((deleteBtn) =>
-						deleteBtn.addEventListener('click', (e) => {
-							const parentGraphBox = deleteBtn.closest('.graphBox');
-							parentGraphBox.remove();
-						}),
+					const baseColor = getComputedStyle(document.documentElement).getPropertyValue(
+						'--defaultColor',
 					);
-					changeGrid();
-				};
-
-				linkActions();
-
-				addInput.addEventListener('change', (e) => {
-					console.log(e.target.value);
-					const graphBox = document.createElement('div');
-					graphBox.setAttribute('class', 'graphBox');
-					graphBox.innerHTML = `<button class="delete">X</button>
-					<div class="graph">
-						<canvas id="myChart" width="100%">
-						</div>
-					<div class="graph-label">
-						<input type="date" />
-						<h2>${e.target.value}</h2>
-						<input type="date" />
-					</div>`;
-
-					// portfolio.appendChild(graphBox);
-					portfolio.insertBefore(graphBox, portfolio.firstChild);
-
-					// CHART PART
+					// Catch container
 					const ctx = document.getElementById('myChart');
-					new Chart(ctx, {
+					// Destroy existing chart if it exists
+					const existingChart = Chart.getChart('myChart');
+					if (existingChart) existingChart.destroy();
+
+					// Generate label for each date in a range
+					const getDaysArray = function () {
+						let arr = [];
+						for (
+							let dt = new Date(startDate);
+							dt <= new Date(endDate);
+							dt.setDate(dt.getDate() + 1)
+						) {
+							let readyDate = new Date(dt).toLocaleDateString();
+							arr.push(readyDate);
+						}
+						return arr;
+					};
+					// Draw graph
+					const newChart = new Chart(ctx, {
 						type: 'line',
 						data: {
-							labels: [1, 2, 3],
+							labels: getDaysArray(),
 							datasets: [
 								{
-									label: e.target.value,
-									data: [65, 59, 80, 81, 56, 55, 40],
+									label: name,
+									data: [
+										65, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80,
+									],
 									fill: false,
-									borderColor: 'rgb(75, 192, 192)',
+									borderColor: baseColor,
 									tension: 0.1,
 								},
 							],
@@ -217,11 +199,100 @@
 							},
 						},
 					});
-					// CHART PART ENDS
+				};
 
-					// Linking buttons
+				const serveDeleteBtns = () => {
+					const deleteBtns = document.querySelectorAll('.delete');
+
+					[...deleteBtns].forEach((deleteBtn) =>
+						deleteBtn.addEventListener('click', (e) => {
+							const parentGraphBox = deleteBtn.closest('.graphBox');
+							parentGraphBox.remove();
+						}),
+					);
+				};
+
+				const serveDateInputs = () => {
+					// const startDateInputs = document.querySelectorAll('.startDateInput');
+					// const endDateInputs = document.querySelectorAll('.endDateInput');
+					const dateInputs = document.querySelectorAll("input[type='date']");
+
+					[...dateInputs].forEach((input) => {
+						const chartLabelEl = input.closest('.graph-label');
+						const chartName = chartLabelEl.querySelector('h2').textContent;
+
+						if (input.className == 'startDateInput') {
+							input.addEventListener('input', (e) => {
+								const otherInputVal =
+									chartLabelEl.querySelector('.endDateInput').value;
+								console.log(e.target.value);
+								generateChart(
+									chartName,
+									e.target.value,
+									otherInputVal ? otherInputVal : undefined,
+								);
+							});
+						} else if (input.className == 'endDateInput') {
+							input.addEventListener('input', (e) => {
+								const otherInputVal =
+									chartLabelEl.querySelector('.startDateInput').value;
+								console.log(e.target.value);
+								generateChart(
+									chartName,
+									otherInputVal ? otherInputVal : undefined,
+									e.target.value,
+								);
+							});
+						}
+					});
+				};
+
+				const changeGrid = () => {
+					if (portfolio.childElementCount <= 2) {
+						portfolio.style.setProperty(
+							'grid-template-columns',
+							'minmax(560px, 800px)',
+						);
+					} else
+						portfolio.style.setProperty(
+							'grid-template-columns',
+							'repeat(auto-fill, minmax(560px, 600px))',
+						);
+				};
+
+				const linkActions = () => {
+					changeGrid();
+					serveDeleteBtns();
+					serveDateInputs();
+				};
+
+				linkActions();
+
+				addInput.addEventListener('change', (e) => {
+					const graphBox = document.createElement('div');
+
+					graphBox.setAttribute('class', 'graphBox');
+
+					graphBox.innerHTML = `<button class="delete">X</button>
+					<div class="graph">
+						<canvas id="myChart" width="100%">
+						</div>
+					<div class="graph-label">
+						<input class = "startDateInput" type="date" />
+						<h2 class = "graph-label-name">${e.target.value}</h2>
+						<input class = "endDateInput" type="date" />
+					</div>`;
+
+					// Insert as first child
+					portfolio.insertBefore(graphBox, portfolio.firstChild);
+
+					// Generate Initial Graph
+					generateChart(e.target.value);
+
+					// Linking all buttons and inputs
 					linkActions();
 
+					// Clear input
 					e.target.value = '';
 				});
 			});
