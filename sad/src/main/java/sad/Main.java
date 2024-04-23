@@ -37,6 +37,7 @@ public class Main {
       "/fetchedStocks",
       ctx -> {
         // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
+        String name = ctx.queryParam("name");
         String startDate = ctx.queryParam("startDate");
         String endDate = ctx.queryParam("endDate");
         // Sample data

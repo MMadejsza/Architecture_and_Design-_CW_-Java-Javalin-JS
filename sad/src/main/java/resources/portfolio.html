@@ -149,8 +149,6 @@
 
 				// CHART generator util
 				const generateChart = (name, startDate = '2022-02-01', endDate = '2024-12-01') => {
-					console.log(`Traced startDate: ${startDate}
-    Traced endDate: ${endDate}`);
 					// Catch defaultColor
 					const baseColor = getComputedStyle(document.documentElement).getPropertyValue(
 						'--defaultColor',
@@ -176,7 +174,7 @@
 					};
 
 					// Draw graph after fetching data from Java backend
-					fetch(`/fetchedStocks?startDate=${startDate}&endDate=${endDate}`)
+					fetch(`/fetchedStocks?name=${name}&startDate=${startDate}&endDate=${endDate}`)
 						.then((response) => response.json())
 						.then((data) => {
 							// Assuming your data from the backend is an array of values for each date
@@ -210,8 +208,10 @@
 
 				// DELETE BTNS
 				const serveDeleteBtns = () => {
+					// fetch buttons
 					const deleteBtns = document.querySelectorAll('.delete');
 
+					// add listener
 					[...deleteBtns].forEach((deleteBtn) =>
 						deleteBtn.addEventListener('click', (e) => {
 							const parentGraphBox = deleteBtn.closest('.graphBox');
@@ -222,8 +222,10 @@
 
 				// DATE INPUTS
 				const serveDateInputs = () => {
+					// catch all date inputs
 					const dateInputs = document.querySelectorAll("input[type='date']");
 
+					// loop over adding listener depending on edge date
 					[...dateInputs].forEach((input) => {
 						const chartLabelEl = input.closest('.graph-label');
 						const chartName = chartLabelEl.querySelector('h2').textContent;
