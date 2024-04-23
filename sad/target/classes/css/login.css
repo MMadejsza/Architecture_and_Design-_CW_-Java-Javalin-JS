@@ -118,3 +118,8 @@ input[type='checkbox']:checked::before {
 .registerForm.active {
 	opacity: 1;
 }
+
+.loginBtn {
+	width: 40%;
+	font-size: 2rem;
+}

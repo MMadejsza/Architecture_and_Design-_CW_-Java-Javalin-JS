@@ -51,6 +51,74 @@ public class Main {
         ctx.contentType("application/json").result(test);
       }
     );
+<<<<<<< HEAD
+=======
+    app.get(
+      "/loginCredentials",
+      ctx -> {
+        // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
+        String login = ctx.queryParam("name");
+        String password = ctx.queryParam("startDate");
+        // Sample data
+
+        //Make the function selfcontaining, and when the stock is called produce the data
+        Stocks stocksManager = new Stocks();
+        String test = stocksManager.StocksInfo("AAPL");
+
+        ctx.contentType("application/json").result(test);
+      }
+    );
+
+    //Creating new instances for each class
+    Scanner scanner = new Scanner(System.in);
+    IRetrieveData database = new Database();
+    IRetrieveGraph graph = new Graph(database);
+
+    //Stocks created for the database
+    database.getStockData("Apple", 150.0f);
+    database.getStockData("Google", 200.0f);
+    database.getStockData("Tesla", 450.0f);
+
+    Database.usersList.add(new Customer("a", "a"));
+
+    String user;
+    String password;
+    int x = 1;
+
+    //See all stocks
+    while (x == 1) {
+      System.out.println("Enter Username: ");
+      user = scanner.nextLine();
+      System.out.println("Enter Password: ");
+      password = scanner.nextLine();
+      if (database.checkUser(user, password)) {
+        x = 0;
+      }
+    }
+
+    int input;
+    input = scanner.nextInt();
+    while (input != 0) {
+      switch (input) {
+        case 0:
+          break;
+        case 1:
+          graph.visualizeData();
+        case 2:
+        default:
+          System.out.println("There was a bad input please try again\n");
+          break;
+      }
+    }
+
+    scanner.close();
+  }
+
+  // Define your Java function
+  public static void myJavaFunction() {
+    System.out.println("Java function called!");
+    // Add your function logic here
+>>>>>>> 425820aeda508e5f63d47127d3b4683ea4c03600
   }
 
   // Method to read file content as a String
