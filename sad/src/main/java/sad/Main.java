@@ -1,19 +1,22 @@
 package sad;
 
-import io.javalin.Javalin;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
+
+import io.javalin.Javalin;
 import sad.CoreManagementSystem.Database;
-import sad.CoreManagementSystem.IRetrieveData;
 import sad.Customer_Manager.Customer;
-import sad.Graph_Manager.Graph;
-import sad.Graph_Manager.IRetrieveGraph;
 import sad.StocksInfo_Manager.Stocks;
 
 public class Main {
 
   public static void main(String[] args) {
+    Stocks stocksManager = new Stocks();
+    Database.usersList.add(new Customer("a", "a"));
+    
+    Database.checkUser("a", "a");
+
+
     // Create a new Javalin instance
     Javalin app = Javalin
       .create(config -> {
@@ -40,65 +43,14 @@ public class Main {
         String name = ctx.queryParam("name");
         String startDate = ctx.queryParam("startDate");
         String endDate = ctx.queryParam("endDate");
-        // Sample data
 
-        //Make the function selfcontaining, and when the stock is called produce the data
-        Stocks stocksManager = new Stocks();
-        String test = stocksManager.StocksInfo("AAPL");
+      
+
+        String test = stocksManager.StocksInfo(name);
 
         ctx.contentType("application/json").result(test);
       }
     );
-
-    //Creating new instances for each class
-    Scanner scanner = new Scanner(System.in);
-    IRetrieveData database = new Database();
-    IRetrieveGraph graph = new Graph(database);
-
-    //Stocks created for the database
-    database.getStockData("Apple", 150.0f);
-    database.getStockData("Google", 200.0f);
-    database.getStockData("Tesla", 450.0f);
-
-    Database.usersList.add(new Customer("a", "a"));
-
-    String user;
-    String password;
-    int x = 1;
-
-    //See all stocks
-    while (x == 1) {
-      System.out.println("Enter Username: ");
-      user = scanner.nextLine();
-      System.out.println("Enter Password: ");
-      password = scanner.nextLine();
-      if (database.checkUser(user, password)) {
-        x = 0;
-      }
-    }
-
-    int input;
-    input = scanner.nextInt();
-    while (input != 0) {
-      switch (input) {
-        case 0:
-          break;
-        case 1:
-          graph.visualizeData();
-        case 2:
-        default:
-          System.out.println("There was a bad input please try again\n");
-          break;
-      }
-    }
-
-    scanner.close();
-  }
-
-  // Define your Java function
-  public static void myJavaFunction() {
-    System.out.println("Java function called!");
-    // Add your function logic here
   }
 
   // Method to read file content as a String
