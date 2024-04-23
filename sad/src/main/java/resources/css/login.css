@@ -123,6 +123,3 @@ input[type='checkbox']:checked::before {
 	width: 40%;
 	font-size: 2rem;
 }
-.stocksElement {
-	display: none;
-}

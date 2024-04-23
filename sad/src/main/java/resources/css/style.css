@@ -259,3 +259,6 @@ button a {
 		font-size: 1.2rem;
 	}
 }
+.stocksElement {
+	display: none;
+}
