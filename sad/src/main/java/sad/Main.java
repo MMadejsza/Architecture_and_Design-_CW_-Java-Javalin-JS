@@ -1,17 +1,16 @@
 package sad;
 
-import static io.javalin.apibuilder.ApiBuilder.get;
-
-import io.javalin.Javalin;
-import io.javalin.http.staticfiles.Location;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import io.javalin.Javalin;
 import sad.CoreManagementSystem.Database;
 import sad.CoreManagementSystem.IRetrieveData;
 import sad.Customer_Manager.Customer;
 import sad.Graph_Manager.Graph;
 import sad.Graph_Manager.IRetrieveGraph;
+import sad.StocksInfo_Manager.Stocks;
 
 public class Main {
 
@@ -58,6 +57,11 @@ public class Main {
     database.getStockData("Tesla", 450.0f);
 
     Database.usersList.add(new Customer("a", "a"));
+
+    //Make the function selfcontaining, and when the stock is called produce the data
+    Stocks stocksManager = new Stocks();
+    String test = stocksManager.StocksInfo("AAPL");
+    System.out.println(test);
 
     String user;
     String password;

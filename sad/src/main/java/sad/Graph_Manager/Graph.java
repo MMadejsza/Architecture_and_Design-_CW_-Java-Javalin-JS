@@ -1,6 +1,7 @@
 package sad.Graph_Manager;
 
 import java.util.List;
+
 import sad.CoreManagementSystem.IRetrieveData;
 import sad.StocksInfo_Manager.IGetStocks;
 
@@ -22,13 +23,7 @@ public class Graph implements IRetrieveGraph {
       System.out.println(
         "----------------------------------------------------------------------------\n"
       );
-      System.out.println(
-        "Name: " +
-        stock.getStockNames() +
-        ", Value: " +
-        stock.getStockValues() +
-        "\n"
-      );
+
     }
     System.out.println(
       "----------------------------------------------------------------------------\n"
