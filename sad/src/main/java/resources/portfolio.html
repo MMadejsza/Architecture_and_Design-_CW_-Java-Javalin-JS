@@ -143,10 +143,11 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script name="./js/portfolio.js">
 			document.addEventListener('DOMContentLoaded', function () {
+				// Catch "Global" elements
 				const portfolio = document.querySelector('.contentBox');
 				const addInput = document.querySelector('.addInput');
 
-				// CHART PART
+				// CHART generator util
 				const generateChart = (name, startDate = '2022-02-01', endDate = '2024-12-01') => {
 					console.log(`Traced startDate: ${startDate}
 					Traced endDate: ${endDate}`);
@@ -201,6 +202,7 @@
 					});
 				};
 
+				// DELETE BTNS
 				const serveDeleteBtns = () => {
 					const deleteBtns = document.querySelectorAll('.delete');
 
@@ -212,9 +214,8 @@
 					);
 				};
 
+				// DATE INPUTS
 				const serveDateInputs = () => {
-					// const startDateInputs = document.querySelectorAll('.startDateInput');
-					// const endDateInputs = document.querySelectorAll('.endDateInput');
 					const dateInputs = document.querySelectorAll("input[type='date']");
 
 					[...dateInputs].forEach((input) => {
@@ -225,7 +226,6 @@
 							input.addEventListener('input', (e) => {
 								const otherInputVal =
 									chartLabelEl.querySelector('.endDateInput').value;
-								console.log(e.target.value);
 								generateChart(
 									chartName,
 									e.target.value,
@@ -236,7 +236,6 @@
 							input.addEventListener('input', (e) => {
 								const otherInputVal =
 									chartLabelEl.querySelector('.startDateInput').value;
-								console.log(e.target.value);
 								generateChart(
 									chartName,
 									otherInputVal ? otherInputVal : undefined,
@@ -247,6 +246,7 @@
 					});
 				};
 
+				// APP LAYOUT CHANGE ON DELETION
 				const changeGrid = () => {
 					if (portfolio.childElementCount <= 2) {
 						portfolio.style.setProperty(
@@ -260,19 +260,21 @@
 						);
 				};
 
+				// RELINKING ON CONTENT CHANGE
 				const linkActions = () => {
 					changeGrid();
 					serveDeleteBtns();
 					serveDateInputs();
 				};
 
-				linkActions();
-
+				// ADD COMPANY
 				addInput.addEventListener('change', (e) => {
+					// Create graphBox element
 					const graphBox = document.createElement('div');
-
+					// Add matching in css class
 					graphBox.setAttribute('class', 'graphBox');
 
+					// Create graphBox inner structure/content
 					graphBox.innerHTML = `<button class="delete">X</button>
 					<div class="graph">
 						<canvas id="myChart" width="100%">
@@ -295,6 +297,9 @@
 					// Clear input
 					e.target.value = '';
 				});
+
+				// Initial linking on loaded initial content
+				linkActions();
 			});
 		</script>
 	</body>
