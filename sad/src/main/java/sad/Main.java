@@ -1,10 +1,9 @@
 package sad;
 
+import io.javalin.Javalin;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
-
-import io.javalin.Javalin;
 import sad.CoreManagementSystem.Database;
 import sad.CoreManagementSystem.IRetrieveData;
 import sad.Customer_Manager.Customer;
@@ -34,17 +33,18 @@ public class Main {
     app.get("/portfolio", ctx -> ctx.html(getFileContent("portfolio.html")));
     app.get("/about", ctx -> ctx.html(getFileContent("about.html")));
 
-    // Define a route to handle the button click
     app.get(
-      "/call-java-function",
+      "/fetchedStocks",
       ctx -> {
-        // Call your Java function here
-        myJavaFunction();
-        // Send a response back to the client
-        ctx.result("Java function called successfully!");
+        // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
+        String startDate = ctx.queryParam("startDate");
+        String endDate = ctx.queryParam("endDate");
+        // Sample data
+        String jsonData =
+          "{ \"stockData\": [65, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80] }";
+        ctx.contentType("application/json").result(jsonData);
       }
     );
-    System.out.println("Test 1 complete");
 
     //Creating new instances for each class
     Scanner scanner = new Scanner(System.in);
