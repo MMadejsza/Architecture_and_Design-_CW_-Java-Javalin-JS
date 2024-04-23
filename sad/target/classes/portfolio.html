@@ -94,7 +94,7 @@
 				);
 
 				colorInput.value = baseColor;
-
+				// LOGIN
 				try {
 					checkbox.addEventListener('change', function () {
 						if (checkbox.checked) {
@@ -105,6 +105,7 @@
 					});
 				} catch (error) {}
 
+				// COLOR PICKER
 				try {
 					colorInput.addEventListener('input', (e) => {
 						// make shortcut for html element
@@ -126,16 +127,6 @@
 						// set new shadow colors
 						root.style.setProperty('--shadowColor1', `${setOpacity(alpha1)}`);
 						root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
-					});
-				} catch (error) {}
-
-				try {
-					document.querySelector('.accessBtn').addEventListener('click', () => {
-						// Send an HTTP GET request to the server
-						fetch('/call-java-function')
-							.then((response) => response.text())
-							.then((data) => console.log(data))
-							.catch((error) => console.error('Error:', error));
 					});
 				} catch (error) {}
 			});
