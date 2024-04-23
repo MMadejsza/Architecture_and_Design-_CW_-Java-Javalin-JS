@@ -113,9 +113,20 @@
 				}
 				return null;
 			}
-			const checkLoginFromCookies = () => {
-				let status = getCookie('logged');
+			const checkFromCookies = () => {
 				const currentPage = document.documentElement;
+
+				let defaultColor = getCookie('defaultColor');
+				let shadowColor1 = getCookie('shadowColor1');
+				let shadowColor2 = getCookie('shadowColor2');
+				currentPage.style.setProperty('--defaultColor', defaultColor);
+				currentPage.style.setProperty('--shadowColor1', shadowColor1);
+				currentPage.style.setProperty('--shadowColor2', shadowColor2);
+				console.log('defaultColor', defaultColor);
+				console.log('shadowColor1', shadowColor1);
+				console.log('shadowColor2', shadowColor2);
+
+				let status = getCookie('logged');
 				console.log('logged', status);
 				if (status == 'true') {
 					// document.querySelector('.stocksElement').style.display = 'block';
@@ -125,8 +136,9 @@
 					currentPage.style.setProperty('--loginStatus', `none`);
 				}
 			};
+
 			document.addEventListener('DOMContentLoaded', function () {
-				checkLoginFromCookies();
+				checkFromCookies();
 
 				const checkbox = document.getElementById('registerInput');
 				const registerForm = document.querySelector('.registerForm');
@@ -170,6 +182,10 @@
 						// set new shadow colors
 						root.style.setProperty('--shadowColor1', `${setOpacity(alpha1)}`);
 						root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
+						setCookie('defaultColor', `${newColor}`, 1);
+						setCookie('shadowColor1', `${setOpacity(alpha1)}`, 1);
+						setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
+						checkFromCookies();
 					});
 				} catch (error) {}
 
