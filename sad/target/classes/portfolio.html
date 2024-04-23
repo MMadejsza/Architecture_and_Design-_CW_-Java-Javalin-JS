@@ -168,8 +168,8 @@
 					fetch(`/fetchedStocks?name=${name}&startDate=${startDate}&endDate=${endDate}`)
 						.then((response) => response.json())
 						.then((data) => {
+							const values = data.chart.result[0].indicators.quote[0];
 							// Assuming your data from the backend is an array of values for each date
-							const stockData = data.stockData;
 
 							const newChart = new Chart(ctx, {
 								type: 'line',
@@ -178,7 +178,12 @@
 									datasets: [
 										{
 											label: name,
-											data: stockData, // Use fetched data here
+											data: [
+												...values.close,
+												...values.high,
+												...values.low,
+												...values.open,
+											], // Use fetched data here
 											fill: false,
 											borderColor: baseColor,
 											tension: 0.1,
@@ -188,7 +193,7 @@
 								options: {
 									scales: {
 										y: {
-											beginAtZero: true,
+											beginAtZero: false,
 										},
 									},
 								},

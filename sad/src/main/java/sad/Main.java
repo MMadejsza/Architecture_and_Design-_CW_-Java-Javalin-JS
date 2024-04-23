@@ -41,9 +41,12 @@ public class Main {
         String startDate = ctx.queryParam("startDate");
         String endDate = ctx.queryParam("endDate");
         // Sample data
-        String jsonData =
-          "{ \"stockData\": [65, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80] }";
-        ctx.contentType("application/json").result(jsonData);
+
+        //Make the function selfcontaining, and when the stock is called produce the data
+        Stocks stocksManager = new Stocks();
+        String test = stocksManager.StocksInfo("AAPL");
+
+        ctx.contentType("application/json").result(test);
       }
     );
 
@@ -58,11 +61,6 @@ public class Main {
     database.getStockData("Tesla", 450.0f);
 
     Database.usersList.add(new Customer("a", "a"));
-
-    //Make the function selfcontaining, and when the stock is called produce the data
-    Stocks stocksManager = new Stocks();
-    String test = stocksManager.StocksInfo("AAPL");
-    System.out.println(test);
 
     String user;
     String password;
