@@ -16,7 +16,7 @@ public class Main {
   public static void main(String[] args) {
     Stocks stocksManager = new Stocks();
     Database.usersList.add(new Customer("a", "a"));
-
+    Database databaseManager = new Database();
     // Create a new Javalin instance
     Javalin app = Javalin
       .create(config -> {
@@ -61,9 +61,12 @@ public class Main {
         // Sample data
 
         //Make the function selfcontaining, and when the stock is called produce the data
-        String test = stocksManager.StocksInfo("AAPL");
+        boolean test = databaseManager.checkUser(login, password);
+        // Create a JSON object representing the result
+        // Construct JSON string representing the result
+        String resultJson = "{\"authorized\": " + test + "}";
 
-        ctx.contentType("application/json").result(test);
+        ctx.contentType("application/json").result(resultJson);
       }
     );
   }

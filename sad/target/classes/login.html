@@ -52,8 +52,8 @@
 				<li>
 					<a class="active"><i class="fas fa-user"></i>Login</a>
 				</li>
-				<li>
-					<a href="./portfolio"><i class="fas fa-search-dollar"></i>Portfolio</a>
+				<li class="stocksElement">
+					<a href="./portfolio"><i class="fas fa-search-dollar"></i>Stocks</a>
 				</li>
 				<li>
 					<a href="./about"><i class="far fa-copyright"></i>About</a>
@@ -168,7 +168,10 @@
 					fetch(`/loginCredentials?name=${nameInput}&password=${passwordInput}`)
 						.then((response) => response.json())
 						.then((data) => {
-							console.log(data);
+							console.log(data.authorized);
+							if (data.authorized) {
+								document.querySelector('.stocksElement').style.display = 'block';
+							}
 						});
 				});
 			});
