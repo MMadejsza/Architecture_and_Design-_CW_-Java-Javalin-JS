@@ -161,15 +161,16 @@
 					});
 				} catch (error) {}
 
-				try {
-					document.querySelector('.accessBtn').addEventListener('click', () => {
-						// Send an HTTP GET request to the server
-						fetch('/call-java-function')
-							.then((response) => response.text())
-							.then((data) => console.log(data))
-							.catch((error) => console.error('Error:', error));
-					});
-				} catch (error) {}
+				const nameInput = document.querySelector('.login').value;
+				const passwordInput = document.querySelector('.password').value;
+
+				document.querySelector('.loginBtn').addEventListener('click', () => {
+					fetch(`/loginCredentials?name=${nameInput}&password=${passwordInput}`)
+						.then((response) => response.json())
+						.then((data) => {
+							console.log(data);
+						});
+				});
 			});
 		</script>
 	</body>
