@@ -29,3 +29,8 @@ Let us slightly introduce project and files workflow... :blush:
 ### :camera: Assets
 
 -   All the images and media files
+
+Execution:
+cd sad
+mvn clean install -X  
+mvn clean compile exec:java
