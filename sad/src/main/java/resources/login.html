@@ -115,11 +115,47 @@
 			crossorigin="anonymous"></script>
 
 		<script name="./js/app.js">
+			// Function to set a cookie
+			function setCookie(name, value, days) {
+				var expires = '';
+				if (days) {
+					var date = new Date();
+					date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+					expires = '; expires=' + date.toUTCString();
+				}
+				document.cookie = name + '=' + (value || '') + expires + '; path=/';
+			}
+
+			// Function to get a cookie value by name
+			function getCookie(name) {
+				var nameEQ = name + '=';
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i];
+					while (cookie.charAt(0) == ' ') {
+						cookie = cookie.substring(1, cookie.length);
+					}
+					if (cookie.indexOf(nameEQ) == 0) {
+						return cookie.substring(nameEQ.length, cookie.length);
+					}
+				}
+				return null;
+			}
+			const checkLoginFromCookies = () => {
+				let status = getCookie('logged');
+				const currentPage = document.documentElement;
+				console.log('logged', status);
+				if (status == 'true') {
+					// document.querySelector('.stocksElement').style.display = 'block';
+					currentPage.style.setProperty('--loginStatus', `block`);
+				} else {
+					// 	document.querySelector('.stocksElement').style.display = 'none';
+					currentPage.style.setProperty('--loginStatus', `none`);
+				}
+			};
 			document.addEventListener('DOMContentLoaded', function () {
 				// Retrieve the cookie value
-				console.log('logged:', getCookie('logged'));
-				if (getCookie('logged'))
-					document.querySelector('.stocksElement').style.display = 'block';
+				checkLoginFromCookies();
 
 				const checkbox = document.getElementById('registerInput');
 				const registerForm = document.querySelector('.registerForm');
@@ -166,46 +202,22 @@
 					});
 				} catch (error) {}
 
-				// Function to set a cookie
-				function setCookie(name, value, days) {
-					var expires = '';
-					if (days) {
-						var date = new Date();
-						date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-						expires = '; expires=' + date.toUTCString();
-					}
-					document.cookie = name + '=' + (value || '') + expires + '; path=/';
-				}
-
-				// Function to get a cookie value by name
-				function getCookie(name) {
-					var nameEQ = name + '=';
-					var cookies = document.cookie.split(';');
-					for (var i = 0; i < cookies.length; i++) {
-						var cookie = cookies[i];
-						while (cookie.charAt(0) == ' ') {
-							cookie = cookie.substring(1, cookie.length);
-						}
-						if (cookie.indexOf(nameEQ) == 0) {
-							return cookie.substring(nameEQ.length, cookie.length);
-						}
-					}
-					return null;
-				}
-
 				document.querySelector('.loginBtn').addEventListener('click', () => {
-					const nameInput = document.querySelector('.login').value;
-					const passwordInput = document.querySelector('.password').value;
-					fetch(`/loginCredentials?name=${nameInput}&password=${passwordInput}`)
+					let nameInput = document.querySelector('.login');
+					let passwordInput = document.querySelector('.password');
+					fetch(
+						`/loginCredentials?name=${nameInput.value}&password=${passwordInput.value}`,
+					)
 						.then((response) => response.json())
 						.then((data) => {
 							if (data.authorized) {
 								setCookie('logged', 'true', 1);
-								console.log('logged:', getCookie('logged'));
-								document.querySelector('.stocksElement').style.display = 'block';
+								checkLoginFromCookies();
+								nameInput.value = passwordInput.value = '';
 							} else {
 								setCookie('logged', 'false', 1);
-								console.log('logged:', getCookie('logged'));
+								checkLoginFromCookies();
+								nameInput.value = passwordInput.value = '';
 							}
 						});
 				});

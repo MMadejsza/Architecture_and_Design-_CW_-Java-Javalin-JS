@@ -8,6 +8,7 @@ html {
 	font-family: 'Montserrat', sans-serif;
 	color: #222;
 	font-size: 10px;
+	--loginStatus: none;
 	--iconPosition: -3.5rem;
 	--navBcg: rgba(0, 0, 0, 0.65);
 	--itemBcg: rgba(0, 0, 0, 0.3);
@@ -260,5 +261,5 @@ button a {
 	}
 }
 .stocksElement {
-	display: none;
+	display: var(--loginStatus);
 }

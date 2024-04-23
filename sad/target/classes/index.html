@@ -70,7 +70,7 @@
 		</nav>
 		<header>
 			<h1>Your stock Management System!</h1>
-			<button class="accessBtn"><a href="/portfolio">Access it!</a></button>
+			<button class="accessBtn"><a href="/login">Access it!</a></button>
 		</header>
 		<section>
 			<p>
@@ -85,10 +85,47 @@
 			src="https://kit.fontawesome.com/4622d99ad4.js"
 			crossorigin="anonymous"></script>
 		<script name="./js/app.js">
+			// Function to set a cookie
+			function setCookie(name, value, days) {
+				var expires = '';
+				if (days) {
+					var date = new Date();
+					date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+					expires = '; expires=' + date.toUTCString();
+				}
+				document.cookie = name + '=' + (value || '') + expires + '; path=/';
+			}
+
+			// Function to get a cookie value by name
+			function getCookie(name) {
+				var nameEQ = name + '=';
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i];
+					while (cookie.charAt(0) == ' ') {
+						cookie = cookie.substring(1, cookie.length);
+					}
+					if (cookie.indexOf(nameEQ) == 0) {
+						return cookie.substring(nameEQ.length, cookie.length);
+					}
+				}
+				return null;
+			}
+			const checkLoginFromCookies = () => {
+				let status = getCookie('logged');
+				const currentPage = document.documentElement;
+				console.log('logged', status);
+				if (status == 'true') {
+					// document.querySelector('.stocksElement').style.display = 'block';
+					currentPage.style.setProperty('--loginStatus', `block`);
+				} else {
+					// 	document.querySelector('.stocksElement').style.display = 'none';
+					currentPage.style.setProperty('--loginStatus', `none`);
+				}
+			};
+
 			document.addEventListener('DOMContentLoaded', function () {
-				console.log('logged:', getCookie('logged'));
-				if (getCookie('logged'))
-					document.querySelector('.stocksElement').style.display = 'block';
+				checkLoginFromCookies();
 				const checkbox = document.getElementById('registerInput');
 				const registerForm = document.querySelector('.registerForm');
 				const colorInput = document.querySelector('#inputColor');
@@ -132,32 +169,6 @@
 						root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
 					});
 				} catch (error) {}
-				// Function to set a cookie
-				function setCookie(name, value, days) {
-					var expires = '';
-					if (days) {
-						var date = new Date();
-						date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-						expires = '; expires=' + date.toUTCString();
-					}
-					document.cookie = name + '=' + (value || '') + expires + '; path=/';
-				}
-
-				// Function to get a cookie value by name
-				function getCookie(name) {
-					var nameEQ = name + '=';
-					var cookies = document.cookie.split(';');
-					for (var i = 0; i < cookies.length; i++) {
-						var cookie = cookies[i];
-						while (cookie.charAt(0) == ' ') {
-							cookie = cookie.substring(1, cookie.length);
-						}
-						if (cookie.indexOf(nameEQ) == 0) {
-							return cookie.substring(nameEQ.length, cookie.length);
-						}
-					}
-					return null;
-				}
 			});
 		</script>
 	</body>
