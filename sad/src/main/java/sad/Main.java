@@ -49,6 +49,21 @@ public class Main {
         ctx.contentType("application/json").result(test);
       }
     );
+    app.get(
+      "/loginCredentials",
+      ctx -> {
+        // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
+        String login = ctx.queryParam("name");
+        String password = ctx.queryParam("startDate");
+        // Sample data
+
+        //Make the function selfcontaining, and when the stock is called produce the data
+        Stocks stocksManager = new Stocks();
+        String test = stocksManager.StocksInfo("AAPL");
+
+        ctx.contentType("application/json").result(test);
+      }
+    );
 
     //Creating new instances for each class
     Scanner scanner = new Scanner(System.in);
