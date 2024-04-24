@@ -37,12 +37,14 @@ public class Main {
       .start(3001);
 
     // Define a route to handle the button click
-    // app.get("/", ctx -> ctx.html(getFileContent("index.html")));
-    // app.get("/login", ctx -> ctx.html(getFileContent("login.html")));
-    // app.get("/portfolio", ctx -> ctx.html(getFileContent("portfolio.html")));
-    // app.get("/about", ctx -> ctx.html(getFileContent("about.html")));
+    app.get(
+      "/",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("index.pug"));
+      }
+    );
 
-    // app.get("/", ctx -> ctx.result(getFileContent("index.pug")));
     app.get(
       "/login",
       ctx -> {

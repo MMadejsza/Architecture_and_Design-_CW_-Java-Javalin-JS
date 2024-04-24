@@ -1,23 +1,61 @@
+// Function to set a cookie
+function setCookie(name, value, days) {
+	var expires = '';
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+		expires = '; expires=' + date.toUTCString();
+	}
+	document.cookie = name + '=' + (value || '') + expires + '; path=/';
+}
+
+// Function to get a cookie value by name
+function getCookie(name) {
+	var nameEQ = name + '=';
+	var cookies = document.cookie.split(';');
+	for (var i = 0; i < cookies.length; i++) {
+		var cookie = cookies[i];
+		while (cookie.charAt(0) == ' ') {
+			cookie = cookie.substring(1, cookie.length);
+		}
+		if (cookie.indexOf(nameEQ) == 0) {
+			return cookie.substring(nameEQ.length, cookie.length);
+		}
+	}
+	return null;
+}
+
+const checkFromCookies = () => {
+	const currentPage = document.documentElement;
+
+	let defaultColor = getCookie('defaultColor');
+	let shadowColor1 = getCookie('shadowColor1');
+	let shadowColor2 = getCookie('shadowColor2');
+	currentPage.style.setProperty('--defaultColor', defaultColor);
+	currentPage.style.setProperty('--shadowColor1', shadowColor1);
+	currentPage.style.setProperty('--shadowColor2', shadowColor2);
+	console.log('defaultColor', defaultColor);
+	console.log('shadowColor1', shadowColor1);
+	console.log('shadowColor2', shadowColor2);
+
+	let status = getCookie('logged');
+	console.log('logged', status);
+	if (status == 'true') {
+		// document.querySelector('.stocksElement').style.display = 'block';
+		currentPage.style.setProperty('--loginStatus', `block`);
+	} else {
+		// 	document.querySelector('.stocksElement').style.display = 'none';
+		currentPage.style.setProperty('--loginStatus', `none`);
+	}
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-	const checkbox = document.getElementById('registerInput');
-	const registerForm = document.querySelector('.registerForm');
-
+	checkFromCookies();
 	const colorInput = document.querySelector('#inputColor');
-
 	const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
-	console.log(baseColor);
 	colorInput.value = baseColor;
 
-	try {
-		checkbox.addEventListener('change', function () {
-			if (checkbox.checked) {
-				registerForm.classList.add('active');
-			} else {
-				registerForm.classList.remove('active');
-			}
-		});
-	} catch (error) {}
-
+	// COLOR PICKER
 	try {
 		colorInput.addEventListener('input', (e) => {
 			// make shortcut for html element
@@ -39,16 +77,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			// set new shadow colors
 			root.style.setProperty('--shadowColor1', `${setOpacity(alpha1)}`);
 			root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
-		});
-	} catch (error) {}
-
-	try {
-		document.querySelector('.accessBtn').addEventListener('click', () => {
-			// Send an HTTP GET request to the server
-			fetch('/call-java-function')
-				.then((response) => response.text())
-				.then((data) => console.log(data))
-				.catch((error) => console.error('Error:', error));
+			setCookie('defaultColor', `${newColor}`, 1);
+			setCookie('shadowColor1', `${setOpacity(alpha1)}`, 1);
+			setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
+			checkFromCookies();
 		});
 	} catch (error) {}
 });
