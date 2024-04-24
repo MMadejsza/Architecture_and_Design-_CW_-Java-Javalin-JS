@@ -129,6 +129,10 @@ li:hover {
 	background-color: transparent;
 }
 .nav .wrench i {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	margin: 0;
 }
 
