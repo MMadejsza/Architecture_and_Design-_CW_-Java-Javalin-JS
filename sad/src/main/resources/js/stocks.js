@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// </div>`;
 
 		const button = createEl('button', {class: 'delete'});
+		button.innerText = 'X';
 
 		const graph = createEl('div', {class: 'graph'});
 
