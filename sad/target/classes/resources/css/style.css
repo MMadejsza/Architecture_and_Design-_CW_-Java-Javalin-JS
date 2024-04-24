@@ -208,7 +208,8 @@ a.active {
 	color: var(--defaultColor);
 	text-shadow: var(--activeTxtShadow);
 }
-.loginBox a {
+.loginBox a,
+h3 a {
 	border-bottom: 1px solid var(--defaultColor);
 	height: 4.5rem;
 }

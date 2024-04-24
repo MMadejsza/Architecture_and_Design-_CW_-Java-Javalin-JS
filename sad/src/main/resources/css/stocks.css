@@ -27,7 +27,7 @@ header > * {
 	gap: 2.5rem;
 	/* grid-template-columns: minmax(400px, 800px) minmax(400px, 800px); */
 	grid-template-columns: repeat(auto-fill, minmax(560px, 600px));
-	grid-template-rows: 8rem;
+	grid-template-rows: 14rem;
 	grid-auto-rows: minmax(225px, 400px);
 }
 .addCompanyBox {

@@ -63,50 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			.catch((error) => console.error('Error fetching data:', error));
 	};
 
-	// DELETE BTNS
-	const serveDeleteBtns = () => {
-		// fetch buttons
-		const deleteBtns = document.querySelectorAll('.delete');
-
-		// add listener
-		[...deleteBtns].forEach((deleteBtn) =>
-			deleteBtn.addEventListener('click', (e) => {
-				const parentGraphBox = deleteBtn.closest('.graphBox');
-				parentGraphBox.remove();
-			}),
-		);
-	};
-
-	// DATE INPUTS
-	const serveDateInputs = () => {
-		// // catch all date inputs
-		// const dateInputs = document.querySelectorAll("input[type='date']");
-		// // loop over adding listener depending on edge date
-		// [...dateInputs].forEach((input) => {
-		// 	const chartLabelEl = input.closest('.graph-label');
-		// 	const chartName = chartLabelEl.querySelector('h2').textContent;
-		// 	if (input.className == 'startDateInput') {
-		// 		input.addEventListener('input', (e) => {
-		// 			const otherInputVal = chartLabelEl.querySelector('.endDateInput').value;
-		// 			generateChart(
-		// 				chartName,
-		// 				e.target.value,
-		// 				otherInputVal ? otherInputVal : undefined,
-		// 			);
-		// 		});
-		// 	} else if (input.className == 'endDateInput') {
-		// 		input.addEventListener('input', (e) => {
-		// 			const otherInputVal = chartLabelEl.querySelector('.startDateInput').value;
-		// 			generateChart(
-		// 				chartName,
-		// 				otherInputVal ? otherInputVal : undefined,
-		// 				e.target.value,
-		// 			);
-		// 		});
-		// 	}
-		// });
-	};
-
 	// APP LAYOUT CHANGE ON DELETION
 	const changeGrid = () => {
 		if (portfolio.childElementCount <= 2) {
@@ -118,14 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 	};
 
-	// RELINKING ON CONTENT CHANGE
-	const linkActions = () => {
-		changeGrid();
-		serveDeleteBtns();
-		// serveDateInputs();
-	};
-
-	// ADD COMPANY
+	// -------------------- ADD COMPANY INPUT ---------------------------
 	addInput.addEventListener('change', (e) => {
 		// Util value catching
 		const stockName = e.target.value;
@@ -140,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		};
 
 		// Create graphBox element
-		// const graphBox = document.createElement('div').setAttribute('class', 'graphBox');
 		const graphBox = createEl('div', {class: 'graphBox'});
 
 		//----------- Create graphBox inner structure/content---------------
@@ -155,19 +103,26 @@ document.addEventListener('DOMContentLoaded', function () {
 		// 	<input class = "endDateInput" type="date" />
 		// </div>`;
 
+		// Btn create
 		const button = createEl('button', {class: 'delete'});
 		button.innerText = 'X';
+		// Btn addEventListener
+		button.addEventListener('click', (e) => {
+			graphBox.remove();
+		});
 
+		// Graph container create
 		const graph = createEl('div', {class: 'graph'});
 
 		// Unique Id for each chart for further actions on it
 		const canvas = createEl('canvas', {width: '100%', id: `myChart${stockName}`});
 
+		// Graph label structure create
 		const graphLabel = createEl('div', {class: 'graph-label'});
-
 		const graphLabelName = createEl('h2', {class: 'graph-label-name'});
 		graphLabelName.innerText = stockName;
 
+		// Input START
 		const inputStart = createEl('input', {type: 'date', class: 'startDateInput'});
 		inputStart.addEventListener('input', (e) => {
 			const otherInputVal = inputEnd.value;
@@ -179,8 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 		});
 
-		// const inputEnd = document.createElement('div');
-		// setAttributes(inputEnd, {type: 'date', class: 'endDateInput'});
+		// Input END
 		const inputEnd = createEl('input', {type: 'date', class: 'endDateInput'});
 		inputEnd.addEventListener('input', (e) => {
 			const otherInputVal = inputStart.value;
@@ -192,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 		});
 
+		// ASSEMBLE the graphBox
 		graphLabel.appendChild(inputStart);
 		graphLabel.appendChild(graphLabelName);
 		graphLabel.appendChild(inputEnd);
@@ -207,16 +162,16 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Insert as first child
 		portfolio.insertBefore(graphBox, portfolio.firstChild);
 
-		// Generate Initial Graph
+		// Generate Graph with default dates
 		generateChart(`myChart${stockName}`, stockName);
 
-		// Linking all buttons and inputs
-		linkActions();
+		// Check and change layout depended on amount of graphs
+		changeGrid();
 
 		// Clear input
 		e.target.value = '';
 	});
 
-	// Initial linking on loaded initial content
-	linkActions();
+	// Initial check and change layout depended on amount of graphs
+	changeGrid();
 });
