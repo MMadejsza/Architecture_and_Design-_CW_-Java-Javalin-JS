@@ -1,15 +1,11 @@
 package sad;
 
 import de.neuland.jade4j.JadeConfiguration;
-import de.neuland.jade4j.exceptions.JadeCompilerException;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.javalin.Javalin;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import sad.CoreManagementSystem.Database;
 import sad.Customer_Manager.Customer;
 import sad.StocksInfo_Manager.Stocks;
