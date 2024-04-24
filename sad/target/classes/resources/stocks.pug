@@ -1,0 +1,60 @@
+html(lang="en")
+    head
+        // Meta tags
+        meta(charset="UTF-8")
+        title SAD Project
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        // Website description for SEO
+        meta(name="description", content="Architecture and Design Coursework")
+        meta(name="author", content="MMadejsza, AdamT-S, Raja108N, unaisq1")
+        meta(name="keywords", content="SAD, stock, Java, architecture, n-tiered, adapter")
+        // FAVICONS info
+        link(rel="icon", href="./favicon.png", type="image/png", sizes="18x18")
+        // Outside styling and links info
+        link(rel="preconnect", href="https://fonts.googleapis.com")
+        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap", rel="stylesheet")        
+        link(rel="stylesheet", type="text/css", href="./style.css")
+
+        link(rel="stylesheet", type="text/css", href="./stocks.css")
+
+    body
+        nav.nav
+            ul
+                li
+                    a(href="/") 
+                        i.fas.fa-home 
+                        | Home
+                li
+                    a(href="./login")
+                        i.fas.fa-user
+                        | Login
+                li.stocksElement.active
+                    a(href="./stocks")
+                        i.fas.fa-search-dollar
+                        | Stocks
+                li
+                    a(href="./about")
+                        i.far.fa-copyright
+                        | About
+                li.wrench.stocksElement
+                  i.fas.fa-wrench
+                  ul.colorSettingsList
+                    li.settings
+                      input(type="color", id="inputColor")
+        block content
+         header
+          .main.contentBox
+            .addCompanyBox
+                | Add a company
+                input.addInput(type="text", placeholder="Company Yahoo Code")
+                h3
+                    a(href="https://finance.yahoo.com/lookup/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAABBTqAPaPbYohBd_OXyvFUgQn_RPAX75WwhSNCVvMdkQKKqLZGK8RmLXDCcwI11-0BNbh5Cog1gKoKNQv6E0KZLwfAaimZ2yyoOWZjprFgGxkz8SsNQG4JSLPhIMzsMER-Sbm7uPvoL2CABSbMNtjW5qRmhkTFFybrgYpl4gapXG", target="_blank") From here
+
+                        
+        script(src="https://kit.fontawesome.com/4622d99ad4.js", crossorigin="anonymous")
+        script(src="./app.js")
+        
+        script(src="https://cdn.jsdelivr.net/npm/chart.js") 
+        script(src="./stocks.js")
+
