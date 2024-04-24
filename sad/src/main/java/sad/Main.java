@@ -1,22 +1,22 @@
 package sad;
 
-import io.javalin.Javalin;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
+
+import io.javalin.Javalin;
 import sad.CoreManagementSystem.Database;
-import sad.CoreManagementSystem.IRetrieveData;
 import sad.Customer_Manager.Customer;
-import sad.Graph_Manager.Graph;
-import sad.Graph_Manager.IRetrieveGraph;
 import sad.StocksInfo_Manager.Stocks;
 
 public class Main {
 
   public static void main(String[] args) {
     Stocks stocksManager = new Stocks();
-    Database.usersList.add(new Customer("a", "a"));
     Database databaseManager = new Database();
+    Database.usersList.add(new Customer("a", "a"));
+    
+
+
     // Create a new Javalin instance
     Javalin app = Javalin
       .create(config -> {
@@ -43,10 +43,10 @@ public class Main {
         String name = ctx.queryParam("name");
         String startDate = ctx.queryParam("startDate");
         String endDate = ctx.queryParam("endDate");
-        // Sample data
 
-        //Make the function selfcontaining, and when the stock is called produce the data
-        String test = stocksManager.StocksInfo("AAPL");
+      
+
+        String test = stocksManager.StocksInfo(name);
 
         ctx.contentType("application/json").result(test);
       }

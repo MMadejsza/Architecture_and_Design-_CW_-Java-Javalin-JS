@@ -12,9 +12,9 @@ public class Portfolio implements IPortfolio {
   @Override
   public void portfolioView() {
     for (int i = 0; i < portfolioList.size(); i++) {
-      System.out.println("\n---------------------------------");
+      
       System.out.println(portfolioList.get(i));
-      System.out.println("---------------------------------\n");
+      
     }
   }
 
