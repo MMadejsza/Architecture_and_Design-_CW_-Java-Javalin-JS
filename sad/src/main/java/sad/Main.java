@@ -43,7 +43,13 @@ public class Main {
     // app.get("/about", ctx -> ctx.html(getFileContent("about.html")));
 
     // app.get("/", ctx -> ctx.result(getFileContent("index.pug")));
-    app.get("/login", ctx -> ctx.result(getFileContent("login.pug")));
+    app.get(
+      "/login",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("login.pug"));
+      }
+    );
     // app.get("/portfolio", ctx -> ctx.result(getFileContent("portfolio.pug")));
     // app.get("/about", ctx -> ctx.result(getFileContent("about.pug")));
 
