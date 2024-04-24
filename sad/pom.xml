@@ -21,6 +21,12 @@
             <groupId>io.javalin</groupId>
             <artifactId>javalin</artifactId>
             <version>${javalin.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Kotlin -->
@@ -52,10 +58,11 @@
     <build>
         <resources>
             <resource>
-                <directory>src/main/java/resources</directory>
-                <excludes>
+                <directory>src/main/resources</directory>
+                <!-- <excludes>
                     <exclude>**/*.html</exclude>
-                </excludes>
+                </excludes> -->
+                <targetPath>./resources</targetPath>
             </resource>
         </resources>
         <plugins>

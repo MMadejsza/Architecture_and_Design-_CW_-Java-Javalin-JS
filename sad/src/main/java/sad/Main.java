@@ -1,7 +1,6 @@
 package sad;
 
 import de.neuland.jade4j.JadeConfiguration;
-import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.exceptions.JadeCompilerException;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.javalin.Javalin;
@@ -28,7 +27,7 @@ public class Main {
     Javalin app = Javalin
       .create(config -> {
         // Specify the directory to serve static files from
-        String resourcePath = getResourcePath();
+        String resourcePath = "/resources";
         config.staticFiles.add(resourcePath);
 
         // Specify the location of CSS and JavaScript files
@@ -44,9 +43,9 @@ public class Main {
     // app.get("/about", ctx -> ctx.html(getFileContent("about.html")));
 
     // app.get("/", ctx -> ctx.result(getFileContent("index.pug")));
-    // app.get("/login", ctx -> ctx.result(getFileContent("login.pug")));
+    app.get("/login", ctx -> ctx.result(getFileContent("login.pug")));
     // app.get("/portfolio", ctx -> ctx.result(getFileContent("portfolio.pug")));
-    app.get("/about", ctx -> ctx.result(getFileContent("about.pug")));
+    // app.get("/about", ctx -> ctx.result(getFileContent("about.pug")));
 
     app.get(
       "/fetchedStocks",
@@ -86,14 +85,19 @@ public class Main {
   // Method to read file content as a String
   private static String getFileContent(String fileName) {
     try {
-      String resourceDir = getResourcePath();
+      // Construct the path to the file in the resources directory
+      String resourcePath = "src/main/resources/" + fileName;
+      File file = new File(resourcePath); // Create a File object using the resource path
+      if (!file.exists()) {
+        System.out.println("File not found: " + resourcePath);
+        return "Error loading file";
+      }
+
       JadeConfiguration config = new JadeConfiguration();
       config.setPrettyPrint(true); // Optional: Makes the generated HTML readable
 
       // Load the Pug template file
-      JadeTemplate template = config.getTemplate(
-        new File(resourceDir, fileName).getPath()
-      );
+      JadeTemplate template = config.getTemplate(file.getAbsolutePath());
 
       // Render the template with an empty model (if no model is needed)
       Map<String, Object> model = new HashMap<>();

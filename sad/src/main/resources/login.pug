@@ -1,0 +1,158 @@
+doctype html
+html(lang="en")
+  head
+    // Meta tags
+    meta(charset="UTF-8")
+    title SAD Project
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    // Website desc for SEO
+    meta(name="description", content="Architecture and Design Coursework")
+    meta(name="author", content="MMadejsza, AdamT-S, Raja108N, unaisq1")
+    meta(name="keywords", content="SAD, stock, Java, architecture, n-tiered, adapter")
+    // FAVICONS info
+    link(rel="icon", href="./favicon.png", type="image/png", sizes="18x18")
+    // Outside styling and links info
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="./style.css")
+    link(rel="stylesheet", href="./login.css")
+  body
+    nav.nav
+      ul
+        li
+          a(href="./")
+            i.fas.fa-home
+            | Home
+        li
+          a.active
+            i.fas.fa-user
+            | Login
+        li.stocksElement
+          a(href="./portfolio")
+            i.fas.fa-search-dollar
+            | Stocks
+        li
+          a(href="./about")
+            i.far.fa-copyright
+            | About
+        li.wrench.stocksElement
+          i.fas.fa-wrench
+          ul.colorSettingsList
+            li.settings
+              input(type="color", id="inputColor")
+    header
+      main.loginBox
+        form.loginForm(action="", method="post")
+          h1 Log in!
+          label(for="login")
+          input.login(type="text", placeholder="User Name")
+          input.password(type="text", placeholder="Password")
+        div.registerQuestionBlock
+          input(type="checkbox", name="registerInput", id="registerInput")
+          label(for="registerInput") Register?
+        form.registerForm(action="", method="post")
+          h1 Register now!
+          label(for="login")
+          input.login(type="text", placeholder="User Name")
+          input.password(type="text", placeholder="Password")
+        button.loginBtn Submit
+    script(src="https://kit.fontawesome.com/4622d99ad4.js", crossorigin="anonymous")
+    script.
+      // Function to set a cookie
+      function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+          expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + (value || '') + expires + '; path=/';
+      }
+      // Function to get a cookie value by name
+      function getCookie(name) {
+        var nameEQ = name + '=';
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1, cookie.length);
+          }
+          if (cookie.indexOf(nameEQ) == 0) {
+            return cookie.substring(nameEQ.length, cookie.length);
+          }
+        }
+        return null;
+      }
+      const checkFromCookies = () => {
+        const currentPage = document.documentElement;
+        let defaultColor = getCookie('defaultColor');
+        let shadowColor1 = getCookie('shadowColor1');
+        let shadowColor2 = getCookie('shadowColor2');
+        currentPage.style.setProperty('--defaultColor', defaultColor);
+        currentPage.style.setProperty('--shadowColor1', shadowColor1);
+        currentPage.style.setProperty('--shadowColor2', shadowColor2);
+        console.log('defaultColor', defaultColor);
+        console.log('shadowColor1', shadowColor1);
+        console.log('shadowColor2', shadowColor2);
+        let status = getCookie('logged');
+        console.log('logged', status);
+        if (status == 'true') {
+          currentPage.style.setProperty('--loginStatus', `block`);
+        } else {
+          currentPage.style.setProperty('--loginStatus', `none`);
+        }
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        checkFromCookies();
+        const checkbox = document.getElementById('registerInput');
+        const registerForm = document.querySelector('.registerForm');
+        const colorInput = document.querySelector('#inputColor');
+        const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
+        colorInput.value = baseColor;
+        try {
+          checkbox.addEventListener('change', function () {
+            if (checkbox.checked) {
+              registerForm.classList.add('active');
+            } else {
+              registerForm.classList.remove('active');
+            }
+          });
+        } catch (error) {}
+        try {
+          colorInput.addEventListener('input', (e) => {
+            const root = document.documentElement;
+            let newColor = e.target.value;
+            root.style.setProperty('--defaultColor', `${newColor}`);
+            let alpha1 = getComputedStyle(root).getPropertyValue('--shadowAlpha1');
+            let alpha2 = getComputedStyle(root).getPropertyValue('--shadowAlpha2');
+            const setOpacity = (alpha) => `${newColor}${Math.floor(alpha * 255).toString(16).padStart(2, 0)}`;
+            root.style.setProperty('--shadowColor1', `${setOpacity(alpha1)}`);
+            root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
+            setCookie('defaultColor', `${newColor}`, 1);
+            setCookie('shadowColor1', `${setOpacity(alpha1)}`, 1);
+            setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
+            checkFromCookies();
+          });
+        } catch (error) {}
+        document.querySelector('.loginBtn').addEventListener('click', () => {
+          let nameInput = document.querySelector('.login');
+          let passwordInput = document.querySelector('.password');
+          fetch(`/loginCredentials?name=${nameInput.value}&password=${passwordInput.value}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.authorized) {
+                setCookie('logged', 'true', 1);
+                checkFromCookies();
+                nameInput.value = passwordInput.value = '';
+              } else {
+                setCookie('logged', 'false', 1);
+                setCookie('defaultColor', '#ffa500', 1);
+                setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
+                setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
+                checkFromCookies();
+                nameInput.value = passwordInput.value = '';
+              }
+            });
+        });
+      });
