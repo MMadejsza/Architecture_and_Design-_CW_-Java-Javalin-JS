@@ -111,6 +111,7 @@
 				}
 				return null;
 			}
+
 			const checkFromCookies = () => {
 				const currentPage = document.documentElement;
 
@@ -223,6 +224,7 @@
 					fetch(`/fetchedStocks?name=${name}&startDate=${startDate}&endDate=${endDate}`)
 						.then((response) => response.json())
 						.then((data) => {
+							console.log(data);
 							const values = data.chart.result[0].indicators.quote[0];
 							// Assuming your data from the backend is an array of values for each date
 
