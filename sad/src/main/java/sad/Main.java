@@ -1,9 +1,15 @@
 package sad;
 
+import de.neuland.jade4j.JadeConfiguration;
+import de.neuland.jade4j.exceptions.JadeCompilerException;
+import de.neuland.jade4j.template.JadeTemplate;
+import io.javalin.Javalin;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import io.javalin.Javalin;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 import sad.CoreManagementSystem.Database;
 import sad.Customer_Manager.Customer;
 import sad.StocksInfo_Manager.Stocks;
@@ -12,16 +18,14 @@ public class Main {
 
   public static void main(String[] args) {
     Stocks stocksManager = new Stocks();
-    Database databaseManager = new Database();
     Database.usersList.add(new Customer("a", "a"));
-    
-
+    Database databaseManager = new Database();
 
     // Create a new Javalin instance
     Javalin app = Javalin
       .create(config -> {
         // Specify the directory to serve static files from
-        String resourcePath = getResourcePath();
+        String resourcePath = "/resources";
         config.staticFiles.add(resourcePath);
 
         // Specify the location of CSS and JavaScript files
@@ -31,10 +35,37 @@ public class Main {
       .start(3001);
 
     // Define a route to handle the button click
-    app.get("/", ctx -> ctx.html(getFileContent("index.html")));
-    app.get("/login", ctx -> ctx.html(getFileContent("login.html")));
-    app.get("/portfolio", ctx -> ctx.html(getFileContent("portfolio.html")));
-    app.get("/about", ctx -> ctx.html(getFileContent("about.html")));
+    app.get(
+      "/",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("index.pug"));
+      }
+    );
+
+    app.get(
+      "/login",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("login.pug"));
+      }
+    );
+
+    app.get(
+      "/stocks",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("stocks.pug"));
+      }
+    );
+
+    app.get(
+      "/about",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("about.pug"));
+      }
+    );
 
     app.get(
       "/fetchedStocks",
@@ -43,8 +74,6 @@ public class Main {
         String name = ctx.queryParam("name");
         String startDate = ctx.queryParam("startDate");
         String endDate = ctx.queryParam("endDate");
-
-      
 
         String test = stocksManager.StocksInfo(name);
 
@@ -74,12 +103,23 @@ public class Main {
   // Method to read file content as a String
   private static String getFileContent(String fileName) {
     try {
-      // Obtain the absolute path to the resources directory within the java directory
-      String resourceDir = Paths
-        .get("src", "main", "java", "resources")
-        .toString();
-      // Read the file content using the absolute path
-      return new String(Files.readAllBytes(Paths.get(resourceDir, fileName)));
+      // Construct the path to the file in the resources directory
+      String resourcePath = "src/main/resources/" + fileName;
+      File file = new File(resourcePath); // Create a File object using the resource path
+      if (!file.exists()) {
+        System.out.println("File not found: " + resourcePath);
+        return "Error loading file";
+      }
+
+      JadeConfiguration config = new JadeConfiguration();
+      config.setPrettyPrint(true); // Optional: Makes the generated HTML readable
+
+      // Load the Pug template file
+      JadeTemplate template = config.getTemplate(file.getAbsolutePath());
+
+      // Render the template with an empty model (if no model is needed)
+      Map<String, Object> model = new HashMap<>();
+      return config.renderTemplate(template, model); // Render Pug template
     } catch (Exception e) {
       e.printStackTrace();
       return "Error loading file";

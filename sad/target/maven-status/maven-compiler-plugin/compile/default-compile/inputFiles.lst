@@ -1,20 +1,20 @@
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\ILogin.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph_Manager\Graph.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\INotifications.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\StocksInfo_Manager\IGetStocks.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Notifications.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Portfolio.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\StocksInfo_Manager\Stocks.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Watchlist.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\IPortfolio.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\ICustomer.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\Login.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\Database.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\IRetrieveData.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph_Manager\IRetrieveGraph.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\IWatchlist.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\IAddCompany.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Customer.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\IObatainSharePrice.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\ICustomerMgt.java
-C:\Users\Vaile\OneDrive - University of Roehampton\SAD\Actual_Coursework\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Main.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\StocksInfo_Manager\Stocks.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\IWatchlist.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\IRetrieveData.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\StocksInfo_Manager\IGetStocks.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Main.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\ILogin.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\IAddCompany.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Customer.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Watchlist.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\Login.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph_Manager\IRetrieveGraph.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\ICustomer.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\INotifications.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Portfolio.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\IPortfolio.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\ICustomerMgt.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\Database.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\CoreManagementSystem\IObatainSharePrice.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph_Manager\Graph.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Customer_Manager\Notifications.java
