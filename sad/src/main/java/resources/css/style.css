@@ -1,0 +1,271 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-family: 'Montserrat', sans-serif;
+	color: #222;
+	font-size: 10px;
+	--loginStatus: none;
+	--iconPosition: -3.5rem;
+	--navBcg: rgba(0, 0, 0, 0.65);
+	--itemBcg: rgba(0, 0, 0, 0.3);
+	--bRadius: 20px;
+	--defaultColor: #ffa500;
+	--shadowAlpha1: 0.3;
+	--shadowAlpha2: 0.22;
+	--shadowColor1: rgba(255, 165, 0, 0.3);
+	--shadowColor2: rgba(255, 165, 0, 0.22);
+	--activeBoxShadow: var(--shadowColor1) 0px 19px 38px, var(--shadowColor2) 0px 15px 12px;
+	--activeTxtShadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+}
+
+body {
+	min-height: 120vh;
+	background-color: whitesmoke;
+}
+
+img {
+	top: 2rem;
+	left: 4rem;
+}
+
+.nav {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: var(--navBcg);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	box-shadow: var(--activeBoxShadow);
+	border-bottom-left-radius: var(--bRadius);
+	border-bottom-right-radius: var(--bRadius);
+	z-index: 2;
+}
+.nav ul {
+	margin: 0 0 0 auto;
+	display: flex;
+	justify-content: right;
+	list-style: none;
+}
+
+.nav ul li {
+	position: relative;
+	min-width: 50px;
+	overflow: hidden;
+}
+
+a,
+.wrench {
+	display: block;
+	cursor: pointer;
+	height: 6rem;
+	margin: 0 2rem;
+	line-height: 6rem;
+	font-size: 2rem;
+	text-decoration: none;
+	color: whitesmoke;
+	transition: 0.2s ease-in-out;
+}
+.nav a::after {
+	content: '';
+	width: calc(100% - var(--iconPosition));
+	height: 3px;
+	position: absolute;
+	left: calc(-100% + var(--iconPosition));
+	bottom: 0;
+	background-color: var(--defaultColor);
+	transition: 0.2s ease-in-out;
+	z-index: 1;
+}
+
+.nav ul i {
+	display: inline-block;
+	margin-right: 1.5rem;
+	left: var(--iconPosition);
+	/* vertical-align: 2px; */
+	font-size: 2.2rem;
+}
+
+a:hover,
+li:hover {
+	color: var(--defaultColor);
+}
+.nav a:hover:not(.active)::after {
+	left: 0;
+}
+
+.nav .wrench {
+	width: 50px;
+	padding: 0;
+	transition: 0.3s ease-in-out;
+	overflow: visible;
+}
+
+.colorSettingsList {
+	max-height: 0;
+	width: 80px;
+	position: absolute;
+	top: 100%;
+	left: -33%;
+	background-color: var(--itemBcg);
+	overflow: hidden;
+	transition: 0.3s ease-in-out;
+}
+.wrench:hover .colorSettingsList {
+	max-height: 6rem;
+}
+.settings {
+	line-height: 4rem;
+	margin: 0 auto;
+}
+.settings input {
+	width: 30px;
+	border: none;
+	outline: none;
+	background-color: transparent;
+}
+.nav .wrench i {
+	margin: 0;
+}
+
+header {
+	max-width: 2560px;
+	margin: 0 auto;
+	position: relative;
+	padding-bottom: 5vh;
+	min-height: 95vh;
+	background-image: url('/bg.jpg');
+	background-attachment: fixed;
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	border-bottom-left-radius: var(--bRadius);
+	border-bottom-right-radius: var(--bRadius);
+	box-shadow: var(--activeBoxShadow);
+}
+header > * {
+	position: absolute;
+}
+header > h1 {
+	top: 50%;
+	padding: 1rem;
+	background-color: var(--itemBcg);
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 5rem;
+	letter-spacing: 1px;
+	color: whitesmoke;
+}
+button {
+	bottom: 15vh;
+	right: 8rem;
+	padding: 1rem 3rem;
+	background-color: var(--itemBcg);
+	color: white;
+	font-size: 4rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	border: 3px solid white;
+	border-radius: calc(var(--bRadius) / 2);
+	cursor: pointer;
+	transition: 0.3s ease-in-out;
+	overflow: hidden;
+}
+button:hover {
+	color: var(--defaultColor);
+	background-color: rgba(0, 0, 0, 0.5);
+	box-shadow: var(--activeBoxShadow);
+}
+section {
+	max-width: 1560px;
+	width: 65%;
+	margin: 10vh auto 0;
+}
+section p {
+	font-size: 1.8rem;
+	text-align: center;
+	line-height: 150%;
+	text-indent: 2rem;
+}
+a {
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+	text-align: center;
+	transition: 0.3s ease-in-out;
+}
+a.active {
+	color: var(--defaultColor);
+	text-shadow: var(--activeTxtShadow);
+}
+.loginBox a {
+	border-bottom: 1px solid var(--defaultColor);
+	height: 4.5rem;
+}
+
+.stocksElement {
+	display: var(--loginStatus);
+}
+
+@media (max-width: 915px) and (orientation: landscape) {
+	header h1 {
+		font-size: 2.6rem;
+	}
+	header button {
+		bottom: 3rem;
+		right: 4rem;
+		font-size: 2rem;
+	}
+}
+@media (max-width: 533px) and (orientation: landscape) {
+	header h1 {
+		font-size: 2rem;
+	}
+	header button {
+		border-width: 2px;
+		bottom: 3rem;
+		right: 4rem;
+		font-size: 1.5rem;
+	}
+	section p {
+		font-size: 1.2rem;
+	}
+}
+@media (max-width: 430px) and (orientation: portrait) {
+	header h1 {
+		top: 35%;
+		padding: 2rem 6rem;
+		font-size: 3rem;
+		line-height: 180%;
+	}
+	header button {
+		width: 80%;
+		right: 10%;
+		font-size: 1.8rem;
+	}
+	section p {
+		font-size: 1.2rem;
+	}
+}
+@media (max-width: 375px) and (orientation: portrait) {
+	header h1 {
+		top: 35%;
+		padding: 2rem 6rem;
+		font-size: 3rem;
+		line-height: 180%;
+	}
+	header button {
+		width: 80%;
+		right: 10%;
+		font-size: 1.8rem;
+	}
+	section p {
+		font-size: 1.2rem;
+	}
+}
