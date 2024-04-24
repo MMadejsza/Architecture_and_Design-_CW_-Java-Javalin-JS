@@ -15,18 +15,21 @@ html(lang="en")
         link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap", rel="stylesheet")        
         link(rel="stylesheet", type="text/css", href="./style.css")
+
+        link(rel="stylesheet", type="text/css", href="./stocks.css")
+
     body
         nav.nav
             ul
                 li
-                    a.active(href="/") 
+                    a(href="/") 
                         i.fas.fa-home 
                         | Home
                 li
                     a(href="./login")
                         i.fas.fa-user
                         | Login
-                li.stocksElement
+                li.stocksElement.active
                     a(href="./stocks")
                         i.fas.fa-search-dollar
                         | Stocks
@@ -35,23 +38,21 @@ html(lang="en")
                         i.far.fa-copyright
                         | About
                 li.wrench.stocksElement
-                    i.fas.fa-wrench
-                    ul.colorSettingsList
-                        li.settings
-                            input(type="color", id="inputColor")
-        block content                        
-            header
-                h1 Your stock Management System!
-                button.accessBtn
-                    a(href="/login") Access it!
-            section
-                    p
-                        | Welcome to our Stock Management System web application! Seamlessly manage your
-                        | inventory with ease and efficiency. With intuitive features and a user-friendly
-                        | interface, you can track stocks, update inventory levels, and analyze sales data
-                        | effortlessly. Stay organized and in control of your business operations. Experience
-                        | the power of streamlined stock management today!
+                  i.fas.fa-wrench
+                  ul.colorSettingsList
+                    li.settings
+                      input(type="color", id="inputColor")
+        block content
+         header
+          .main.contentBox
+            .addCompanyBox
+                | Add a company
+                input.addInput(type="text", placeholder="Company Yahoo Code")
+
                         
         script(src="https://kit.fontawesome.com/4622d99ad4.js", crossorigin="anonymous")
         script(src="./app.js")
         
+        script(src="https://cdn.jsdelivr.net/npm/chart.js") 
+        script(src="./stocks.js")
+

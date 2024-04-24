@@ -15,12 +15,11 @@ html(lang="en")
         link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap", rel="stylesheet")        
         link(rel="stylesheet", type="text/css", href="./style.css")
-        block headerLinks
     body
         nav.nav
             ul
                 li
-                    a.active(href="#") 
+                    a.active(href="/") 
                         i.fas.fa-home 
                         | Home
                 li
@@ -28,7 +27,7 @@ html(lang="en")
                         i.fas.fa-user
                         | Login
                 li.stocksElement
-                    a(href="./portfolio")
+                    a(href="./stocks")
                         i.fas.fa-search-dollar
                         | Stocks
                 li
@@ -37,9 +36,9 @@ html(lang="en")
                         | About
                 li.wrench.stocksElement
                     i.fas.fa-wrench
-                        ul.colorSettingsList
-                            li.settings
-                                input(type="color", id="inputColor")
+                    ul.colorSettingsList
+                        li.settings
+                            input(type="color", id="inputColor")
         block content                        
             header
                 h1 Your stock Management System!
@@ -56,4 +55,3 @@ html(lang="en")
         script(src="https://kit.fontawesome.com/4622d99ad4.js", crossorigin="anonymous")
         script(src="./app.js")
         
-        block extraScripts

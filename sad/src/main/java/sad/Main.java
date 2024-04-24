@@ -23,6 +23,7 @@ public class Main {
     Stocks stocksManager = new Stocks();
     Database.usersList.add(new Customer("a", "a"));
     Database databaseManager = new Database();
+
     // Create a new Javalin instance
     Javalin app = Javalin
       .create(config -> {
@@ -52,8 +53,22 @@ public class Main {
         ctx.result(getFileContent("login.pug"));
       }
     );
-    // app.get("/portfolio", ctx -> ctx.result(getFileContent("portfolio.pug")));
-    // app.get("/about", ctx -> ctx.result(getFileContent("about.pug")));
+
+    app.get(
+      "/stocks",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("stocks.pug"));
+      }
+    );
+
+    app.get(
+      "/about",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("about.pug"));
+      }
+    );
 
     app.get(
       "/fetchedStocks",
