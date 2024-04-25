@@ -3,8 +3,39 @@ document.addEventListener('DOMContentLoaded', function () {
 	const portfolio = document.querySelector('.contentBox');
 	const addInput = document.querySelector('.addInput');
 
+	// Create a new Date object representing the current date
+	const currentDate = new Date();
+	const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
+
+	// Set the date two years from now
+	const dateTwoYearsBefore = new Date(currentDate);
+	dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
+
+	// Format the date components into a human-readable string
+	const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
+
+	// Generate label for each date in a range
+	const getDaysArray = function (
+		start = formattedCurrentDate,
+		end = formattedDateTwoYearsBefore,
+	) {
+		console.log('start', start);
+		console.log('end', end);
+		let arr = [];
+		for (let dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
+			let readyDate = new Date(dt).toLocaleDateString();
+			arr.push(readyDate);
+		}
+		return arr;
+	};
+
 	// CHART generator util
-	const generateChart = (chartID, name, startDate = '2022-02-01', endDate = '2024-12-01') => {
+	const generateChart = (
+		chartID,
+		name,
+		startDate = formattedDateTwoYearsBefore,
+		endDate = formattedCurrentDate,
+	) => {
 		// Catch defaultColor
 		const baseColor = getComputedStyle(document.documentElement).getPropertyValue(
 			'--defaultColor',
@@ -15,36 +46,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		const existingChart = Chart.getChart(chartID);
 		if (existingChart) existingChart.destroy();
 
-		// Generate label for each date in a range
-		const getDaysArray = function () {
-			let arr = [];
-			for (
-				let dt = new Date(startDate);
-				dt <= new Date(endDate);
-				dt.setDate(dt.getDate() + 1)
-			) {
-				let readyDate = new Date(dt).toLocaleDateString();
-				arr.push(readyDate);
-			}
-			return arr;
-		};
-
 		// Draw graph after fetching data from Java backend
+
 		fetch(`/fetchedStocks?name=${name}&startDate=${startDate}&endDate=${endDate}`)
 			.then((response) => response.json())
 			.then((data) => {
+				// return (values = data.chart.result[0].indicators.quote[0]);
 				console.log(data);
-				const values = data.chart.result[0].indicators.quote[0];
-				// Assuming your data from the backend is an array of values for each date
+				const chartValues = data.chart.result[0].indicators.quote[0];
+				const chartFullName = data.chart.result[0].meta.fullExchangeName;
 
-				const newChart = new Chart(ctx, {
+				return (chart = new Chart(ctx, {
 					type: 'line',
 					data: {
-						labels: getDaysArray(),
+						labels: getDaysArray(startDate, endDate),
 						datasets: [
 							{
 								label: name,
-								data: [...values.open], // Use fetched data here
+								data: [...chartValues.open],
 								fill: false,
 								borderColor: baseColor,
 								tension: 0.1,
@@ -58,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							},
 						},
 					},
-				});
+				}));
 			})
 			.catch((error) => console.error('Error fetching data:', error));
 	};
@@ -77,7 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	// -------------------- ADD COMPANY INPUT ---------------------------
 	addInput.addEventListener('change', (e) => {
 		// Util value catching
-		const stockName = e.target.value;
+		const stockName = e.target.value.toUpperCase();
+		let chart;
 
 		// Util function for creating elements
 		const createEl = (el, attributes) => {
@@ -132,6 +152,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				e.target.value,
 				otherInputVal ? otherInputVal : undefined,
 			);
+			// chart.data.labels = getDaysArray(e.target.value, otherInputVal);
+			// chart.update();
 		});
 
 		// Input END
@@ -146,12 +168,22 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 		});
 
+		const compareWith = createEl('input', {
+			class: 'compareWithInput',
+			placeholder: 'Compare With',
+		});
+
+		compareWith.addEventListener('input', (e) => {
+			canvas.datasets.push;
+		});
+
 		// ASSEMBLE the graphBox
 		graphLabel.appendChild(inputStart);
 		graphLabel.appendChild(graphLabelName);
 		graphLabel.appendChild(inputEnd);
 
 		graph.appendChild(canvas);
+		graph.appendChild(compareWith);
 
 		graphBox.appendChild(button);
 		graphBox.appendChild(graph);
@@ -163,13 +195,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		portfolio.insertBefore(graphBox, portfolio.firstChild);
 
 		// Generate Graph with default dates
-		generateChart(`myChart${stockName}`, stockName);
+		chart = generateChart(`myChart${stockName}`, stockName);
 
 		// Check and change layout depended on amount of graphs
 		changeGrid();
 
 		// Clear input
 		e.target.value = '';
+
+		console.log(chart);
 	});
 
 	// Initial check and change layout depended on amount of graphs
