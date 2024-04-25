@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					setCookie('logged', 'true', 1);
 					checkFromCookies();
 					nameInput.value = passwordInput.value = '';
+					window.location.href = '/stocks';
 				} else {
 					setCookie('logged', 'false', 1);
 					setCookie('defaultColor', '#ffa500', 1);
