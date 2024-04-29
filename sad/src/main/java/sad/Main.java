@@ -54,6 +54,20 @@ public class Main {
         ctx.result(getFileContent("stocks.pug"));
       }
     );
+    app.get(
+      "/watchList",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("watchList.pug"));
+      }
+    );
+    app.get(
+      "/portfolio",
+      ctx -> {
+        ctx.contentType("text/html"); // Set content type to HTML
+        ctx.result(getFileContent("portfolio.pug"));
+      }
+    );
 
     app.get(
       "/about",
