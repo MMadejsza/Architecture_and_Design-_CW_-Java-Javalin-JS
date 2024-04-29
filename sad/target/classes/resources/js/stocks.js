@@ -3,53 +3,67 @@ document.addEventListener('DOMContentLoaded', function () {
 	const portfolio = document.querySelector('.contentBox');
 	const addInput = document.querySelector('.addInput');
 
+	// Create a new Date object representing the current date
+	const currentDate = new Date();
+	const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
+
+	// Set the date two years from now
+	const dateTwoYearsBefore = new Date(currentDate);
+	dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
+
+	// Format the date components into a human-readable string
+	const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
+
+	// Generate label for each date in a range
+	const getDaysArray = function (
+		start = formattedCurrentDate,
+		end = formattedDateTwoYearsBefore,
+	) {
+		console.log('start', start);
+		console.log('end', end);
+		let arr = [];
+		for (let dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
+			let readyDate = new Date(dt).toLocaleDateString();
+			arr.push(readyDate);
+		}
+		return arr;
+	};
+
 	// CHART generator util
-	const generateChart = (name, startDate = '2022-02-01', endDate = '2024-12-01') => {
+	const generateChart = (
+		chartID,
+		name,
+		startDate = formattedDateTwoYearsBefore,
+		endDate = formattedCurrentDate,
+	) => {
 		// Catch defaultColor
 		const baseColor = getComputedStyle(document.documentElement).getPropertyValue(
 			'--defaultColor',
 		);
 		// Catch container
-		const ctx = document.getElementById('myChart');
+		const ctx = document.getElementById(chartID);
 		// Destroy existing chart if it exists
-		const existingChart = Chart.getChart('myChart');
+		const existingChart = Chart.getChart(chartID);
 		if (existingChart) existingChart.destroy();
 
-		// Generate label for each date in a range
-		const getDaysArray = function () {
-			let arr = [];
-			for (
-				let dt = new Date(startDate);
-				dt <= new Date(endDate);
-				dt.setDate(dt.getDate() + 1)
-			) {
-				let readyDate = new Date(dt).toLocaleDateString();
-				arr.push(readyDate);
-			}
-			return arr;
-		};
-
 		// Draw graph after fetching data from Java backend
+
 		fetch(`/fetchedStocks?name=${name}&startDate=${startDate}&endDate=${endDate}`)
 			.then((response) => response.json())
 			.then((data) => {
+				// return (values = data.chart.result[0].indicators.quote[0]);
 				console.log(data);
-				const values = data.chart.result[0].indicators.quote[0];
-				// Assuming your data from the backend is an array of values for each date
+				const chartValues = data.chart.result[0].indicators.quote[0];
+				const chartFullName = data.chart.result[0].meta.fullExchangeName;
 
-				const newChart = new Chart(ctx, {
+				return (chart = new Chart(ctx, {
 					type: 'line',
 					data: {
-						labels: getDaysArray(),
+						labels: getDaysArray(startDate, endDate),
 						datasets: [
 							{
 								label: name,
-								data: [
-									...values.close,
-									...values.high,
-									...values.low,
-									...values.open,
-								], // Use fetched data here
+								data: [...chartValues.open],
 								fill: false,
 								borderColor: baseColor,
 								tension: 0.1,
@@ -63,55 +77,9 @@ document.addEventListener('DOMContentLoaded', function () {
 							},
 						},
 					},
-				});
+				}));
 			})
 			.catch((error) => console.error('Error fetching data:', error));
-	};
-
-	// DELETE BTNS
-	const serveDeleteBtns = () => {
-		// fetch buttons
-		const deleteBtns = document.querySelectorAll('.delete');
-
-		// add listener
-		[...deleteBtns].forEach((deleteBtn) =>
-			deleteBtn.addEventListener('click', (e) => {
-				const parentGraphBox = deleteBtn.closest('.graphBox');
-				parentGraphBox.remove();
-			}),
-		);
-	};
-
-	// DATE INPUTS
-	const serveDateInputs = () => {
-		// catch all date inputs
-		const dateInputs = document.querySelectorAll("input[type='date']");
-
-		// loop over adding listener depending on edge date
-		[...dateInputs].forEach((input) => {
-			const chartLabelEl = input.closest('.graph-label');
-			const chartName = chartLabelEl.querySelector('h2').textContent;
-
-			if (input.className == 'startDateInput') {
-				input.addEventListener('input', (e) => {
-					const otherInputVal = chartLabelEl.querySelector('.endDateInput').value;
-					generateChart(
-						chartName,
-						e.target.value,
-						otherInputVal ? otherInputVal : undefined,
-					);
-				});
-			} else if (input.className == 'endDateInput') {
-				input.addEventListener('input', (e) => {
-					const otherInputVal = chartLabelEl.querySelector('.startDateInput').value;
-					generateChart(
-						chartName,
-						otherInputVal ? otherInputVal : undefined,
-						e.target.value,
-					);
-				});
-			}
-		});
 	};
 
 	// APP LAYOUT CHANGE ON DELETION
@@ -125,44 +93,146 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 	};
 
-	// RELINKING ON CONTENT CHANGE
-	const linkActions = () => {
-		changeGrid();
-		serveDeleteBtns();
-		serveDateInputs();
+	// -------------------- ADD COMPANY INPUT ---------------------------
+	const addBookmark = () => {
+		console.log(`bookmark triggered`);
 	};
+	const inputAddFunction = (e, startStockName) => {
+		// Util value catching
+		const stockName = startStockName || e.target.value.toUpperCase();
+		console.log(stockName);
+		let chart;
 
-	// ADD COMPANY
-	addInput.addEventListener('change', (e) => {
+		// Util function for creating elements
+		const createEl = (el, attributes) => {
+			const element = document.createElement(el);
+			for (var key in attributes) {
+				element.setAttribute(key, attributes[key]);
+			}
+			return element;
+		};
+
 		// Create graphBox element
-		const graphBox = document.createElement('div');
-		// Add matching in css class
-		graphBox.setAttribute('class', 'graphBox');
+		const graphBox = createEl('div', {class: 'graphBox'});
 
-		// Create graphBox inner structure/content
-		graphBox.innerHTML = `<button class="delete">X</button>
-		<div class="graph">
-			<canvas id="myChart" width="100%">
-			</div>
-		<div class="graph-label">
-			<input class = "startDateInput" type="date" />
-			<h2 class = "graph-label-name">${e.target.value}</h2>
-			<input class = "endDateInput" type="date" />
-		</div>`;
+		//----------- Create graphBox inner structure/content---------------
+
+		// graphBox.innerHTML = `<button class="delete">X</button>
+		// <div class="graph">
+		// 	<canvas id="myChart" width="100%">
+		// </div>
+		// <div class="graph-label">
+		// 	<input class = "startDateInput" type="date" />
+		// 	<h2 class = "graph-label-name">${e.target.value}</h2>
+		// 	<input class = "endDateInput" type="date" />
+		// </div>`;
+
+		// Container for graph buttons
+		const graphButtons = createEl('div', {class: 'graphButtons'});
+
+		// Btn create
+		const X = createEl('div', {class: 'delete'});
+		X.innerText = 'X';
+		// Btn addEventListener
+		X.addEventListener('click', () => {
+			graphBox.remove();
+		});
+
+		// Bookmark create
+		const bookmark = createEl('div', {class: 'bookmark'});
+		bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
+		// Btn addEventListener
+		bookmark.addEventListener('click', () => {
+			addBookmark();
+		});
+
+		// Graph container create
+		const graph = createEl('div', {class: 'graph'});
+
+		// Unique Id for each chart for further actions on it
+		const canvas = createEl('canvas', {width: '100%', id: `myChart${stockName}`});
+
+		// Graph label structure create
+		const graphLabel = createEl('div', {class: 'graph-label'});
+		const graphLabelName = createEl('h2', {class: 'graph-label-name'});
+		graphLabelName.innerText = stockName;
+
+		// Input START
+		const inputStart = createEl('input', {type: 'date', class: 'startDateInput'});
+		inputStart.addEventListener('input', (e) => {
+			const otherInputVal = inputEnd.value;
+			generateChart(
+				`myChart${stockName}`,
+				stockName,
+				e.target.value,
+				otherInputVal ? otherInputVal : undefined,
+			);
+			// chart.data.labels = getDaysArray(e.target.value, otherInputVal);
+			// chart.update();
+		});
+
+		// Input END
+		const inputEnd = createEl('input', {type: 'date', class: 'endDateInput'});
+		inputEnd.addEventListener('input', (e) => {
+			const otherInputVal = inputStart.value;
+			generateChart(
+				`myChart${stockName}`,
+				stockName,
+				otherInputVal ? otherInputVal : undefined,
+				e.target.value,
+			);
+		});
+
+		const compareWith = createEl('input', {
+			class: 'compareWithInput',
+			placeholder: 'Compare With',
+		});
+
+		compareWith.addEventListener('input', (e) => {
+			canvas.datasets.push;
+		});
+
+		// ASSEMBLE the graphBox
+		graphLabel.appendChild(inputStart);
+		graphLabel.appendChild(graphLabelName);
+		graphLabel.appendChild(inputEnd);
+
+		graph.appendChild(canvas);
+		graph.appendChild(compareWith);
+
+		graphButtons.appendChild(X);
+		graphButtons.appendChild(bookmark);
+		graphBox.appendChild(graphButtons);
+		graphBox.appendChild(graph);
+		graphBox.appendChild(graphLabel);
+
+		//----------- END Create graphBox inner structure/content---------------
 
 		// Insert as first child
 		portfolio.insertBefore(graphBox, portfolio.firstChild);
 
-		// Generate Initial Graph
-		generateChart(e.target.value);
+		// Generate Graph with default dates
+		chart = generateChart(`myChart${stockName}`, stockName);
 
-		// Linking all buttons and inputs
-		linkActions();
+		// Check and change layout depended on amount of graphs
+		changeGrid();
 
 		// Clear input
-		e.target.value = '';
+		if (e) {
+			e.target.value = '';
+		}
+
+		console.log(chart);
+	};
+
+	addInput.addEventListener('change', (e) => {
+		inputAddFunction(e);
 	});
 
-	// Initial linking on loaded initial content
-	linkActions();
+	// Initial check and change layout depended on amount of graphs
+	changeGrid();
+	inputAddFunction('', 'aapl');
+	inputAddFunction('', 'tsla');
+	inputAddFunction('', 'dpz');
+	inputAddFunction('', 'goog');
 });

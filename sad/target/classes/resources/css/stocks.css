@@ -27,8 +27,8 @@ header > * {
 	gap: 2.5rem;
 	/* grid-template-columns: minmax(400px, 800px) minmax(400px, 800px); */
 	grid-template-columns: repeat(auto-fill, minmax(560px, 600px));
-	grid-template-rows: 8rem;
-	grid-auto-rows: minmax(225px, 400px);
+	grid-template-rows: 14rem;
+	grid-auto-rows: minmax(225px, 1fr);
 }
 .addCompanyBox {
 	height: 100%;
@@ -57,15 +57,22 @@ header > * {
 	justify-content: space-evenly;
 	align-items: center;
 }
-.delete {
+.graphButtons {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 3.5rem;
-	height: 3.5rem;
 	margin: 1rem;
 	padding: 0.1rem;
 	font-size: 2.8rem;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.graphButtons * {
+	width: 3.5rem;
+	height: 3.5rem;
 	line-height: 3.5rem;
 	text-align: center;
 	color: var(--defaultColor);
@@ -74,7 +81,12 @@ header > * {
 	border: none;
 }
 
-.delete:hover {
+.bookmark {
+	margin-top: 1rem;
+}
+
+.delete:hover,
+.bookmark:hover {
 	cursor: pointer;
 	text-shadow: 0 0 7px var(--defaultColor), 0 0 10px var(--defaultColor), 0 0 21px #fff,
 		0 0 42px var(--defaultColor), 0 0 82px var(--defaultColor), 0 0 92px var(--defaultColor),
@@ -82,7 +94,10 @@ header > * {
 }
 .graph {
 	width: 95%;
-	height: 85%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
 	background-color: black;
 	opacity: 0.8;
 }

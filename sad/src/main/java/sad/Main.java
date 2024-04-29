@@ -1,20 +1,13 @@
 package sad;
 
 import de.neuland.jade4j.JadeConfiguration;
-import de.neuland.jade4j.exceptions.JadeCompilerException;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.javalin.Javalin;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import sad.CoreManagementSystem.Database;
-import sad.CoreManagementSystem.IRetrieveData;
 import sad.Customer_Manager.Customer;
-import sad.Graph_Manager.Graph;
-import sad.Graph_Manager.IRetrieveGraph;
 import sad.StocksInfo_Manager.Stocks;
 
 public class Main {
@@ -77,10 +70,8 @@ public class Main {
         String name = ctx.queryParam("name");
         String startDate = ctx.queryParam("startDate");
         String endDate = ctx.queryParam("endDate");
-        // Sample data
 
-        //Make the function selfcontaining, and when the stock is called produce the data
-        String test = stocksManager.StocksInfo("AAPL");
+        String test = stocksManager.StocksInfo(name);
 
         ctx.contentType("application/json").result(test);
       }
