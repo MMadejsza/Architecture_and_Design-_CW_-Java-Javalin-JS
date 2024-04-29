@@ -17,6 +17,7 @@ html(lang="en")
         link(rel="stylesheet", type="text/css", href="./style.css")
 
         link(rel="stylesheet", type="text/css", href="./stocks.css")
+        link(rel="stylesheet", type="text/css", href="./portfolio.css")
 
     body
         nav.nav
@@ -54,10 +55,35 @@ html(lang="en")
          header
           .main.contentBox
             .addCompanyBox
-                | Add a company
-                input.addInput(type="text", placeholder="Company Yahoo Code")
-                h3
-                    a(href="https://finance.yahoo.com/lookup/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAABBTqAPaPbYohBd_OXyvFUgQn_RPAX75WwhSNCVvMdkQKKqLZGK8RmLXDCcwI11-0BNbh5Cog1gKoKNQv6E0KZLwfAaimZ2yyoOWZjprFgGxkz8SsNQG4JSLPhIMzsMER-Sbm7uPvoL2CABSbMNtjW5qRmhkTFFybrgYpl4gapXG", target="_blank") From here
+                h2 Your portfolio!
+                div 
+                    i.fas.fa-coins
+                    | Money left: 
+            table
+                tr 
+                    th Stock Name
+                    th Amount
+                    th Current Price
+                    th Total Value
+                tr 
+                    
+                    td Dummy1 
+                    td 100
+                    td 1.45
+                    td 351521
+                tr 
+                    
+                    td Dummy2 
+                    td 200
+                    td 1.45
+                    td 351121521
+                tr 
+                    
+                    td Dummy3 
+                    td 300
+                    td 23
+                    td 35176979.34
+                    
 
                         
         script(src="https://kit.fontawesome.com/4622d99ad4.js", crossorigin="anonymous")
