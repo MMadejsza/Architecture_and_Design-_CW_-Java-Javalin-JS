@@ -17,6 +17,7 @@ html(lang="en")
         link(rel="stylesheet", type="text/css", href="./style.css")
 
         link(rel="stylesheet", type="text/css", href="./stocks.css")
+        link(rel="stylesheet", type="text/css", href="./watchList.css")
 
     body
         nav.nav
@@ -30,11 +31,11 @@ html(lang="en")
                         i.fas.fa-user
                         | Login
                 li.loginDepended
-                    a.active(href="./stocks")
+                    a(href="./stocks")
                         i.fas.fa-search-dollar
                         | Stocks
                 li.loginDepended
-                    a(href="./watchList")
+                    a.active(href="./watchList")
                         i.far.fa-eye
                         | Watch List
                 li.loginDepended
@@ -53,11 +54,7 @@ html(lang="en")
         block content
          header
           .main.contentBox
-            .addCompanyBox
-                | Add a company
-                input.addInput(type="text", placeholder="Company Yahoo Code")
-                h3
-                    a(href="https://finance.yahoo.com/lookup/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAABBTqAPaPbYohBd_OXyvFUgQn_RPAX75WwhSNCVvMdkQKKqLZGK8RmLXDCcwI11-0BNbh5Cog1gKoKNQv6E0KZLwfAaimZ2yyoOWZjprFgGxkz8SsNQG4JSLPhIMzsMER-Sbm7uPvoL2CABSbMNtjW5qRmhkTFFybrgYpl4gapXG", target="_blank") From here
+            
 
                         
         script(src="https://kit.fontawesome.com/4622d99ad4.js", crossorigin="anonymous")
@@ -65,4 +62,5 @@ html(lang="en")
         
         script(src="https://cdn.jsdelivr.net/npm/chart.js") 
         script(src="./stocks.js")
+        script(src="./watchList.js")
 

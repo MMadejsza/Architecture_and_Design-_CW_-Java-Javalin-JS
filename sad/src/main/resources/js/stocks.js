@@ -92,8 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 	};
 
-	// -------------------- ADD COMPANY INPUT ---------------------------
-	const GetWatchListArray = () => {
+	const getWatchListArray = () => {
 		const watchList = getCookie('bookmarked');
 		if (watchList) {
 			const watchListArray = watchList.split(',');
@@ -102,10 +101,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			return [];
 		}
 	};
+
 	const addBookmark = (stockName) => {
 		// if some bookmark already exists(not null)
-		if (GetWatchListArray()) {
-			const watchListArray = GetWatchListArray();
+		if (getWatchListArray()) {
+			const watchListArray = getWatchListArray();
+			console.log(`stocks watchListArray: ${watchListArray}`);
 			const stockNamePosition = watchListArray.indexOf(stockName);
 			// if clicked graph isn't bookmarked
 			if (stockNamePosition == -1) {
@@ -122,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		console.log('bookmarked', getCookie('bookmarked'));
 	};
+	// -------------------- ADD COMPANY INPUT ---------------------------
 
 	const inputAddFunction = (e, startStockName) => {
 		// Util value catching
@@ -167,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Bookmark create
 		const bookmark = createEl('div', {class: 'bookmark'});
 		bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
-		if (GetWatchListArray().indexOf(stockName) > -1) {
+		if (getWatchListArray().indexOf(stockName) > -1) {
 			bookmark.classList.add('ticked');
 		}
 		// Btn addEventListener
@@ -254,15 +256,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		console.log(chart);
 	};
-
-	addInput.addEventListener('change', (e) => {
-		inputAddFunction(e);
-	});
+	try {
+		addInput.addEventListener('change', (e) => {
+			inputAddFunction(e);
+		});
+	} catch (error) {
+		console.log(`No addInput`);
+	}
 
 	// Initial check and change layout depended on amount of graphs
 	changeGrid();
-	inputAddFunction('', 'aapl');
-	inputAddFunction('', 'tsla');
-	inputAddFunction('', 'dpz');
-	inputAddFunction('', 'goog');
+
+	// Initial demo graphs in stocks search
+	if (window.location.href == 'http://localhost:3001/stocks') {
+		inputAddFunction('', 'aapl');
+		inputAddFunction('', 'tsla');
+		inputAddFunction('', 'dpz');
+		inputAddFunction('', 'goog');
+	}
+
+	// fetch saved stock to display in Watch List
+	if (window.location.href == 'http://localhost:3001/watchList') {
+		const watchListArray = getWatchListArray();
+		console.log(`wtachlist watchList: ${getWatchListArray()}`);
+		watchListArray.forEach((stock) => {
+			inputAddFunction('', stock);
+		});
+	}
 });
