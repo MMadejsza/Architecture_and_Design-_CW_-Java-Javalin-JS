@@ -86,8 +86,8 @@ const changeGrid = () => {
 		);
 };
 
-const getWatchListArray = () => {
-	const watchList = getCookie('bookmarked');
+const getCookiesArray = (target) => {
+	const watchList = getCookie(target);
 	if (watchList) {
 		const watchListArray = watchList.split(',');
 		return watchListArray;
@@ -98,8 +98,8 @@ const getWatchListArray = () => {
 
 const addBookmark = (stockName) => {
 	// if some bookmark already exists(not null)
-	if (getWatchListArray()) {
-		const watchListArray = getWatchListArray();
+	if (getCookiesArray('bookmarked')) {
+		const watchListArray = getCookiesArray('bookmarked');
 		console.log(`stocks watchListArray: ${watchListArray}`);
 		const stockNamePosition = watchListArray.indexOf(stockName);
 		// if clicked graph isn't bookmarked
@@ -167,7 +167,7 @@ const inputAddFunction = (e, startStockName) => {
 	const bookmark = createEl('div', {class: 'bookmark'});
 	bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
 	// Toggle class to notify status
-	if (getWatchListArray().indexOf(stockName) > -1) {
+	if (getCookiesArray('bookmarked').indexOf(stockName) > -1) {
 		bookmark.classList.add('ticked');
 	}
 	// Bookmark addEventListener
@@ -291,8 +291,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Initial demo graphs in stocks search
 
-	inputAddFunction('', 'aapl');
-	inputAddFunction('', 'tsla');
-	inputAddFunction('', 'dpz');
-	inputAddFunction('', 'goog');
+	// inputAddFunction('', 'aapl');
+	// inputAddFunction('', 'tsla');
+	// inputAddFunction('', 'dpz');
+	// inputAddFunction('', 'goog');
 });
