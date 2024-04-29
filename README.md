@@ -6,31 +6,28 @@ Let us slightly introduce project and files workflow... :blush:
 
 ## :o: Files system structure:
 
-### :floppy_disk: Main directory
+### :floppy_disk: 'sad/src/main' - Main directory
+- Directory containing the core of our project
+  - Backand in /java/sad
+  - Frontend in /resources
 
--   Html starting point files eventually to delete in future sprints
--   Future starting files which need to be on top
+### :wrench: / Java
 
-### :tada: CSS directory
+-   Directory with all App driving backend code and components
 
--   All CSS modules and main CSS file unless in future sprints will be stated to use different technology
+### :tada: / Resources directory
 
-### :wrench: Java directory
+* All static files - frontend directory
 
--   App driving java files
+  * JS, CSS files, pug templates
 
 ### :mag_right: Documentation
 
--   All about the project
--   Specification
--   Graphic Model Representations
--   Code of Conduct
+- All about the project
+  - Graphic Model Representations
+  - Specification
+  - Code of Conduct
 
-### :camera: Assets
-
--   All the images and media files
-
-Execution:
-cd sad
-mvn clean install -X  
-mvn clean compile exec:java
+### :key: Execution:
+- [ ] cd sad
+- [ ] mvn clean install exec:java
