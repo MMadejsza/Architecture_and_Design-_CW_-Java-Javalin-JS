@@ -69,6 +69,7 @@ header > * {
 	justify-content: space-between;
 }
 .graphButtons div {
+	position: relative;
 	width: 3.5rem;
 	line-height: 3.5rem;
 	text-align: center;
@@ -76,6 +77,26 @@ header > * {
 	z-index: 2;
 	transition: 0.3s ease-in-out;
 	border: none;
+	opacity: 0.9;
+}
+
+.buyBtnInput,
+.sellBtnInput {
+	position: absolute;
+	width: 75px;
+	top: -0.3rem;
+	left: 0;
+	padding: 0 0.5rem;
+	opacity: 0;
+	z-index: -3;
+	transition: 0.3s;
+}
+
+.buyBtn:hover .buyBtnInput,
+.sellBtn:hover .sellBtnInput {
+	left: calc(100% + 1rem);
+	opacity: 1;
+	z-index: 1;
 }
 
 .ticked .far {
@@ -116,7 +137,7 @@ header input {
 	text-align: center;
 	border-radius: var(--bRadius);
 }
-.graphBox input:hover {
+.graph-label input:hover {
 	cursor: pointer;
 }
 header input:focus {

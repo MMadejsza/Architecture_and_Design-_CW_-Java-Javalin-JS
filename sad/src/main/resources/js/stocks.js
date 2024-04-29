@@ -182,12 +182,16 @@ document.addEventListener('DOMContentLoaded', function () {
 		// buyBtn create
 		const buyBtn = createEl('div', {class: 'buyBtn'});
 		buyBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
+		const buyBtnInput = createEl('input', {class: 'buyBtnInput', placeholder: 'Units'});
+		buyBtn.appendChild(buyBtnInput);
 		// buyBtn addEventListener
 		buyBtn.addEventListener('click', () => {});
 
 		// sellBtn create
 		const sellBtn = createEl('div', {class: 'sellBtn'});
 		sellBtn.innerHTML = '<i class="fas fa-hand-holding-usd"></i>';
+		const sellBtnInput = createEl('input', {class: 'sellBtnInput', placeholder: 'Units'});
+		sellBtn.appendChild(sellBtnInput);
 		// sellBtn addEventListener
 		sellBtn.addEventListener('click', () => {});
 
