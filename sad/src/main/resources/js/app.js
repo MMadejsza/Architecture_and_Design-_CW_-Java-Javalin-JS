@@ -46,6 +46,15 @@ const checkFromCookies = () => {
 	}
 };
 
+const getCookiesArray = (target) => {
+	const watchList = getCookie(target);
+	if (watchList) {
+		const watchListArray = watchList.split(',');
+		return watchListArray;
+	} else {
+		return [];
+	}
+};
 document.addEventListener('DOMContentLoaded', function () {
 	checkFromCookies();
 	const colorInput = document.querySelector('#inputColor');

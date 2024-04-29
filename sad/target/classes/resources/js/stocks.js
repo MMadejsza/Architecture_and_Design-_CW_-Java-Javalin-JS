@@ -79,7 +79,7 @@ const generateChart = (
 			const valuesArray = chartValues.slice(valueStartIndex, valueEndIndex);
 			console.log('valuesArray', valuesArray);
 
-			return (chart = new Chart(ctx, {
+			return new Chart(ctx, {
 				type: 'line',
 				data: {
 					labels: chartDatesFiltered,
@@ -100,7 +100,7 @@ const generateChart = (
 						},
 					},
 				},
-			}));
+			});
 		})
 		.catch((error) => console.error('Error fetching data:', error));
 };
@@ -114,16 +114,6 @@ const changeGrid = () => {
 			'grid-template-columns',
 			'repeat(auto-fill, minmax(560px, 600px))',
 		);
-};
-
-const getCookiesArray = (target) => {
-	const watchList = getCookie(target);
-	if (watchList) {
-		const watchListArray = watchList.split(',');
-		return watchListArray;
-	} else {
-		return [];
-	}
 };
 
 const addBookmark = (stockName) => {
@@ -156,7 +146,6 @@ const inputAddFunction = (e, startStockName) => {
 	// Util value catching
 	const stockName = startStockName || e.target.value.toUpperCase();
 	console.log(stockName);
-	let chart;
 
 	// Util function for creating elements
 	const createEl = (el, attributes) => {
@@ -263,13 +252,15 @@ const inputAddFunction = (e, startStockName) => {
 		);
 	});
 
+	// Input compare
 	const compareWith = createEl('input', {
 		class: 'compareWithInput',
 		placeholder: 'Compare With',
 	});
 
-	compareWith.addEventListener('input', (e) => {
-		canvas.datasets.push;
+	compareWith.addEventListener('change', (e) => {
+		console.log(chart);
+		chart.data.datasets.push(e.target.value);
 	});
 
 	// ASSEMBLE the graphBox
@@ -294,7 +285,7 @@ const inputAddFunction = (e, startStockName) => {
 	portfolio.insertBefore(graphBox, portfolio.firstChild);
 
 	// Generate Graph with default dates
-	chart = generateChart(`myChart${stockName}`, stockName);
+	const chart = generateChart(`myChart${stockName}`, stockName);
 
 	// Check and change layout depended on amount of graphs
 	changeGrid();
