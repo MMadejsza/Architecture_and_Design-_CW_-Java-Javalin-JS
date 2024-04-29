@@ -94,9 +94,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	};
 
 	// -------------------- ADD COMPANY INPUT ---------------------------
-	addInput.addEventListener('change', (e) => {
+	const addBookmark = () => {
+		console.log(`bookmark triggered`);
+	};
+	const inputAddFunction = (e, startStockName) => {
 		// Util value catching
-		const stockName = e.target.value.toUpperCase();
+		const stockName = startStockName || e.target.value.toUpperCase();
+		console.log(stockName);
 		let chart;
 
 		// Util function for creating elements
@@ -123,12 +127,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		// 	<input class = "endDateInput" type="date" />
 		// </div>`;
 
+		// Container for graph buttons
+		const graphButtons = createEl('div', {class: 'graphButtons'});
+
 		// Btn create
-		const button = createEl('button', {class: 'delete'});
-		button.innerText = 'X';
+		const X = createEl('div', {class: 'delete'});
+		X.innerText = 'X';
 		// Btn addEventListener
-		button.addEventListener('click', (e) => {
+		X.addEventListener('click', () => {
 			graphBox.remove();
+		});
+
+		// Bookmark create
+		const bookmark = createEl('div', {class: 'bookmark'});
+		bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
+		// Btn addEventListener
+		bookmark.addEventListener('click', () => {
+			addBookmark();
 		});
 
 		// Graph container create
@@ -185,7 +200,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		graph.appendChild(canvas);
 		graph.appendChild(compareWith);
 
-		graphBox.appendChild(button);
+		graphButtons.appendChild(X);
+		graphButtons.appendChild(bookmark);
+		graphBox.appendChild(graphButtons);
 		graphBox.appendChild(graph);
 		graphBox.appendChild(graphLabel);
 
@@ -201,11 +218,21 @@ document.addEventListener('DOMContentLoaded', function () {
 		changeGrid();
 
 		// Clear input
-		e.target.value = '';
+		if (e) {
+			e.target.value = '';
+		}
 
 		console.log(chart);
+	};
+
+	addInput.addEventListener('change', (e) => {
+		inputAddFunction(e);
 	});
 
 	// Initial check and change layout depended on amount of graphs
 	changeGrid();
+	inputAddFunction('', 'aapl');
+	inputAddFunction('', 'tsla');
+	inputAddFunction('', 'dpz');
+	inputAddFunction('', 'goog');
 });

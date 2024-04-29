@@ -214,7 +214,7 @@ h3 a {
 	height: 4.5rem;
 }
 
-.stocksElement {
+.loginDepended {
 	display: var(--loginStatus);
 }
 
