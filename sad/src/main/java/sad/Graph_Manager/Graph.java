@@ -3,7 +3,7 @@ package sad.Graph_Manager;
 import java.util.List;
 
 import sad.CoreManagementSystem.IRetrieveData;
-import sad.StocksInfo_Manager.IGetStocks;
+import sad.StocksInfo_Manager.IReadStocks;
 
 //Creates a visual representation of stock values
 public class Graph implements IRetrieveGraph {
@@ -16,10 +16,10 @@ public class Graph implements IRetrieveGraph {
   }
 
   //Prepares the graph from the data provided
-  public void getGraphData(List<IGetStocks> stocksList) {
+  public void getGraphData(List<IReadStocks> stocksList) {
     System.out.println("Stocks: ");
 
-    for (IGetStocks stock : stocksList) {
+    for (IReadStocks stock : stocksList) {
       System.out.println(
         "----------------------------------------------------------------------------\n"
       );
@@ -31,7 +31,7 @@ public class Graph implements IRetrieveGraph {
   }
 
   public void visualizeData() {
-    List<IGetStocks> stocksList = dataRetrieved.getStocksList();
+    List<IReadStocks> stocksList = dataRetrieved.getStocksList();
     getGraphData(stocksList);
   }
 }

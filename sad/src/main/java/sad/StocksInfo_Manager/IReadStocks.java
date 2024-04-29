@@ -1,5 +1,5 @@
 package sad.StocksInfo_Manager;
 
-public interface IGetStocks {
+public interface IReadStocks {
   public String StocksInfo(String stockName);
 }
