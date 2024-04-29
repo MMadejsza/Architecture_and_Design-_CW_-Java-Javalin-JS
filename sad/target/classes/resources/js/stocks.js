@@ -12,6 +12,8 @@ dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
 
 // Format the date components into a human-readable string
 const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
+console.log(formattedDateTwoYearsBefore);
+console.log(formattedCurrentDate);
 
 // Generate label for each date in a range
 const getDaysArray = function (start = formattedCurrentDate, end = formattedDateTwoYearsBefore) {
@@ -47,16 +49,44 @@ const generateChart = (
 		.then((data) => {
 			// return (values = data.chart.result[0].indicators.quote[0]);
 			console.log(data);
-			const chartValues = data.chart.result[0].indicators.quote[0];
+			const chartValues = data.chart.result[0].indicators.quote[0].open;
+			const chartDates = data.chart.result[0].timestamp.map((stamp) => {
+				//  to milliseconds
+				const dateObject = new Date(stamp * 1000);
+				// leading 0 but max 2 digits
+				const day = ('0' + dateObject.getDate()).slice(-2);
+				// month starts from 0
+				const month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
+				const year = dateObject.getFullYear();
+
+				return `${year}-${month}-${day}`;
+			});
+			const chartDatesFiltered = chartDates.filter((stamp) => {
+				const startDateObject = new Date(startDate);
+				const endDateObject = new Date(endDate);
+				const currentDate = new Date(stamp);
+				return startDateObject <= currentDate && currentDate <= endDateObject;
+			});
+			// we are setting starting index in values the same like index in dates
+			const valueStartIndex = chartDates.indexOf(chartDatesFiltered[0]);
+			const valueEndIndex = chartDates.indexOf(
+				chartDatesFiltered[chartDatesFiltered.length - 1],
+			);
+			console.log('valueStartIndex', valueStartIndex);
+			console.log('valueEndIndex', valueEndIndex);
+
+			console.log('chartValues', chartValues);
+			const valuesArray = chartValues.slice(valueStartIndex, valueEndIndex);
+			console.log('valuesArray', valuesArray);
 
 			return (chart = new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: getDaysArray(startDate, endDate),
+					labels: chartDatesFiltered,
 					datasets: [
 						{
 							label: name,
-							data: [...chartValues.open],
+							data: [...valuesArray],
 							fill: false,
 							borderColor: baseColor,
 							tension: 0.1,
@@ -208,7 +238,7 @@ const inputAddFunction = (e, startStockName) => {
 	graphLabelName.innerText = stockName;
 
 	// Input START
-	const inputStart = createEl('input', {type: 'date', class: 'startDateInput'});
+	const inputStart = createEl('input', {type: 'month', class: 'startDateInput'});
 	inputStart.addEventListener('input', (e) => {
 		const otherInputVal = inputEnd.value;
 		generateChart(
@@ -222,7 +252,7 @@ const inputAddFunction = (e, startStockName) => {
 	});
 
 	// Input END
-	const inputEnd = createEl('input', {type: 'date', class: 'endDateInput'});
+	const inputEnd = createEl('input', {type: 'month', class: 'endDateInput'});
 	inputEnd.addEventListener('input', (e) => {
 		const otherInputVal = inputStart.value;
 		generateChart(
