@@ -34,9 +34,6 @@ const checkFromCookies = () => {
 	currentPage.style.setProperty('--defaultColor', defaultColor);
 	currentPage.style.setProperty('--shadowColor1', shadowColor1);
 	currentPage.style.setProperty('--shadowColor2', shadowColor2);
-	console.log('defaultColor', defaultColor);
-	console.log('shadowColor1', shadowColor1);
-	console.log('shadowColor2', shadowColor2);
 
 	let status = getCookie('logged');
 	console.log('logged', status);

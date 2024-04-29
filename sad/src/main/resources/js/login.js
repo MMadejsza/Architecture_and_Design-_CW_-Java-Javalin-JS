@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			.then((data) => {
 				if (data.authorized) {
 					setCookie('logged', 'true', 1);
+
 					checkFromCookies();
 					nameInput.value = passwordInput.value = '';
 					window.location.href = '/stocks';
