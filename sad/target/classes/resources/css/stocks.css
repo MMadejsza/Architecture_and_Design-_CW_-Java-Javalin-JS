@@ -85,6 +85,10 @@ header > * {
 	margin-top: 1rem;
 }
 
+.ticked .far {
+	font-weight: 900;
+}
+
 .delete:hover,
 .bookmark:hover {
 	cursor: pointer;

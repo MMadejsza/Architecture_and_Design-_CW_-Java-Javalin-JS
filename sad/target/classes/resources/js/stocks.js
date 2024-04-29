@@ -48,13 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Draw graph after fetching data from Java backend
 
-		fetch(`/fetchedStocks?name=${name}&startDate=${startDate}&endDate=${endDate}`)
+		fetch(`/fetchedStocks?name=${name}`)
 			.then((response) => response.json())
 			.then((data) => {
 				// return (values = data.chart.result[0].indicators.quote[0]);
 				console.log(data);
 				const chartValues = data.chart.result[0].indicators.quote[0];
-				const chartFullName = data.chart.result[0].meta.fullExchangeName;
 
 				return (chart = new Chart(ctx, {
 					type: 'line',
@@ -94,9 +93,36 @@ document.addEventListener('DOMContentLoaded', function () {
 	};
 
 	// -------------------- ADD COMPANY INPUT ---------------------------
-	const addBookmark = () => {
-		console.log(`bookmark triggered`);
+	const GetWatchListArray = () => {
+		const watchList = getCookie('bookmarked');
+		if (watchList) {
+			const watchListArray = watchList.split(',');
+			return watchListArray;
+		} else {
+			return [];
+		}
 	};
+	const addBookmark = (stockName) => {
+		// if some bookmark already exists(not null)
+		if (GetWatchListArray()) {
+			const watchListArray = GetWatchListArray();
+			const stockNamePosition = watchListArray.indexOf(stockName);
+			// if clicked graph isn't bookmarked
+			if (stockNamePosition == -1) {
+				watchListArray.push(stockName);
+				setCookie('bookmarked', watchListArray, 1);
+				// if clicked graph is already bookmarked
+			} else {
+				watchListArray.splice(stockNamePosition, 1);
+				setCookie('bookmarked', watchListArray, 1);
+			}
+			// if no bookmarks yet - just add clicked graph
+		} else {
+			setCookie('bookmarked', stockName, 1);
+		}
+		console.log('bookmarked', getCookie('bookmarked'));
+	};
+
 	const inputAddFunction = (e, startStockName) => {
 		// Util value catching
 		const stockName = startStockName || e.target.value.toUpperCase();
@@ -141,9 +167,13 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Bookmark create
 		const bookmark = createEl('div', {class: 'bookmark'});
 		bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
+		if (GetWatchListArray().indexOf(stockName) > -1) {
+			bookmark.classList.add('ticked');
+		}
 		// Btn addEventListener
-		bookmark.addEventListener('click', () => {
-			addBookmark();
+		bookmark.addEventListener('click', (e) => {
+			bookmark.classList.toggle('ticked');
+			addBookmark(stockName);
 		});
 
 		// Graph container create

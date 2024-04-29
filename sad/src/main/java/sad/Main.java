@@ -68,9 +68,6 @@ public class Main {
       ctx -> {
         // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
         String name = ctx.queryParam("name");
-        String startDate = ctx.queryParam("startDate");
-        String endDate = ctx.queryParam("endDate");
-
         String test = stocksManager.StocksInfo(name);
 
         ctx.contentType("application/json").result(test);
