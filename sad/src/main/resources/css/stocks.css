@@ -58,21 +58,18 @@ header > * {
 	align-items: center;
 }
 .graphButtons {
+	min-height: 40%;
 	position: absolute;
 	top: 0;
-	right: 0;
-	margin: 1rem;
-	padding: 0.1rem;
-	font-size: 2.8rem;
+	right: 1rem;
+	margin: 2rem 1.5rem;
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	justify-content: space-between;
 }
-.graphButtons * {
+.graphButtons div {
 	width: 3.5rem;
-	height: 3.5rem;
 	line-height: 3.5rem;
 	text-align: center;
 	color: var(--defaultColor);
@@ -81,16 +78,11 @@ header > * {
 	border: none;
 }
 
-.bookmark {
-	margin-top: 1rem;
-}
-
 .ticked .far {
 	font-weight: 900;
 }
 
-.delete:hover,
-.bookmark:hover {
+.graphButtons div:hover {
 	cursor: pointer;
 	text-shadow: 0 0 7px var(--defaultColor), 0 0 10px var(--defaultColor), 0 0 21px #fff,
 		0 0 42px var(--defaultColor), 0 0 82px var(--defaultColor), 0 0 92px var(--defaultColor),
@@ -104,6 +96,7 @@ header > * {
 	align-items: center;
 	background-color: black;
 	opacity: 0.8;
+	border-radius: var(--bRadius);
 }
 .graph-label {
 	width: 95%;
@@ -138,4 +131,5 @@ header input:focus {
 canvas.myChart {
 	color: var(--defaultColor);
 	border-color: var(--defaultColor);
+	border-radius: var(--bRadius);
 }

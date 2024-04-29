@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Container for graph buttons
 		const graphButtons = createEl('div', {class: 'graphButtons'});
 
-		// Btn create
+		// X create
 		const X = createEl('div', {class: 'delete'});
 		X.innerText = 'X';
 		// Btn addEventListener
@@ -169,14 +169,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Bookmark create
 		const bookmark = createEl('div', {class: 'bookmark'});
 		bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
+		// Toggle class to notify status
 		if (getWatchListArray().indexOf(stockName) > -1) {
 			bookmark.classList.add('ticked');
 		}
-		// Btn addEventListener
+		// Bookmark addEventListener
 		bookmark.addEventListener('click', (e) => {
 			bookmark.classList.toggle('ticked');
 			addBookmark(stockName);
 		});
+
+		// buyBtn create
+		const buyBtn = createEl('div', {class: 'buyBtn'});
+		buyBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
+		// buyBtn addEventListener
+		buyBtn.addEventListener('click', () => {});
+
+		// sellBtn create
+		const sellBtn = createEl('div', {class: 'sellBtn'});
+		sellBtn.innerHTML = '<i class="fas fa-hand-holding-usd"></i>';
+		// sellBtn addEventListener
+		sellBtn.addEventListener('click', () => {});
 
 		// Graph container create
 		const graph = createEl('div', {class: 'graph'});
@@ -234,6 +247,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		graphButtons.appendChild(X);
 		graphButtons.appendChild(bookmark);
+		graphButtons.appendChild(buyBtn);
+		graphButtons.appendChild(sellBtn);
 		graphBox.appendChild(graphButtons);
 		graphBox.appendChild(graph);
 		graphBox.appendChild(graphLabel);
