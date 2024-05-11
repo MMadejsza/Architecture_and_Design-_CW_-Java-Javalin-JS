@@ -44,6 +44,11 @@ const checkFromCookies = () => {
 		// 	document.querySelector('.stocksElement').style.display = 'none';
 		currentPage.style.setProperty('--loginStatus', `none`);
 	}
+	return getCookie('defaultColor');
+};
+const getWalletValue = () => {
+	let budget = getCookie('wallet');
+	return budget;
 };
 
 const getCookiesArray = (target) => {
