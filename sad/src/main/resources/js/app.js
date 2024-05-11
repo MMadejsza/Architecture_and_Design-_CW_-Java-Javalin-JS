@@ -51,6 +51,13 @@ const getWalletValue = () => {
 	return budget;
 };
 
+const refreshWallet = () => {
+	let budget = getWalletValue();
+	console.log(budget);
+	let wallet = document.querySelector('.walletValue');
+	wallet.innerHTML = parseFloat(budget);
+};
+
 const getCookiesArray = (target) => {
 	const watchList = getCookie(target);
 	if (watchList) {
