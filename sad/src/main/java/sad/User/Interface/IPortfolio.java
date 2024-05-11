@@ -1,4 +1,6 @@
-package sad.User;
+package sad.User.Interface;
+
+import sad.User.Class.Portfolio;
 
 public interface IPortfolio {
   void portfolioView();

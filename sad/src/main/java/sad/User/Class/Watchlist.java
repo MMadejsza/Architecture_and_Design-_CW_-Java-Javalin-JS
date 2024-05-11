@@ -1,7 +1,9 @@
-package sad.User;
+package sad.User.Class;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import sad.User.Interface.IWatchlist;
 
 public class Watchlist implements IWatchlist {
 

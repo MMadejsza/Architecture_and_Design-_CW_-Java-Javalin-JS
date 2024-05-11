@@ -1,4 +1,4 @@
-package sad.Graph;
+package sad.Graph.Interface;
 
 import java.util.List;
 

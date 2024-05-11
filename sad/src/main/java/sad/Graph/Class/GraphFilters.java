@@ -1,17 +1,18 @@
-package sad.Graph;
+package sad.Graph.Class;
 
 import java.util.List;
 
-import sad.Database.IRetrieveData;
+import sad.Database.Interface.IRetrieveData;
+import sad.Graph.Interface.IRetrieveGraph;
 import sad.Stocks.IGetStocks;
 
 //Creates a visual representation of stock values
-public class Graph implements IRetrieveGraph {
+public class GraphFilters implements IRetrieveGraph {
 
   private IRetrieveData dataRetrieved;
 
   //Gets the data from the database
-  public Graph(IRetrieveData dataRetrieved) {
+  public GraphFilters(IRetrieveData dataRetrieved) {
     this.dataRetrieved = dataRetrieved;
   }
 
