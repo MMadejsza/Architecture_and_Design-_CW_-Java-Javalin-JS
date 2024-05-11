@@ -53,8 +53,14 @@ html(lang="en")
         block content
          header
           .main.contentBox
+            .walletDisplay
+                h2 Stocks To Trade:
+                div 
+                    i.fas.fa-coins
+                    | Money left:
+                    span.walletValue
             .addCompanyBox
-                | Add a company
+                | Search for a company
                 input.addInput(type="text", placeholder="Company Yahoo Code")
                 h3
                     a(href="https://finance.yahoo.com/lookup/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAABBTqAPaPbYohBd_OXyvFUgQn_RPAX75WwhSNCVvMdkQKKqLZGK8RmLXDCcwI11-0BNbh5Cog1gKoKNQv6E0KZLwfAaimZ2yyoOWZjprFgGxkz8SsNQG4JSLPhIMzsMER-Sbm7uPvoL2CABSbMNtjW5qRmhkTFFybrgYpl4gapXG", target="_blank") From here

@@ -161,6 +161,24 @@ header {
 header > * {
 	position: absolute;
 }
+.walletDisplay div {
+	padding-top: 2rem;
+	font-size: 2.5rem;
+}
+.walletDisplay h2 + div i {
+	margin-right: 1rem;
+}
+
+.walletDisplay .fa-coins {
+	color: var(--defaultColor);
+}
+
+.walletDisplay .walletValue {
+	margin-left: 2rem;
+	font-weight: 700;
+	color: var(--defaultColor);
+}
+
 header > h1 {
 	top: 50%;
 	padding: 1rem;

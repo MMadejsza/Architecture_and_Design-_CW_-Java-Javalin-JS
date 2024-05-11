@@ -27,21 +27,25 @@ header > * {
 	gap: 2.5rem;
 	/* grid-template-columns: minmax(400px, 800px) minmax(400px, 800px); */
 	grid-template-columns: repeat(auto-fill, minmax(560px, 600px));
-	grid-template-rows: 14rem;
+	grid-template-rows: 14rem 14rem;
 	grid-auto-rows: minmax(225px, 1fr);
 }
-.addCompanyBox {
-	height: 100%;
+.addCompanyBox,
+.walletDisplay {
+	/* height: 14rem; */
 	font-size: 3rem;
 	color: white;
 	grid-row: 1;
 	grid-column-start: 1;
 	grid-column-end: -1;
-
+	grid-row: 2 /3;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
+}
+.walletDisplay {
+	grid-row: 1 /2;
 }
 .graphBox {
 	position: relative;

@@ -141,7 +141,6 @@ const addBookmark = (stockName) => {
 const trade = (buyOrSell, amount, value) => {};
 
 // -------------------- ADD COMPANY INPUT ---------------------------
-
 const inputAddFunction = (e, startStockName) => {
 	// Util value catching
 	const stockName = startStockName || e.target.value.toUpperCase();
@@ -299,6 +298,8 @@ const inputAddFunction = (e, startStockName) => {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
+	refreshWallet();
+
 	try {
 		addInput.addEventListener('change', (e) => {
 			inputAddFunction(e);

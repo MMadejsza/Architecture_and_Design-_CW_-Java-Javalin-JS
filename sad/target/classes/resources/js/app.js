@@ -28,6 +28,7 @@ function getCookie(name) {
 const checkFromCookies = () => {
 	const currentPage = document.documentElement;
 
+	// COLORS SETTINGS
 	let defaultColor = getCookie('defaultColor');
 	let shadowColor1 = getCookie('shadowColor1');
 	let shadowColor2 = getCookie('shadowColor2');
@@ -35,6 +36,7 @@ const checkFromCookies = () => {
 	currentPage.style.setProperty('--shadowColor1', shadowColor1);
 	currentPage.style.setProperty('--shadowColor2', shadowColor2);
 
+	// LOGIN STATUS SETTINGS
 	let status = getCookie('logged');
 	console.log('logged', status);
 	if (status == 'true') {
@@ -44,6 +46,7 @@ const checkFromCookies = () => {
 		// 	document.querySelector('.stocksElement').style.display = 'none';
 		currentPage.style.setProperty('--loginStatus', `none`);
 	}
+
 	return getCookie('defaultColor');
 };
 const getWalletValue = () => {
@@ -69,11 +72,11 @@ const getCookiesArray = (target) => {
 };
 document.addEventListener('DOMContentLoaded', function () {
 	checkFromCookies();
+
+	// COLOR PICKER
 	const colorInput = document.querySelector('#inputColor');
 	const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
 	colorInput.value = baseColor;
-
-	// COLOR PICKER
 	try {
 		colorInput.addEventListener('input', (e) => {
 			// make shortcut for html element
