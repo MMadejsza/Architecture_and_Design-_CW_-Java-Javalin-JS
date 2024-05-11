@@ -49,6 +49,7 @@ const checkFromCookies = () => {
 
 	return getCookie('defaultColor');
 };
+
 const getWalletValue = () => {
 	let budget = getCookie('wallet');
 	return budget;
@@ -70,6 +71,7 @@ const getCookiesArray = (target) => {
 		return [];
 	}
 };
+
 document.addEventListener('DOMContentLoaded', function () {
 	checkFromCookies();
 

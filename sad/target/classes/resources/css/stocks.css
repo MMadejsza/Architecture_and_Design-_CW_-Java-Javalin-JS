@@ -56,11 +56,40 @@ header > * {
 	text-align: center;
 	color: white;
 	border-radius: var(--bRadius);
+
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
 }
+.graph-label {
+	width: 95%;
+	height: 6rem;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.graph {
+	width: 95%;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: black;
+	opacity: 0.8;
+	border-radius: var(--bRadius);
+}
+
+canvas.myChart {
+	color: var(--defaultColor);
+	border-color: var(--defaultColor);
+	border-radius: var(--bRadius);
+}
+.compareWithInput {
+	/* flex-basis: 100%; */
+}
+
 .graphButtons {
 	min-height: 40%;
 	position: absolute;
@@ -113,23 +142,6 @@ header > * {
 		0 0 42px var(--defaultColor), 0 0 82px var(--defaultColor), 0 0 92px var(--defaultColor),
 		0 0 102px var(--defaultColor), 0 0 151px var(--defaultColor);
 }
-.graph {
-	width: 95%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
-	background-color: black;
-	opacity: 0.8;
-	border-radius: var(--bRadius);
-}
-.graph-label {
-	width: 95%;
-	height: 6rem;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-}
 
 header input {
 	min-width: 25%;
@@ -151,10 +163,4 @@ header input:focus {
 
 .graphBox h2 {
 	font-size: 2rem;
-}
-
-canvas.myChart {
-	color: var(--defaultColor);
-	border-color: var(--defaultColor);
-	border-radius: var(--bRadius);
 }

@@ -274,7 +274,7 @@ const inputAddFunction = (e, startStockName) => {
 	graphButtons.appendChild(bookmark);
 	graphButtons.appendChild(buyBtn);
 	graphButtons.appendChild(sellBtn);
-	graphBox.appendChild(graphButtons);
+	graph.appendChild(graphButtons);
 	graphBox.appendChild(graph);
 	graphBox.appendChild(graphLabel);
 
