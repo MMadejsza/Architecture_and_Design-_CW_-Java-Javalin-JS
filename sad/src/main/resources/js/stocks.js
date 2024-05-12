@@ -218,7 +218,7 @@ const inputAddFunction = (e, startStockName) => {
 	const graph = createEl('div', {class: 'graph'});
 
 	// Unique Id for each chart for further actions on it
-	const canvas = createEl('canvas', {width: '100%', id: `myChart${stockName}`});
+	const canvas = createEl('canvas', {id: `myChart${stockName}`, class: `myChart`});
 
 	// Graph label structure create
 	const graphLabel = createEl('div', {class: 'graph-label'});
@@ -268,13 +268,13 @@ const inputAddFunction = (e, startStockName) => {
 	graphLabel.appendChild(inputEnd);
 
 	graph.appendChild(canvas);
+	graph.appendChild(graphButtons);
 	graph.appendChild(compareWith);
 
 	graphButtons.appendChild(X);
 	graphButtons.appendChild(bookmark);
 	graphButtons.appendChild(buyBtn);
 	graphButtons.appendChild(sellBtn);
-	graph.appendChild(graphButtons);
 	graphBox.appendChild(graph);
 	graphBox.appendChild(graphLabel);
 

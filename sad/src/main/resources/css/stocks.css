@@ -75,16 +75,13 @@ header > * {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-evenly;
-	align-items: center;
 	background-color: black;
 	opacity: 0.8;
 	border-radius: var(--bRadius);
 }
 
-canvas.myChart {
-	color: var(--defaultColor);
-	border-color: var(--defaultColor);
-	border-radius: var(--bRadius);
+.graph canvas.myChart {
+	width: 85% !important;
 }
 .compareWithInput {
 	/* flex-basis: 100%; */
@@ -92,18 +89,14 @@ canvas.myChart {
 
 .graphButtons {
 	min-height: 40%;
-	position: absolute;
-	top: 0;
-	right: 1rem;
-	margin: 2rem 1.5rem;
 
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 .graphButtons div {
-	position: relative;
 	width: 3.5rem;
+	margin: 0.75rem 0;
 	line-height: 3.5rem;
 	text-align: center;
 	color: var(--defaultColor);
