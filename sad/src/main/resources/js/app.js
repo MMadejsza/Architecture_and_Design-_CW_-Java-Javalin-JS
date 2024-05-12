@@ -5,6 +5,15 @@ const logJavalin = (arr) => {
 	});
 };
 
+// Util function for creating elements
+const createEl = (el, attributes) => {
+	const element = document.createElement(el);
+	for (var key in attributes) {
+		element.setAttribute(key, attributes[key]);
+	}
+	return element;
+};
+
 // Function to set a cookie
 function setCookie(name, value, days) {
 	let expires = '';
@@ -64,10 +73,7 @@ const getWalletValue = () => {
 
 const refreshWallet = () => {
 	let budget = getWalletValue();
-	console.log('budget: ', budget);
 	let wallet = document.querySelector('.walletValue');
-	console.log(`wallet ${wallet}`);
-	console.log(`budget ${budget}`);
 	wallet.innerHTML = parseFloat(budget);
 };
 

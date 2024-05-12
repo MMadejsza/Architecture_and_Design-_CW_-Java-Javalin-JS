@@ -203,15 +203,6 @@ const inputAddFunction = (e, startStockName) => {
 	// Util value catching
 	const stockName = startStockName || e.target.value.toUpperCase();
 
-	// Util function for creating elements
-	const createEl = (el, attributes) => {
-		const element = document.createElement(el);
-		for (var key in attributes) {
-			element.setAttribute(key, attributes[key]);
-		}
-		return element;
-	};
-
 	// Util function for validating number input
 	const validateNumberInput = (val) => {
 		if (parseFloat(val)) {
