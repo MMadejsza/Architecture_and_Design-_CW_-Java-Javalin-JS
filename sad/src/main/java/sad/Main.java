@@ -93,7 +93,9 @@ public class Main {
         // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
         String log = ctx.queryParam("value");
 
+        System.out.println(' ');
         System.out.println(log);
+        System.out.println(' ');
       }
     );
 

@@ -170,18 +170,21 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 		} else if (targetedStock.amount == tradeAmount) {
 			// delete from stock
 			portfolio.splice(targetedStockIndex, 1);
-		} else {
-			logJavalin([`No enough stock`, ' ']);
 		}
 		// customer - wallet update
 		newBudget = walletValue + tradeValue;
 	} else {
+		console.log([
+			`stockInPortfolio?: ${stockInPortfolio}`,
+			`stockAmountInPortfolio: ${targetedStock.amount}`,
+			`enoughStock?: ${enoughStock}`,
+			`enoughMoney?: ${enoughMoney}`,
+		]);
 		logJavalin([
 			`stockInPortfolio?: ${stockInPortfolio}`,
 			`stockAmountInPortfolio: ${targetedStock.amount}`,
 			`enoughStock?: ${enoughStock}`,
 			`enoughMoney?: ${enoughMoney}`,
-			' ',
 		]);
 	}
 
@@ -199,7 +202,6 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 const inputAddFunction = (e, startStockName) => {
 	// Util value catching
 	const stockName = startStockName || e.target.value.toUpperCase();
-	// console.log(stockName);
 
 	// Util function for creating elements
 	const createEl = (el, attributes) => {
@@ -208,6 +210,17 @@ const inputAddFunction = (e, startStockName) => {
 			element.setAttribute(key, attributes[key]);
 		}
 		return element;
+	};
+
+	// Util function for validating number input
+	const validateNumberInput = (val) => {
+		if (parseFloat(val)) {
+			return true;
+		} else {
+			console.log('Wrong number / Not a number');
+			logJavalin(['Wrong number / Not a number', ' ']);
+			return false;
+		}
 	};
 
 	// Create graphBox element
@@ -256,7 +269,11 @@ const inputAddFunction = (e, startStockName) => {
 	buyBtn.appendChild(buyBtnInput);
 	// buyBtn addEventListener
 	buyBtnInput.addEventListener('change', (e) => {
-		trade('+', e.target.value, 1, stockName);
+		const inputValue = e.target.value;
+		if (validateNumberInput(inputValue)) trade('+', inputValue, 1, stockName);
+		else {
+			e.target.value = '';
+		}
 	});
 
 	// sellBtn create
@@ -266,7 +283,11 @@ const inputAddFunction = (e, startStockName) => {
 	sellBtn.appendChild(sellBtnInput);
 	// sellBtn addEventListener
 	sellBtnInput.addEventListener('change', (e) => {
-		trade('-', e.target.value, 1, stockName);
+		const inputValue = e.target.value;
+		if (validateNumberInput(inputValue)) trade('-', inputValue, 1, stockName);
+		else {
+			e.target.value = '';
+		}
 	});
 
 	// Graph container create
