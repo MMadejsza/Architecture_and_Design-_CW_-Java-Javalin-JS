@@ -87,6 +87,15 @@ public class Main {
         ctx.contentType("application/json").result(test);
       }
     );
+    app.get(
+      "/log",
+      ctx -> {
+        // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
+        String log = ctx.queryParam("value");
+
+        System.out.println(log);
+      }
+    );
 
     app.get(
       "/loginCredentials",

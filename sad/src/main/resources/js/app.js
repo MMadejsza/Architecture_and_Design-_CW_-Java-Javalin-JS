@@ -1,3 +1,10 @@
+// Log util to Javalin
+const logJavalin = (arr) => {
+	arr.forEach((element) => {
+		fetch(`/log?value=${element}`);
+	});
+};
+
 // Function to set a cookie
 function setCookie(name, value, days) {
 	let expires = '';
@@ -42,7 +49,6 @@ const checkFromCookies = () => {
 	if (status == 'true') {
 		// document.querySelector('.stocksElement').style.display = 'block';
 		currentPage.style.setProperty('--loginStatus', `block`);
-		setCookie('wallet', '3000', 0.1);
 	} else {
 		// 	document.querySelector('.stocksElement').style.display = 'none';
 		currentPage.style.setProperty('--loginStatus', `none`);
@@ -60,7 +66,9 @@ const refreshWallet = () => {
 	let budget = getWalletValue();
 	console.log('budget: ', budget);
 	let wallet = document.querySelector('.walletValue');
-	wallet.innerHTML = parseFloat(budget) || `Can't fetch`;
+	console.log(`wallet ${wallet}`);
+	console.log(`budget ${budget}`);
+	wallet.innerHTML = parseFloat(budget);
 };
 
 const getCookiesArray = (target) => {

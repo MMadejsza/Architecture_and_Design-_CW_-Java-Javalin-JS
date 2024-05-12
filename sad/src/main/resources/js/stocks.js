@@ -137,7 +137,63 @@ const addBookmark = (stockName) => {
 	// console.log('bookmarked', getCookie('bookmarked'));
 };
 
-const trade = (buyOrSell, amount, value) => {};
+const validateUserPortfolio = (stockName, amount) => {};
+
+const trade = (buyOrSell, amount, StockValue, stockName) => {
+	buyOrSell && amount && StockValue == false ? console.log('Trade wrong parameters') : null;
+	let newBudget;
+	let tradeAmount = parseFloat(amount);
+	let currentStockValue = parseFloat(StockValue);
+	let tradeValue = tradeAmount * currentStockValue;
+	let walletValue = parseFloat(getCookie('wallet'));
+	const portfolio = JSON.parse(getCookie('portfolio'));
+	const targetedStockIndex = portfolio.findIndex((stock) => stock.name == stockName);
+	const stockInPortfolio = targetedStockIndex > -1 ? true : false;
+	const targetedStock = portfolio[targetedStockIndex] || {};
+	const enoughStock = targetedStock.amount >= tradeAmount ? true : false;
+	const enoughMoney = tradeValue <= walletValue ? true : false;
+
+	if (buyOrSell == '+' && enoughMoney) {
+		// customer + stock to portfolio or update
+		if (stockInPortfolio) {
+			targetedStock.amount += tradeAmount;
+		} else {
+			portfolio.push({name: stockName, amount: tradeAmount, value: tradeValue});
+			logJavalin([`portfolio.push\n ${portfolio}\n`, ' ']);
+		}
+		// customer + wallet update
+		newBudget = walletValue - tradeValue;
+	} else if (buyOrSell == '-' && enoughStock) {
+		// customer + stock to portfolio or update
+		if (targetedStock.amount > tradeAmount) {
+			targetedStock.amount -= tradeAmount;
+		} else if (targetedStock.amount == tradeAmount) {
+			// delete from stock
+			portfolio.splice(targetedStockIndex, 1);
+		} else {
+			logJavalin([`No enough stock`, ' ']);
+		}
+		// customer - wallet update
+		newBudget = walletValue + tradeValue;
+	} else {
+		logJavalin([
+			`stockInPortfolio?: ${stockInPortfolio}`,
+			`stockAmountInPortfolio: ${targetedStock.amount}`,
+			`enoughStock?: ${enoughStock}`,
+			`enoughMoney?: ${enoughMoney}`,
+			' ',
+		]);
+	}
+
+	if (newBudget) {
+		logJavalin([`Reloading`, ' ']);
+
+		setCookie('wallet', newBudget, 0.1);
+		setCookie('portfolio', JSON.stringify(portfolio), 1);
+		// Refresh the page
+		window.location.href = window.location.href;
+	}
+};
 
 // -------------------- ADD COMPANY INPUT ---------------------------
 const inputAddFunction = (e, startStockName) => {
@@ -200,7 +256,7 @@ const inputAddFunction = (e, startStockName) => {
 	buyBtn.appendChild(buyBtnInput);
 	// buyBtn addEventListener
 	buyBtnInput.addEventListener('change', (e) => {
-		trade('+', e.target.value, 1.45);
+		trade('+', e.target.value, 1, stockName);
 	});
 
 	// sellBtn create
@@ -210,7 +266,7 @@ const inputAddFunction = (e, startStockName) => {
 	sellBtn.appendChild(sellBtnInput);
 	// sellBtn addEventListener
 	sellBtnInput.addEventListener('change', (e) => {
-		trade('-', e.target.value, 1.45);
+		trade('-', e.target.value, 1, stockName);
 	});
 
 	// Graph container create
@@ -309,11 +365,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Initial check and change layout depended on amount of graphs
 	changeGrid();
-
-	// Initial demo graphs in stocks search
-
-	// inputAddFunction('', 'aapl');
-	// inputAddFunction('', 'tsla');
-	// inputAddFunction('', 'dpz');
-	// inputAddFunction('', 'goog');
 });

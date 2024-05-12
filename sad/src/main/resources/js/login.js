@@ -22,6 +22,11 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (data.authorized) {
 					setCookie('logged', 'true', 1);
 					setCookie('wallet', '3000', 0.1);
+					setCookie(
+						'portfolio',
+						`[{"name": "AAPL", "amount": 200},{"name": "TSLA", "amount": 300}]`,
+						1,
+					);
 
 					checkFromCookies();
 					nameInput.value = passwordInput.value = '';
