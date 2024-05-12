@@ -1,20 +1,21 @@
 package sad;
 
-import de.neuland.jade4j.JadeConfiguration;
-import de.neuland.jade4j.template.JadeTemplate;
-import io.javalin.Javalin;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import sad.CoreManagementSystem.Database;
-import sad.Customer_Manager.Customer;
-import sad.StocksInfo_Manager.Stocks;
+
+import de.neuland.jade4j.JadeConfiguration;
+import de.neuland.jade4j.template.JadeTemplate;
+import io.javalin.Javalin;
+import sad.Database.Class.Database;
+import sad.Stocks.Stocks;
+import sad.User.Class.UserDetails;
 
 public class Main {
 
   public static void main(String[] args) {
     Stocks stocksManager = new Stocks();
-    Database.usersList.add(new Customer("a", "a"));
+    Database.usersList.add(new UserDetails("a", "a"));
     Database databaseManager = new Database();
 
     // Create a new Javalin instance

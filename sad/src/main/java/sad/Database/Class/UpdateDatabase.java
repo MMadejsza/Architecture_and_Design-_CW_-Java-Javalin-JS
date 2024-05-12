@@ -1,5 +1,14 @@
 package sad.Database.Class;
 
-public class UpdateDatabase {
+import sad.Database.Interface.IStoreData;
+import sad.Stocks.IGetStocks;
+
+public class UpdateDatabase implements IGetStocks, IStoreData {
+
+    @Override
+    public String StocksInfo(String stockName) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'StocksInfo'");
+    }
     
 }

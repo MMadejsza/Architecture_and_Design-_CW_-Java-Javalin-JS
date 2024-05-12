@@ -1,5 +1,7 @@
 package sad.User.Class;
 
-public class StockOptions {
+import sad.User.Interface.IStockOptions;
+
+public class StockOptions implements IStockOptions{
     
 }

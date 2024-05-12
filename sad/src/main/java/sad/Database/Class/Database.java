@@ -3,12 +3,13 @@ package sad.Database.Class;
 import java.util.ArrayList;
 import java.util.List;
 
-import sad.Database.Interface.IRetrieveData;
+import sad.Database.Interface.IReadData;
+import sad.Database.Interface.IStoreData;
 import sad.Stocks.IGetStocks;
 import sad.User.Class.UserDetails;
 
 //Stock data is stored in here for graphical updates, it also allows the stocks to remain even if an internet connection error occurs
-public class Database implements IRetrieveData {
+public class Database implements IStoreData, IReadData{
 
   private List<IGetStocks> stocksList = new ArrayList<>();
   public static List<UserDetails> usersList = new ArrayList<>();

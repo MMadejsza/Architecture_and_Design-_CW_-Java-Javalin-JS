@@ -3,11 +3,12 @@ package sad.Graph.Class;
 import java.util.List;
 
 import sad.Database.Interface.IRetrieveData;
-import sad.Graph.Interface.IRetrieveGraph;
+import sad.Graph.Interface.IPlotGraph;
 import sad.Stocks.IGetStocks;
+import sad.User.Class.UserDetails;
 
 //Creates a visual representation of stock values
-public class GraphFilters implements IRetrieveGraph {
+public class GraphFilters implements IPlotGraph, IRetrieveData {
 
   private IRetrieveData dataRetrieved;
 
@@ -34,5 +35,29 @@ public class GraphFilters implements IRetrieveGraph {
   public void visualizeData() {
     List<IGetStocks> stocksList = dataRetrieved.getStocksList();
     getGraphData(stocksList);
+  }
+
+  @Override
+  public void getStockData(String stockName, float stockValue) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
+  }
+
+  @Override
+  public List<IGetStocks> getStocksList() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getStocksList'");
+  }
+
+  @Override
+  public boolean checkUser(String login, String password) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'checkUser'");
+  }
+
+  @Override
+  public List<UserDetails> getUsersList() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getUsersList'");
   }
 }
