@@ -12,13 +12,13 @@ dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
 
 // Format the date components into a human-readable string
 const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
-console.log(formattedDateTwoYearsBefore);
-console.log(formattedCurrentDate);
+// console.log(formattedDateTwoYearsBefore);
+// console.log(formattedCurrentDate);
 
 // Generate label for each date in a range
 const getDaysArray = function (start = formattedCurrentDate, end = formattedDateTwoYearsBefore) {
-	console.log('start', start);
-	console.log('end', end);
+	// console.log('start', start);
+	// console.log('end', end);
 	let arr = [];
 	for (let dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
 		let readyDate = new Date(dt).toLocaleDateString();
@@ -47,8 +47,7 @@ const generateChart = (
 	fetch(`/fetchedStocks?name=${name}`)
 		.then((response) => response.json())
 		.then((data) => {
-			// return (values = data.chart.result[0].indicators.quote[0]);
-			console.log(data);
+			// console.log(data);
 			const chartValues = data.chart.result[0].indicators.quote[0].open;
 			const chartDates = data.chart.result[0].timestamp.map((stamp) => {
 				//  to milliseconds
@@ -72,12 +71,12 @@ const generateChart = (
 			const valueEndIndex = chartDates.indexOf(
 				chartDatesFiltered[chartDatesFiltered.length - 1],
 			);
-			console.log('valueStartIndex', valueStartIndex);
-			console.log('valueEndIndex', valueEndIndex);
+			// console.log('valueStartIndex', valueStartIndex);
+			// console.log('valueEndIndex', valueEndIndex);
 
-			console.log('chartValues', chartValues);
+			// console.log('chartValues', chartValues);
 			const valuesArray = chartValues.slice(valueStartIndex, valueEndIndex);
-			console.log('valuesArray', valuesArray);
+			// console.log('valuesArray', valuesArray);
 
 			return new Chart(ctx, {
 				type: 'line',
@@ -120,7 +119,7 @@ const addBookmark = (stockName) => {
 	// if some bookmark already exists(not null)
 	if (getCookiesArray('bookmarked')) {
 		const watchListArray = getCookiesArray('bookmarked');
-		console.log(`stocks watchListArray: ${watchListArray}`);
+		// console.log(`stocks watchListArray: ${watchListArray}`);
 		const stockNamePosition = watchListArray.indexOf(stockName);
 		// if clicked graph isn't bookmarked
 		if (stockNamePosition == -1) {
@@ -135,7 +134,7 @@ const addBookmark = (stockName) => {
 	} else {
 		setCookie('bookmarked', stockName, 1);
 	}
-	console.log('bookmarked', getCookie('bookmarked'));
+	// console.log('bookmarked', getCookie('bookmarked'));
 };
 
 const trade = (buyOrSell, amount, value) => {};
@@ -144,7 +143,7 @@ const trade = (buyOrSell, amount, value) => {};
 const inputAddFunction = (e, startStockName) => {
 	// Util value catching
 	const stockName = startStockName || e.target.value.toUpperCase();
-	console.log(stockName);
+	// console.log(stockName);
 
 	// Util function for creating elements
 	const createEl = (el, attributes) => {
@@ -294,7 +293,7 @@ const inputAddFunction = (e, startStockName) => {
 		e.target.value = '';
 	}
 
-	console.log(chart);
+	// console.log(chart);
 };
 
 document.addEventListener('DOMContentLoaded', function () {

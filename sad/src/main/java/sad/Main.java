@@ -94,6 +94,7 @@ public class Main {
         // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
         String login = ctx.queryParam("name");
         String password = ctx.queryParam("password");
+        System.out.println(login + password);
         // Sample data
 
         //Make the function selfcontaining, and when the stock is called produce the data
