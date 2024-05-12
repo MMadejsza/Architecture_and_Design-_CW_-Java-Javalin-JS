@@ -42,6 +42,7 @@ const checkFromCookies = () => {
 	if (status == 'true') {
 		// document.querySelector('.stocksElement').style.display = 'block';
 		currentPage.style.setProperty('--loginStatus', `block`);
+		setCookie('wallet', '3000', 0.1);
 	} else {
 		// 	document.querySelector('.stocksElement').style.display = 'none';
 		currentPage.style.setProperty('--loginStatus', `none`);
@@ -57,9 +58,9 @@ const getWalletValue = () => {
 
 const refreshWallet = () => {
 	let budget = getWalletValue();
-	console.log(budget);
+	console.log('budget: ', budget);
 	let wallet = document.querySelector('.walletValue');
-	wallet.innerHTML = parseFloat(budget);
+	wallet.innerHTML = parseFloat(budget) || `Can't fetch`;
 };
 
 const getCookiesArray = (target) => {
