@@ -159,7 +159,7 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 			targetedStock.amount += tradeAmount;
 		} else {
 			portfolio.push({name: stockName, amount: tradeAmount, value: tradeValue});
-			logJavalin([`portfolio.push\n ${portfolio}\n`, ' ']);
+			logJavalin([`portfolio.push\n ${JSON.stringify(portfolio)}\n`, ' ']);
 		}
 		// customer + wallet update
 		newBudget = walletValue - tradeValue;
@@ -186,7 +186,7 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 	}
 
 	if (newBudget) {
-		logJavalin([`Reloading`, ' ']);
+		logJavalin([`Reloaded`, ' ']);
 
 		setCookie('wallet', newBudget, 0.1);
 		setCookie('portfolio', JSON.stringify(portfolio), 1);
