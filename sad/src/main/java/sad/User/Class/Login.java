@@ -1,4 +1,7 @@
-package sad.Database;
+package sad.User.Class;
+
+import sad.Database.Class.Database;
+import sad.User.Interface.ILogin;
 
 public class Login implements ILogin {
 

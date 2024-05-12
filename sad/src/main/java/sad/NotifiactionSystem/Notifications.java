@@ -1,4 +1,4 @@
-package sad.User;
+package sad.NotifiactionSystem;
 
 public class Notifications implements INotifications {
 

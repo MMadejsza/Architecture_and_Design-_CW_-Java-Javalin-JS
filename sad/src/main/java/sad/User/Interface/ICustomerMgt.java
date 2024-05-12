@@ -1,3 +1,3 @@
-package sad.User;
+package sad.User.Interface;
 
 public interface ICustomerMgt {}
