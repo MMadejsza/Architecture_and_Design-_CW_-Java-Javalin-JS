@@ -12,10 +12,6 @@ dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
 
 // Format the date components into a human-readable string
 const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
-// console.log(formattedDateTwoYearsBefore);
-// console.log(formattedCurrentDate);
-
-// Generate label for each date in a range
 
 class MyChart {
 	constructor(chartID, name) {
@@ -58,8 +54,6 @@ class MyChart {
 
 		// Format the date components into a human-readable string
 		this.startDate = dateTwoYearsBefore.toISOString().slice(0, 10);
-		// console.log(formattedDateTwoYearsBefore);
-		// console.log(formattedCurrentDate);
 	};
 
 	fetchChartData = async (name) => {
@@ -101,12 +95,8 @@ class MyChart {
 		const valueStartIndex = chartDates.indexOf(newStartDateValue);
 		const valueEndIndex = chartDates.indexOf(newEndDateValue);
 
-		// console.log('valueStartIndex', valueStartIndex);
-		// console.log('valueEndIndex', valueEndIndex);
-
-		// console.log('chartValues', chartValues);
 		const chartValuesFiltered = chartValues.slice(valueStartIndex, valueEndIndex);
-		// console.log('valuesArray', valuesArray);
+
 		if (type == 'main') {
 			this.chartDatesFiltered = chartDatesFiltered;
 			this.chartValuesFiltered = chartValuesFiltered;
@@ -116,21 +106,8 @@ class MyChart {
 	};
 
 	compareChartWith = async (stockNameToCompare) => {
-		// const newStock = await this.fetchChartData(stockNameToCompare);
-		// console.log(this.fetchChartData(stockNameToCompare));
-		// console.log(`${newStock.values}`);
-		// const existingChartStartDate = this.chartDatesFiltered[0];
-		// const existingChartEndDate = this.chartDatesFiltered[this.chartDatesFiltered.length - 1];
-		// const newStockFiltered = this.filterData(
-		// 	'compared',
-		// 	existingChartStartDate,
-		// 	existingChartEndDate,
-		// 	newStock.dates,
-		// 	newStock.values,
-		// );
-		// console.log(`newStockValuesFiltered ${newStockFiltered.fvalues}`);
-		// console.log(`newStockDatesFiltered ${newStockFiltered.fdates}`);
 		const newChart = new MyChart('', stockNameToCompare);
+		newChart.baseColor = '#ff0000';
 		this.chartsToCompare.push(newChart);
 		console.log(newChart.chartValuesFiltered);
 		setTimeout(() => {
@@ -194,13 +171,7 @@ class MyChart {
 			console.log(`this.chartBody.data.labels ${this.chartBody.data.labels}`);
 			this.chartBody.data.datasets.splice(1);
 			this.chartsToCompare.forEach((chart) =>
-				this.chartBody.data.datasets.push({
-					label: chart.name,
-					data: chart.chartValuesFiltered,
-					fill: false,
-					borderColor: chart.baseColor,
-					tension: 0.1,
-				}),
+				this.chartBody.data.datasets.push(chart.getDataset()),
 			);
 			this.chartBody.update();
 		}, 500);
@@ -210,84 +181,6 @@ class MyChart {
 		return this.dataset;
 	};
 }
-
-// CHART generator util
-const generateChart = (
-	chartID,
-	name,
-	startDate = formattedDateTwoYearsBefore,
-	endDate = formattedCurrentDate,
-) => {
-	// Catch defaultColor
-	const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
-	// Catch container
-	const ctx = document.getElementById(chartID);
-
-	// Destroy existing chart if it exists
-	const existingChart = Chart.getChart(chartID);
-	if (existingChart) existingChart.destroy();
-
-	// Draw graph after fetching data from Java backend
-
-	fetch(`/fetchedStocks?name=${name}`)
-		.then((response) => response.json())
-		.then((data) => {
-			// console.log(data);
-			const chartValues = data.chart.result[0].indicators.quote[0].open;
-			const chartDates = data.chart.result[0].timestamp.map((stamp) => {
-				//  to milliseconds
-				const dateObject = new Date(stamp * 1000);
-				// leading 0 but max 2 digits
-				const day = ('0' + dateObject.getDate()).slice(-2);
-				// month starts from 0
-				const month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
-				const year = dateObject.getFullYear();
-
-				return `${year}-${month}-${day}`;
-			});
-			const chartDatesFiltered = chartDates.filter((stamp) => {
-				const startDateObject = new Date(startDate);
-				const endDateObject = new Date(endDate);
-				const currentDate = new Date(stamp);
-				return startDateObject <= currentDate && currentDate <= endDateObject;
-			});
-			// we are setting starting index in values the same like index in dates
-			const valueStartIndex = chartDates.indexOf(chartDatesFiltered[0]);
-			const valueEndIndex = chartDates.indexOf(
-				chartDatesFiltered[chartDatesFiltered.length - 1],
-			);
-			// console.log('valueStartIndex', valueStartIndex);
-			// console.log('valueEndIndex', valueEndIndex);
-
-			// console.log('chartValues', chartValues);
-			const valuesArray = chartValues.slice(valueStartIndex, valueEndIndex);
-			// console.log('valuesArray', valuesArray);
-
-			return new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: chartDatesFiltered,
-					datasets: [
-						{
-							label: name,
-							data: [...valuesArray],
-							fill: false,
-							borderColor: baseColor,
-							tension: 0.1,
-						},
-					],
-				},
-				options: {
-					scales: {
-						y: {
-							beginAtZero: false,
-						},
-					},
-				},
-			});
-		})
-		.catch((error) => console.error('Error fetching data:', error));
-};
 
 // APP LAYOUT CHANGE ON DELETION
 const changeGrid = () => {
@@ -480,12 +373,6 @@ const inputAddFunction = (e, startStockName) => {
 	inputStart.addEventListener('input', (e) => {
 		const otherInputVal = inputEnd.value;
 		chart.alterGraphDates(e.target.value, otherInputVal ? otherInputVal : undefined);
-		// generateChart(
-		// 	`myChart${stockName}`,
-		// 	stockName,
-		// 	e.target.value,
-		// 	otherInputVal ? otherInputVal : undefined,
-		// );
 	});
 
 	// Input END
@@ -493,12 +380,6 @@ const inputAddFunction = (e, startStockName) => {
 	inputEnd.addEventListener('input', (e) => {
 		const otherInputVal = inputStart.value;
 		chart.alterGraphDates(otherInputVal ? otherInputVal : undefined, e.target.value);
-		// generateChart(
-		// 	`myChart${stockName}`,
-		// 	stockName,
-		// 	otherInputVal ? otherInputVal : undefined,
-		// 	e.target.value,
-		// );
 	});
 
 	// Input compare
@@ -533,9 +414,9 @@ const inputAddFunction = (e, startStockName) => {
 	portfolio.insertBefore(graphBox, portfolio.firstChild);
 
 	// Generate Graph with default dates
-	// const chart = generateChart(`myChart${stockName}`, stockName);
 	const chart = new MyChart(`myChart${stockName}`, stockName);
 	console.log(chart);
+
 	// Check and change layout depended on amount of graphs
 	changeGrid();
 
@@ -543,8 +424,6 @@ const inputAddFunction = (e, startStockName) => {
 	if (e) {
 		e.target.value = '';
 	}
-
-	// console.log(chart);
 };
 
 document.addEventListener('DOMContentLoaded', function () {
