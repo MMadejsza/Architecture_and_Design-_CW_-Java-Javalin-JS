@@ -32,6 +32,8 @@ class MyChart {
 		this.chartValues;
 		this.chartDatesFiltered;
 		this.chartValuesFiltered;
+		this.dataset;
+		this.chartsToCompare = [];
 		this.initializeData();
 	}
 
@@ -114,28 +116,35 @@ class MyChart {
 	};
 
 	compareChartWith = async (stockNameToCompare) => {
-		const newStock = await this.fetchChartData(stockNameToCompare);
-		console.log(this.fetchChartData(stockNameToCompare));
-		console.log(`${newStock.values}`);
-		const existingChartStartDate = this.chartDatesFiltered[0];
-		const existingChartEndDate = this.chartDatesFiltered[this.chartDatesFiltered.length - 1];
-		const newStockFiltered = this.filterData(
-			'compared',
-			existingChartStartDate,
-			existingChartEndDate,
-			newStock.dates,
-			newStock.values,
-		);
-		console.log(`newStockValuesFiltered ${newStockFiltered.fvalues}`);
-		console.log(`newStockDatesFiltered ${newStockFiltered.fdates}`);
-		this.chartBody.data.datasets.push({
-			label: stockNameToCompare,
-			data: newStockFiltered.fvalues,
-			fill: false,
-			borderColor: this.baseColor,
-			tension: 0.1,
-		});
-		this.chartBody.update();
+		// const newStock = await this.fetchChartData(stockNameToCompare);
+		// console.log(this.fetchChartData(stockNameToCompare));
+		// console.log(`${newStock.values}`);
+		// const existingChartStartDate = this.chartDatesFiltered[0];
+		// const existingChartEndDate = this.chartDatesFiltered[this.chartDatesFiltered.length - 1];
+		// const newStockFiltered = this.filterData(
+		// 	'compared',
+		// 	existingChartStartDate,
+		// 	existingChartEndDate,
+		// 	newStock.dates,
+		// 	newStock.values,
+		// );
+		// console.log(`newStockValuesFiltered ${newStockFiltered.fvalues}`);
+		// console.log(`newStockDatesFiltered ${newStockFiltered.fdates}`);
+		const newChart = new MyChart('', stockNameToCompare);
+		this.chartsToCompare.push(newChart);
+		console.log(newChart.chartValuesFiltered);
+		setTimeout(() => {
+			this.chartBody.data.datasets.push({
+				label: newChart.name,
+				data: newChart.chartValuesFiltered,
+				fill: false,
+				borderColor: newChart.baseColor,
+				tension: 0.1,
+			});
+			this.chartBody.update();
+		}, 500);
+
+		console.log(this.chartBody.data.datasets);
 	};
 
 	produceChartBody = () => {
@@ -161,6 +170,44 @@ class MyChart {
 				},
 			},
 		});
+		this.dataset = this.chartBody.data.dataset;
+	};
+
+	alterGraphDates = async (newStartDate = this.startDate, newEndDate = this.endDate) => {
+		console.log(`newStartDate ${newStartDate}, newEndDate ${newEndDate}`);
+
+		// Update main chart dataset and all to compare
+		this.filterData('main', newStartDate, newEndDate, undefined, undefined);
+		console.log(`this.chartDatesFiltered ${this.chartDatesFiltered}`);
+		console.log(`this.chartValuesFiltered ${this.chartValuesFiltered}`);
+		this.chartBody.data.labels = this.chartDatesFiltered;
+		this.chartBody.data.datasets[0].data = this.chartValuesFiltered;
+		this.chartBody.update();
+		this.chartsToCompare.forEach((chart) => {
+			chart.filterData('main', newStartDate, newEndDate);
+			chart.chartBody.data.labels = chart.chartDatesFiltered;
+			chart.chartBody.data.datasets[0].data = chart.chartValuesFiltered;
+			chart.chartBody.update();
+		});
+
+		setTimeout(() => {
+			console.log(`this.chartBody.data.labels ${this.chartBody.data.labels}`);
+			this.chartBody.data.datasets.splice(1);
+			this.chartsToCompare.forEach((chart) =>
+				this.chartBody.data.datasets.push({
+					label: chart.name,
+					data: chart.chartValuesFiltered,
+					fill: false,
+					borderColor: chart.baseColor,
+					tension: 0.1,
+				}),
+			);
+			this.chartBody.update();
+		}, 500);
+	};
+
+	getDataset = () => {
+		return this.dataset;
 	};
 }
 
@@ -274,8 +321,6 @@ const addBookmark = (stockName) => {
 	}
 	// console.log('bookmarked', getCookie('bookmarked'));
 };
-
-const validateUserPortfolio = (stockName, amount) => {};
 
 const trade = (buyOrSell, amount, StockValue, stockName) => {
 	buyOrSell && amount && StockValue == false ? console.log('Trade wrong parameters') : null;
@@ -434,6 +479,7 @@ const inputAddFunction = (e, startStockName) => {
 	const inputStart = createEl('input', {type: 'month', class: 'startDateInput'});
 	inputStart.addEventListener('input', (e) => {
 		const otherInputVal = inputEnd.value;
+		chart.alterGraphDates(e.target.value, otherInputVal ? otherInputVal : undefined);
 		// generateChart(
 		// 	`myChart${stockName}`,
 		// 	stockName,
@@ -446,6 +492,7 @@ const inputAddFunction = (e, startStockName) => {
 	const inputEnd = createEl('input', {type: 'month', class: 'endDateInput'});
 	inputEnd.addEventListener('input', (e) => {
 		const otherInputVal = inputStart.value;
+		chart.alterGraphDates(otherInputVal ? otherInputVal : undefined, e.target.value);
 		// generateChart(
 		// 	`myChart${stockName}`,
 		// 	stockName,
