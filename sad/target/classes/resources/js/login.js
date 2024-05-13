@@ -23,47 +23,59 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('.loginBtn[name="login"]').addEventListener('click', () => {
 		let nameInput = document.querySelector('.login');
 		let passwordInput = document.querySelector('.password');
-		fetch(`/loginCredentialsCheck?name=${nameInput.value}&password=${passwordInput.value}`)
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.authorized) {
-					setCookie('logged', 'true', 1);
-					setCookie('wallet', '3000', 0.1);
-					setCookie(
-						'portfolio',
-						`[{"name": "AAPL", "amount": 200},{"name": "TSLA", "amount": 300}]`,
-						1,
-					);
 
-					checkFromCookies();
-					nameInput.value = passwordInput.value = '';
-					window.location.href = '/stocks';
-				} else {
-					setCookie('logged', 'false', 1);
-					setCookie('defaultColor', '#ffa500', 1);
-					setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
-					setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
-					checkFromCookies();
-					nameInput.value = passwordInput.value = '';
-				}
-			});
+		let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!nameInput || !passwordInput) {
+			alert('Please fill up the registration form.');
+		} else if (!emailRegex.test(nameInput.value)) {
+			// Handle invalid email format
+			alert('Please enter a valid email address with "@" and domain. (Login)');
+			return;
+		} else {
+			fetch(`/loginCredentialsCheck?name=${nameInput.value}&password=${passwordInput.value}`)
+				.then((response) => response.json())
+				.then((data) => {
+					if (data.authorized) {
+						setCookie('logged', 'true', 1);
+						setCookie('wallet', '3000', 0.1);
+						setCookie(
+							'portfolio',
+							`[{"name": "AAPL", "amount": 200},{"name": "TSLA", "amount": 300}]`,
+							1,
+						);
+
+						checkFromCookies();
+						nameInput.value = passwordInput.value = '';
+						window.location.href = '/stocks';
+					} else {
+						setCookie('logged', 'false', 1);
+						setCookie('defaultColor', '#ffa500', 1);
+						setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
+						setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
+						alert('Wrong credentials.');
+						checkFromCookies();
+					}
+				});
+		}
 	});
 
 	// REGISTER LISTENER
 	document.querySelector('.loginBtn[name="register"]').addEventListener('click', () => {
-		let nameInput = document.querySelector('.login[name="register"]').value;
-		let passwordInput = document.querySelector('.password[name="register"]').value;
+		let nameInput = document.querySelector('.login[name="register"]');
+		let passwordInput = document.querySelector('.password[name="register"]');
 
 		let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailRegex.test(nameInput)) {
+		if (!nameInput.value || !passwordInput.value) {
+			alert('Please fill up the registration form.');
+		} else if (!emailRegex.test(nameInput.value)) {
 			// Handle invalid email format
-			alert('Please enter a valid email address.');
+			alert('Please enter a valid email address with "@" and domain. (Registration)');
 			return;
 		} else {
 			// Construct the request body
 			let requestBody = {
-				name: nameInput,
-				password: passwordInput,
+				name: nameInput.value,
+				password: passwordInput.value,
 			};
 
 			fetch(`/register`, {
@@ -72,9 +84,18 @@ document.addEventListener('DOMContentLoaded', function () {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(requestBody),
-			});
-
-			window.location.href = window.location.href;
+			})
+				.then((response) => response.json())
+				.then((confirmation) => {
+					if (confirmation.status == 1) {
+						nameInput.value = '';
+						passwordInput.value = '';
+						alert(confirmation.msg);
+						window.location.href = window.location.href;
+					} else {
+						alert(confirmation.msg);
+					}
+				});
 		}
 	});
 });

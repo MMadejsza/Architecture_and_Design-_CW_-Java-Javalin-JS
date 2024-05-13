@@ -16,7 +16,7 @@ public class Main {
 
   public static void main(String[] args) {
     Stocks stocksManager = new Stocks();
-    Database.usersList.add(new UserDetails("a", "a"));
+    Database.usersList.add(new UserDetails("a@a.com", "a"));
     Database databaseManager = new Database();
 
     // Create a new Javalin instance
@@ -96,7 +96,8 @@ public class Main {
         // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
         String login = ctx.queryParam("name");
         String password = ctx.queryParam("password");
-        System.out.println(login + password);
+        System.out.println("name: " + login);
+        System.out.println("password: " + password);
         // Sample data
 
         //Make the function selfcontaining, and when the stock is called produce the data
@@ -140,14 +141,25 @@ public class Main {
         System.out.println("Extracted login: " + login);
         System.out.println("Extracted password: " + password);
 
-        // Call a function to check user credentials
-        boolean test = databaseManager.checkUser(login, password);
+        //Make the function selfcontaining, and when the stock is called produce the data
+        boolean userExists = databaseManager.checkUser(login, password);
+        String msg = null;
+        String status = null;
+        if (!userExists) {
+          Database.usersList.add(new UserDetails(login, password));
+          msg = "Registered! You can log in.";
+          status = "1";
+        } else {
+          msg = "User already exists";
+          status = "0";
+        }
 
         // Create a JSON object representing the result
-        String resultJson = "{\"authorized\": " + test + "}";
+        String confirmationJson =
+          "{\"status\": \"" + status + "\", \"msg\": \"" + msg + "\"}";
 
         // Set the content type to JSON and send the result back to the client
-        ctx.contentType("application/json").result(resultJson);
+        ctx.contentType("application/json").result(confirmationJson);
       }
     );
 
@@ -162,19 +174,6 @@ public class Main {
         System.out.println(' ');
       }
     );
-  }
-
-  // Helper method to extract value from JSON string
-  private static String extractValue(String jsonString, int startIndex) {
-    // Find the end index of the value
-    int endIndex = jsonString.indexOf(
-      "\"",
-      startIndex + "\"name\":\"".length()
-    );
-    // Extract and return the value, removing any escape characters
-    return jsonString
-      .substring(startIndex + "\"name\":\"".length(), endIndex)
-      .replaceAll("\\\\", "");
   }
 
   // Method to read file content as a String
