@@ -28,18 +28,6 @@ public class UserDetails implements IUser, ILogin,IPortfolio, IStockOptions, IWa
   }
 
   @Override
-  public void addStockToWatchList(Watchlist stock) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'addStockToWatchList'");
-  }
-
-  @Override
-  public void deleteStockInWatchList(Watchlist stock) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteStockInWatchList'");
-  }
-
-  @Override
   public void portfolioView() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'portfolioView'");
@@ -67,5 +55,29 @@ public class UserDetails implements IUser, ILogin,IPortfolio, IStockOptions, IWa
   public void grantAccess() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'grantAccess'");
+  }
+
+  @Override
+  public void BuyStock(StockOptions company, int quantity) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'BuyStock'");
+  }
+
+  @Override
+  public void SellStock() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'SellStock'");
+  }
+
+  @Override
+  public void addStockToWatchList(String stock, Double price) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'addStockToWatchList'");
+  }
+
+  @Override
+  public void deleteStockInWatchList(String stock) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteStockInWatchList'");
   }
 }
