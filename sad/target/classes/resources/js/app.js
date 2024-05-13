@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			setCookie('defaultColor', `${newColor}`, 1);
 			setCookie('shadowColor1', `${setOpacity(alpha1)}`, 1);
 			setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
-			checkFromCookies();
 		});
 	} catch (error) {}
 });

@@ -34,7 +34,6 @@ class MyChart {
 	}
 
 	initializeData = async () => {
-		console.log(this.startDate, this.endDate);
 		const {dates, values} = await this.fetchChartData(this.name);
 		this.chartDates = dates;
 		this.chartValues = values;
@@ -109,7 +108,6 @@ class MyChart {
 		const newChart = new MyChart('', stockNameToCompare);
 		newChart.baseColor = '#ff0000';
 		this.chartsToCompare.push(newChart);
-		console.log(newChart.chartValuesFiltered);
 		setTimeout(() => {
 			this.chartBody.data.datasets.push({
 				label: newChart.name,
@@ -120,8 +118,6 @@ class MyChart {
 			});
 			this.chartBody.update();
 		}, 500);
-
-		console.log(this.chartBody.data.datasets);
 	};
 
 	produceChartBody = () => {
@@ -155,8 +151,6 @@ class MyChart {
 
 		// Update main chart dataset and all to compare
 		this.filterData('main', newStartDate, newEndDate, undefined, undefined);
-		console.log(`this.chartDatesFiltered ${this.chartDatesFiltered}`);
-		console.log(`this.chartValuesFiltered ${this.chartValuesFiltered}`);
 		this.chartBody.data.labels = this.chartDatesFiltered;
 		this.chartBody.data.datasets[0].data = this.chartValuesFiltered;
 		this.chartBody.update();
@@ -168,7 +162,6 @@ class MyChart {
 		});
 
 		setTimeout(() => {
-			console.log(`this.chartBody.data.labels ${this.chartBody.data.labels}`);
 			this.chartBody.data.datasets.splice(1);
 			this.chartsToCompare.forEach((chart) =>
 				this.chartBody.data.datasets.push(chart.getDataset()),
@@ -197,7 +190,6 @@ const addBookmark = (stockName) => {
 	// if some bookmark already exists(not null)
 	if (getCookiesArray('bookmarked')) {
 		const watchListArray = getCookiesArray('bookmarked');
-		// console.log(`stocks watchListArray: ${watchListArray}`);
 		const stockNamePosition = watchListArray.indexOf(stockName);
 		// if clicked graph isn't bookmarked
 		if (stockNamePosition == -1) {
@@ -212,7 +204,6 @@ const addBookmark = (stockName) => {
 	} else {
 		setCookie('bookmarked', stockName, 1);
 	}
-	// console.log('bookmarked', getCookie('bookmarked'));
 };
 
 const trade = (buyOrSell, amount, StockValue, stockName) => {
@@ -433,9 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		addInput.addEventListener('change', (e) => {
 			inputAddFunction(e);
 		});
-	} catch (error) {
-		console.log(`No addInput`);
-	}
+	} catch (error) {}
 
 	// Initial check and change layout depended on amount of graphs
 	changeGrid();
