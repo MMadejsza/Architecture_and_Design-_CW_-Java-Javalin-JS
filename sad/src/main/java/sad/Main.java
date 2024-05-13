@@ -86,18 +86,7 @@ public class Main {
 
         ctx.contentType("application/json").result(test);
       }
-    );
-    app.get(
-      "/log",
-      ctx -> {
-        // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
-        String log = ctx.queryParam("value");
-
-        System.out.println(' ');
-        System.out.println(log);
-        System.out.println(' ');
-      }
-    );
+    );   
 
     app.get(
       "/loginCredentials",
@@ -115,6 +104,18 @@ public class Main {
         String resultJson = "{\"authorized\": " + test + "}";
 
         ctx.contentType("application/json").result(resultJson);
+      }
+    );
+
+    app.get(
+      "/log",
+      ctx -> {
+        // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
+        String log = ctx.queryParam("value");
+
+        System.out.println(' ');
+        System.out.println(log);
+        System.out.println(' ');
       }
     );
   }

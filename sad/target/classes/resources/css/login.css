@@ -123,3 +123,7 @@ input[type='checkbox']:checked::before {
 	width: 40%;
 	font-size: 2rem;
 }
+
+.hideBtn {
+	display: none;
+}
