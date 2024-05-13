@@ -12,8 +12,8 @@ public class Watchlist implements IWatchlist {
   public Watchlist() {}
 
   @Override
-  public void addStockToWatchList(Watchlist stock) {
-    watchList.add(stock);
+  public void addStockToWatchList(Watchlist stock, price) {
+    watchList.add(stock, price);
   }
 
   @Override

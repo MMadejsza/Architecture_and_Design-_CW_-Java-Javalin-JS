@@ -7,9 +7,10 @@ import sad.Database.Interface.IReadData;
 import sad.Database.Interface.IStoreData;
 import sad.Stocks.IGetStocks;
 import sad.User.Class.UserDetails;
+import sad.User.Interface.ILogin;
 
 //Stock data is stored in here for graphical updates, it also allows the stocks to remain even if an internet connection error occurs
-public class Database implements IStoreData, IReadData{
+public class Database implements IStoreData, IReadData, ILogin{
 
   private List<IGetStocks> stocksList = new ArrayList<>();
   public static List<UserDetails> usersList = new ArrayList<>();
@@ -18,22 +19,6 @@ public class Database implements IStoreData, IReadData{
   public void getStockData(String stockName, float stockValue) {
   }
 
-  public boolean checkUser(String login, String password) {
-    List<UserDetails> usersList = getUsersList();
-    for (UserDetails customer : usersList) {
-      if (customer.getName().equals(login)) {
-        if (customer.getPassword().equals(password)) return true; 
-        else {
-          // case if correct login but wrong password
-          System.out.println("Wrong password");
-          return false;
-        }
-      }
-    }
-    // case if no customer name found
-    System.out.println("Wrong login");
-    return false;
-  }
 
   public List<IGetStocks> getStocksList() {
     return stocksList;
@@ -41,5 +26,19 @@ public class Database implements IStoreData, IReadData{
 
   public List<UserDetails> getUsersList() {
     return usersList;
+  }
+
+
+  @Override
+  public boolean validateCredentials() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validateCredentials'");
+  }
+
+
+  @Override
+  public void grantAccess() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'grantAccess'");
   }
 }

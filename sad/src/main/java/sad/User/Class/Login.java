@@ -16,7 +16,7 @@ public class Login implements ILogin {
   }
 
   public boolean validateCredentials() {
-    return database.checkUser(getLogin(), getPassword());
+    return checkUser(getLogin(), getPassword());
   }
 
   public void grantAccess() {
