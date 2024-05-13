@@ -1,6 +1,13 @@
 package sad.NotifiactionSystem;
 
-public class Notifications implements INotifications {
+import java.util.List;
+
+import sad.Database.Interface.IRetrieveData;
+import sad.Stocks.IGetStocks;
+import sad.User.Class.UserDetails;
+import sad.User.Interface.ISetWatchPrice;
+
+public class Notifications implements INotifications, ISetWatchPrice, IRetrieveData {
 
   public String notification;
   public String status;
@@ -14,5 +21,45 @@ public class Notifications implements INotifications {
     System.out.println(
       notification + " has gone " + status + " your set threshold"
     );
+  }
+
+
+
+  @Override
+  public void sendData(Object data) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
+  }
+  
+  @Override
+  public int receiveData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
+  }
+
+
+  
+  @Override
+  public void getStockData(String stockName, float stockValue) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
+  }
+
+  @Override
+  public List<IGetStocks> getStocksList() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getStocksList'");
+  }
+
+  @Override
+  public boolean checkUser(String login, String password) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'checkUser'");
+  }
+
+  @Override
+  public List<UserDetails> getUsersList() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getUsersList'");
   }
 }
