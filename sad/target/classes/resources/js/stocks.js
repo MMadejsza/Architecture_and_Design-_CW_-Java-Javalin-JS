@@ -29,6 +29,7 @@ class MyChart {
 		this.chartDatesFiltered;
 		this.chartValuesFiltered;
 		this.dataset;
+		this.currentPrice;
 		this.chartsToCompare = [];
 		this.initializeData();
 	}
@@ -40,6 +41,8 @@ class MyChart {
 		this.initializeStartEndDates();
 		this.filterData('main', this.startDate, this.endDate, this.chartDates, this.chartValues);
 		this.produceChartBody();
+		this.currentPrice = values[values.length - 1];
+		console.log(this.currentPrice);
 	};
 
 	initializeStartEndDates = () => {
@@ -229,7 +232,7 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 			logJavalin([`portfolio.push\n ${JSON.stringify(portfolio)}\n`, ' ']);
 		}
 		// customer + wallet update
-		newBudget = walletValue - tradeValue;
+		newBudget = walletValue - parseFloat(tradeValue.toFixed(4));
 	} else if (buyOrSell == '-' && enoughStock) {
 		// customer + stock to portfolio or update
 		if (targetedStock.amount > tradeAmount) {
@@ -239,7 +242,7 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 			portfolio.splice(targetedStockIndex, 1);
 		}
 		// customer - wallet update
-		newBudget = walletValue + tradeValue;
+		newBudget = walletValue + parseFloat(tradeValue.toFixed(4));
 	} else {
 		console.log([
 			`stockInPortfolio?: ${stockInPortfolio}`,
@@ -328,7 +331,7 @@ const inputAddFunction = (e, startStockName) => {
 	// buyBtn addEventListener
 	buyBtnInput.addEventListener('change', (e) => {
 		const inputValue = e.target.value;
-		if (validateNumberInput(inputValue)) trade('+', inputValue, 1, stockName);
+		if (validateNumberInput(inputValue)) trade('+', inputValue, chart.currentPrice, stockName);
 		else {
 			e.target.value = '';
 		}
@@ -342,7 +345,7 @@ const inputAddFunction = (e, startStockName) => {
 	// sellBtn addEventListener
 	sellBtnInput.addEventListener('change', (e) => {
 		const inputValue = e.target.value;
-		if (validateNumberInput(inputValue)) trade('-', inputValue, 1, stockName);
+		if (validateNumberInput(inputValue)) trade('-', inputValue, chart.currentPrice, stockName);
 		else {
 			e.target.value = '';
 		}
