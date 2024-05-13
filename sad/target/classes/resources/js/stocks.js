@@ -275,7 +275,7 @@ const inputAddFunction = (e, startStockName) => {
 		if (parseFloat(val)) {
 			return true;
 		} else {
-			console.log('Wrong number / Not a number');
+			alert('Wrong number / Not a number');
 			logJavalin(['Wrong number / Not a number', ' ']);
 			return false;
 		}
