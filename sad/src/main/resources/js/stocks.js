@@ -109,30 +109,33 @@ class MyChart {
 			this.chartDatesFiltered = chartDatesFiltered;
 			this.chartValuesFiltered = chartValuesFiltered;
 		} else {
-			const filteredData = {fdates: chartDatesFiltered, fvalues: chartValuesFiltered};
-			return filteredData;
+			return {fdates: chartDatesFiltered, fvalues: chartValuesFiltered};
 		}
 	};
 
 	compareChartWith = async (stockNameToCompare) => {
-		const {newStockValues} = await this.fetchChartData(stockNameToCompare);
+		const newStock = await this.fetchChartData(stockNameToCompare);
+		console.log(this.fetchChartData(stockNameToCompare));
+		console.log(`${newStock.values}`);
 		const existingChartStartDate = this.chartDatesFiltered[0];
 		const existingChartEndDate = this.chartDatesFiltered[this.chartDatesFiltered.length - 1];
-		const {newStockValuesFiltered = fvalues} = filterData(
-			'',
+		const newStockFiltered = this.filterData(
+			'compared',
 			existingChartStartDate,
 			existingChartEndDate,
-			this.chartDatesFiltered,
-			newStockValues,
+			newStock.dates,
+			newStock.values,
 		);
-
-		this.chartBody.datasets.push({
+		console.log(`newStockValuesFiltered ${newStockFiltered.fvalues}`);
+		console.log(`newStockDatesFiltered ${newStockFiltered.fdates}`);
+		this.chartBody.data.datasets.push({
 			label: stockNameToCompare,
-			data: [...newStockValuesFiltered],
+			data: newStockFiltered.fvalues,
 			fill: false,
 			borderColor: this.baseColor,
 			tension: 0.1,
 		});
+		this.chartBody.update();
 	};
 
 	produceChartBody = () => {
@@ -458,8 +461,7 @@ const inputAddFunction = (e, startStockName) => {
 	});
 
 	compareWith.addEventListener('change', (e) => {
-		console.log(chart);
-		chart.data.datasets.push(e.target.value);
+		chart.compareChartWith(e.target.value.toUpperCase());
 	});
 
 	// ASSEMBLE the graphBox
