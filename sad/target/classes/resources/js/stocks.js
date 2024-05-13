@@ -244,18 +244,24 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 		// customer - wallet update
 		newBudget = walletValue + parseFloat(tradeValue.toFixed(4));
 	} else {
-		console.log([
-			`stockInPortfolio?: ${stockInPortfolio}`,
-			`stockAmountInPortfolio: ${targetedStock.amount}`,
-			`enoughStock?: ${enoughStock}`,
-			`enoughMoney?: ${enoughMoney}`,
-		]);
-		logJavalin([
-			`stockInPortfolio?: ${stockInPortfolio}`,
-			`stockAmountInPortfolio: ${targetedStock.amount}`,
-			`enoughStock?: ${enoughStock}`,
-			`enoughMoney?: ${enoughMoney}`,
-		]);
+		const faultStatuses = [];
+		if (buyOrSell == '-') {
+			const faultObj = stockInPortfolio
+				? {fault: !enoughStock, msg: 'No ENOUGH stock in portfolio!'}
+				: {fault: !stockInPortfolio, msg: 'No stock in portfolio!'};
+			faultStatuses.push(faultObj);
+		} else if (buyOrSell == '+') {
+			faultStatuses.push({fault: !enoughMoney, msg: 'No enough money!'});
+		}
+
+		const alertMsgs = [];
+
+		faultStatuses.forEach((faultStatus) => {
+			if (faultStatus.fault == true) {
+				alertMsgs.push(faultStatus.msg);
+			}
+		});
+		alert(alertMsgs.join('\n'));
 	}
 
 	if (newBudget) {
