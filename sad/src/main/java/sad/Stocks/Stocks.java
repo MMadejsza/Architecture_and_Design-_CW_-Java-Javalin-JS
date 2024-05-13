@@ -7,6 +7,9 @@ import java.net.URL;
 
 //This provides structure to the stocks, stocks will be formatted and saved through here
 public class Stocks implements IGetStocks {
+  public Stocks(){
+
+  }
 
   public String StocksInfo(String stockName) {
     try {
@@ -29,8 +32,14 @@ public class Stocks implements IGetStocks {
       in.close();
       return response.toString();
     } catch (Exception e) {
-      e.printStackTrace();
+      e.printStackTrace();  
       return null;
     }
+  }
+
+  @Override
+  public String GetStocksInfo() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'GetStocksInfo'");
   }
 }

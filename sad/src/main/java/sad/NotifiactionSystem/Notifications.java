@@ -17,28 +17,6 @@ public class Notifications implements INotifications, ISetWatchPrice, IRetrieveD
     this.status = status;
   }
 
-  public void pushNotification(String notification, String status) {
-    System.out.println(
-      notification + " has gone " + status + " your set threshold"
-    );
-  }
-
-
-
-  @Override
-  public void sendData(Object data) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
-  }
-  
-  @Override
-  public int receiveData() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
-  }
-
-
-  
   @Override
   public void getStockData(String stockName, float stockValue) {
     // TODO Auto-generated method stub
@@ -62,4 +40,24 @@ public class Notifications implements INotifications, ISetWatchPrice, IRetrieveD
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getUsersList'");
   }
+
+  @Override
+  public void sendData(Object data) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'sendData'");
+  }
+
+  @Override
+  public int receiveData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'receiveData'");
+  }
+
+  @Override
+  public void pushNotification(String notification, String status) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'pushNotification'");
+  }
+
+
 }

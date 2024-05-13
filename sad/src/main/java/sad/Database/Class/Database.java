@@ -29,16 +29,22 @@ public class Database implements IStoreData, IReadData, ILogin{
   }
 
 
-  @Override
-  public boolean validateCredentials() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'validateCredentials'");
-  }
+  public void addUserToList(String login, String password) {
+    UserDetails newUser = new UserDetails(login, password);
+    usersList.add(newUser);
+}
+
+@Override
+public boolean validateCredentials() {
+    // Implementation
+    return false;
+}
 
 
-  @Override
-  public void grantAccess() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'grantAccess'");
-  }
+@Override
+public void addUser(String login, String password) {
+  // TODO Auto-generated method stub
+  throw new UnsupportedOperationException("Unimplemented method 'addUser'");
+}
+
 }
