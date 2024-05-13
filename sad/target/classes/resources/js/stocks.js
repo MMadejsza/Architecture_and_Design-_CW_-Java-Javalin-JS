@@ -16,16 +16,149 @@ const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10
 // console.log(formattedCurrentDate);
 
 // Generate label for each date in a range
-const getDaysArray = function (start = formattedCurrentDate, end = formattedDateTwoYearsBefore) {
-	// console.log('start', start);
-	// console.log('end', end);
-	let arr = [];
-	for (let dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
-		let readyDate = new Date(dt).toLocaleDateString();
-		arr.push(readyDate);
+
+class MyChart {
+	constructor(chartID, name) {
+		this.baseColor = getComputedStyle(document.documentElement).getPropertyValue(
+			'--defaultColor',
+		);
+		this.ctx = document.getElementById(chartID);
+		this.chartID = chartID;
+		this.name = name;
+		this.startDate;
+		this.endDate;
+		this.chartBody;
+		this.chartDates;
+		this.chartValues;
+		this.chartDatesFiltered;
+		this.chartValuesFiltered;
+		this.initializeData();
 	}
-	return arr;
-};
+
+	initializeData = async () => {
+		console.log(this.startDate, this.endDate);
+		const {dates, values} = await this.fetchChartData(this.name);
+		this.chartDates = dates;
+		this.chartValues = values;
+		this.initializeStartEndDates();
+		this.filterData('main', this.startDate, this.endDate, this.chartDates, this.chartValues);
+	};
+
+	initializeStartEndDates = () => {
+		// Create a new Date object representing the current date
+		const currentDate = new Date();
+		this.endDate = currentDate.toISOString().slice(0, 10);
+
+		// Set the date two years from now
+		const dateTwoYearsBefore = new Date(currentDate);
+		dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
+
+		// Format the date components into a human-readable string
+		this.startDate = dateTwoYearsBefore.toISOString().slice(0, 10);
+		// console.log(formattedDateTwoYearsBefore);
+		// console.log(formattedCurrentDate);
+	};
+
+	fetchChartData = async (name) => {
+		const response = await fetch(`/fetchedStocks?name=${name}`);
+		const data = await response.json();
+		// console.log(data);
+		const chartValues = data.chart.result[0].indicators.quote[0].open;
+		const chartDates = data.chart.result[0].timestamp.map((stamp) => {
+			// to milliseconds
+			const dateObject = new Date(stamp * 1000);
+			// leading 0 but max 2 digits
+			const day = ('0' + dateObject.getDate()).slice(-2);
+			// month starts from 0
+			const month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
+			const year = dateObject.getFullYear();
+
+			return `${year}-${month}-${day}`;
+		});
+		return {dates: chartDates, values: chartValues};
+	};
+
+	filterData = (
+		type,
+		startDate,
+		endDate,
+		chartDates = this.chartDates,
+		chartValues = this.chartValues,
+	) => {
+		const chartDatesFiltered = chartDates.filter((stamp) => {
+			const startDateObject = new Date(startDate);
+			const endDateObject = new Date(endDate);
+			const currentDate = new Date(stamp);
+			return startDateObject <= currentDate && currentDate <= endDateObject;
+		});
+
+		// We are setting starting index in values the same like filtered index in dates
+		const newStartDateValue = chartDatesFiltered[0];
+		const newEndDateValue = chartDatesFiltered[chartDatesFiltered.length - 1];
+		const valueStartIndex = chartDates.indexOf(newStartDateValue);
+		const valueEndIndex = chartDates.indexOf(newEndDateValue);
+
+		// console.log('valueStartIndex', valueStartIndex);
+		// console.log('valueEndIndex', valueEndIndex);
+
+		// console.log('chartValues', chartValues);
+		const chartValuesFiltered = chartValues.slice(valueStartIndex, valueEndIndex);
+		// console.log('valuesArray', valuesArray);
+		if (type == 'main') {
+			this.chartDatesFiltered = chartDatesFiltered;
+			this.chartValuesFiltered = chartValuesFiltered;
+		} else {
+			const filteredData = {fdates: chartDatesFiltered, fvalues: chartValuesFiltered};
+			return filteredData;
+		}
+	};
+
+	compareChartWith = async (stockNameToCompare) => {
+		const {newStockValues} = await this.fetchChartData(stockNameToCompare);
+		const existingChartStartDate = this.chartDatesFiltered[0];
+		const existingChartEndDate = this.chartDatesFiltered[this.chartDatesFiltered.length - 1];
+		const {newStockValuesFiltered = fvalues} = filterData(
+			'',
+			existingChartStartDate,
+			existingChartEndDate,
+			this.chartDatesFiltered,
+			newStockValues,
+		);
+
+		this.chartBody.datasets.push({
+			label: stockNameToCompare,
+			data: [...newStockValuesFiltered],
+			fill: false,
+			borderColor: this.baseColor,
+			tension: 0.1,
+		});
+	};
+
+	produceChartBody = () => {
+		this.chartBody = new Chart(this.ctx, {
+			type: 'line',
+			data: {
+				labels: this.chartDatesFiltered,
+				datasets: [
+					{
+						label: this.name,
+						data: this.chartValuesFiltered,
+						fill: false,
+						borderColor: this.baseColor,
+						tension: 0.1,
+					},
+				],
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: false,
+					},
+				},
+			},
+		});
+	};
+}
 
 // CHART generator util
 const generateChart = (
@@ -38,6 +171,7 @@ const generateChart = (
 	const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
 	// Catch container
 	const ctx = document.getElementById(chartID);
+
 	// Destroy existing chart if it exists
 	const existingChart = Chart.getChart(chartID);
 	if (existingChart) existingChart.destroy();
@@ -302,8 +436,6 @@ const inputAddFunction = (e, startStockName) => {
 			e.target.value,
 			otherInputVal ? otherInputVal : undefined,
 		);
-		// chart.data.labels = getDaysArray(e.target.value, otherInputVal);
-		// chart.update();
 	});
 
 	// Input END
