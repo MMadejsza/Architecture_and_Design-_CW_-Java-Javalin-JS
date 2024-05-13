@@ -6,6 +6,8 @@ import io.javalin.Javalin;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import sad.Database.Class.Database;
 import sad.Stocks.Stocks;
 import sad.User.Class.UserDetails;
@@ -86,10 +88,10 @@ public class Main {
 
         ctx.contentType("application/json").result(test);
       }
-    );   
+    );
 
     app.get(
-      "/loginCredentials",
+      "/loginCredentialsCheck",
       ctx -> {
         // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
         String login = ctx.queryParam("name");
@@ -107,6 +109,48 @@ public class Main {
       }
     );
 
+    app.post(
+      "/register",
+      ctx -> {
+        // Get the body of the request
+        String requestBody = ctx.body();
+
+        // Manually parse the JSON body to extract the name and password using regular expressions
+        String login = null;
+        String password = null;
+
+        // Define a regular expression pattern to match the "name" field
+        Pattern namePattern = Pattern.compile("\"name\"\\s*:\\s*\"([^\"]+)\"");
+        Matcher nameMatcher = namePattern.matcher(requestBody);
+        if (nameMatcher.find()) {
+          login = nameMatcher.group(1);
+        }
+
+        // Define a regular expression pattern to match the "password" field
+        Pattern passwordPattern = Pattern.compile(
+          "\"password\"\\s*:\\s*\"([^\"]+)\""
+        );
+        Matcher passwordMatcher = passwordPattern.matcher(requestBody);
+        if (passwordMatcher.find()) {
+          password = passwordMatcher.group(1);
+        }
+
+        // Print the received data to the console for debugging
+        System.out.println("Received body: " + requestBody);
+        System.out.println("Extracted login: " + login);
+        System.out.println("Extracted password: " + password);
+
+        // Call a function to check user credentials
+        boolean test = databaseManager.checkUser(login, password);
+
+        // Create a JSON object representing the result
+        String resultJson = "{\"authorized\": " + test + "}";
+
+        // Set the content type to JSON and send the result back to the client
+        ctx.contentType("application/json").result(resultJson);
+      }
+    );
+
     app.get(
       "/log",
       ctx -> {
@@ -118,6 +162,19 @@ public class Main {
         System.out.println(' ');
       }
     );
+  }
+
+  // Helper method to extract value from JSON string
+  private static String extractValue(String jsonString, int startIndex) {
+    // Find the end index of the value
+    int endIndex = jsonString.indexOf(
+      "\"",
+      startIndex + "\"name\":\"".length()
+    );
+    // Extract and return the value, removing any escape characters
+    return jsonString
+      .substring(startIndex + "\"name\":\"".length(), endIndex)
+      .replaceAll("\\\\", "");
   }
 
   // Method to read file content as a String
