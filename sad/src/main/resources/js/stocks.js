@@ -202,6 +202,7 @@ const addBookmark = (stockName) => {
 		} else {
 			watchListArray.splice(stockNamePosition, 1);
 			setCookie('bookmarked', watchListArray, 1);
+			window.location.href = window.location.href;
 		}
 		// if no bookmarks yet - just add clicked graph
 	} else {
