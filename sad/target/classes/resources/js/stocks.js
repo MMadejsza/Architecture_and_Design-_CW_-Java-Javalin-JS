@@ -42,6 +42,7 @@ class MyChart {
 		this.chartValues = values;
 		this.initializeStartEndDates();
 		this.filterData('main', this.startDate, this.endDate, this.chartDates, this.chartValues);
+		this.produceChartBody();
 	};
 
 	initializeStartEndDates = () => {
@@ -430,24 +431,24 @@ const inputAddFunction = (e, startStockName) => {
 	const inputStart = createEl('input', {type: 'month', class: 'startDateInput'});
 	inputStart.addEventListener('input', (e) => {
 		const otherInputVal = inputEnd.value;
-		generateChart(
-			`myChart${stockName}`,
-			stockName,
-			e.target.value,
-			otherInputVal ? otherInputVal : undefined,
-		);
+		// generateChart(
+		// 	`myChart${stockName}`,
+		// 	stockName,
+		// 	e.target.value,
+		// 	otherInputVal ? otherInputVal : undefined,
+		// );
 	});
 
 	// Input END
 	const inputEnd = createEl('input', {type: 'month', class: 'endDateInput'});
 	inputEnd.addEventListener('input', (e) => {
 		const otherInputVal = inputStart.value;
-		generateChart(
-			`myChart${stockName}`,
-			stockName,
-			otherInputVal ? otherInputVal : undefined,
-			e.target.value,
-		);
+		// generateChart(
+		// 	`myChart${stockName}`,
+		// 	stockName,
+		// 	otherInputVal ? otherInputVal : undefined,
+		// 	e.target.value,
+		// );
 	});
 
 	// Input compare
@@ -483,8 +484,9 @@ const inputAddFunction = (e, startStockName) => {
 	portfolio.insertBefore(graphBox, portfolio.firstChild);
 
 	// Generate Graph with default dates
-	const chart = generateChart(`myChart${stockName}`, stockName);
-
+	// const chart = generateChart(`myChart${stockName}`, stockName);
+	const chart = new MyChart(`myChart${stockName}`, stockName);
+	console.log(chart);
 	// Check and change layout depended on amount of graphs
 	changeGrid();
 
