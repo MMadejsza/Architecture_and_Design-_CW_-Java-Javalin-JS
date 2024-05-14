@@ -10,14 +10,11 @@ public class PlotGraph implements IPlotGraph, IRetrieveGraph {
 
     @Override
     public void getGraphData(List<IGetStocks> stocksList) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGraphData'");
     }
 
     @Override
     public void visualizeData() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visualizeData'");
+        
     }
     
 }

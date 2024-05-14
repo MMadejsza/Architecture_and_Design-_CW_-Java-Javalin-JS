@@ -16,8 +16,6 @@ public class Main {
   public static void main(String[] args) {
     Stocks stocksManager = new Stocks();
     Database.usersList.add(new UserDetails("a", "a"));
-    Database databaseManager = new Database();
-
     // Create a new Javalin instance
     Javalin app = Javalin
       .create(config -> {
@@ -92,10 +90,7 @@ public class Main {
     app.get(
       "/loginCredentials",
       ctx -> {
-        // Get the startDate and endDate query parameters from the frontend to use in yahoo stocks call
-        String login = ctx.queryParam("name");
-        String password = ctx.queryParam("password");
-        // Sample data
+        
 
         //Make the function selfcontaining, and when the stock is called produce the data
       

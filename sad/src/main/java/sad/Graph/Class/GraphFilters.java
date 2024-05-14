@@ -6,6 +6,7 @@ import sad.Database.Class.Database;
 import sad.Database.Interface.IRetrieveData;
 import sad.Graph.Interface.IPlotGraph;
 import sad.Stocks.IGetStocks;
+import sad.User.Class.Login;
 import sad.User.Class.UserDetails;
 
 //Creates a visual representation of stock values
@@ -22,7 +23,7 @@ public class GraphFilters implements IPlotGraph, IRetrieveData {
   public void getGraphData(List<IGetStocks> stocksList) {
     System.out.println("Stocks: ");
 
-    for (IGetStocks stock : stocksList) {
+    for (@SuppressWarnings("unused") IGetStocks stock : stocksList) {
       System.out.println(
         "----------------------------------------------------------------------------\n"
       );
@@ -42,8 +43,12 @@ public class GraphFilters implements IPlotGraph, IRetrieveData {
 // Check user credentials using Database class
   @Override
   public boolean checkUser(String login, String password) {
-      return new Database().checkUser(login, password);
-  }
+    Login log = new Login(password, password, null);
+    boolean user;
+    user = log.validateCredentials();
+    return user;
+}
+
 
 // Retrieve users list from the Database class
   @Override
@@ -52,3 +57,4 @@ public class GraphFilters implements IPlotGraph, IRetrieveData {
       return new Database().getUsersList();
   }
 }
+

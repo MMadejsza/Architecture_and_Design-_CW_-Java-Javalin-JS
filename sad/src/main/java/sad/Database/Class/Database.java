@@ -30,7 +30,6 @@ public class Database implements IStoreData, IReadData, ILogin{
 
 @Override
 public boolean validateCredentials() {
-    // Implementation
     return false;
 }
 
@@ -44,14 +43,17 @@ public void addUser(String login, String password) {
 
 @Override
 public String GetDataFromDB(String stockName) {
-  // TODO Auto-generated method stub
-  throw new UnsupportedOperationException("Unimplemented method 'GetDataFromDB'");
+  return null;
 }
 
 
 public boolean checkUser(String login, String password) {
-  // TODO Auto-generated method stub
-  throw new UnsupportedOperationException("Unimplemented method 'checkUser'");
+  List<UserDetails> userList = getUsersList(); // Access the user list from the Database class
+  for (UserDetails user : userList) {
+      if (user.getName().equals(login) && user.getPassword().equals(password)) {
+          return true;
+      }
+  }
+  return false;
 }
-
 }

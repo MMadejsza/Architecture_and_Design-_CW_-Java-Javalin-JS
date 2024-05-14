@@ -2,6 +2,7 @@ package sad.NotifiactionSystem;
 
 import java.util.List;
 
+import sad.Database.Class.Database;
 import sad.Database.Interface.IRetrieveData;
 import sad.User.Class.UserDetails;
 import sad.User.Interface.ISetWatchPrice;
@@ -16,40 +17,38 @@ public class Notifications implements INotifications, ISetWatchPrice, IRetrieveD
     this.status = status;
   }
 
+ 
   @Override
   public void getStockData(String stockName, float stockValue) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
+      // Retrieve stock data from the Database class
+      new Database().getStockData(stockName, stockValue);
   }
-
+  
   @Override
   public boolean checkUser(String login, String password) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'checkUser'");
+      // Check user credentials using Database class
+      return new Database().checkUser(login, password);
   }
-
+  
   @Override
   public List<UserDetails> getUsersList() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUsersList'");
+      // Retrieve users list from the Database class
+      return new Database().getUsersList();
   }
 
   @Override
   public void sendData(Object data) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'sendData'");
+    
   }
 
   @Override
   public int receiveData() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'receiveData'");
+    return 0;
   }
 
   @Override
   public void pushNotification(String notification, String status) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'pushNotification'");
+    System.out.println(notification + " has reached " + status + " on your watchlist");
   }
 
 }
