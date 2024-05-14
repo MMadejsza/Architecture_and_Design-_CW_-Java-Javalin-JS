@@ -10,7 +10,7 @@ const logout = () => {
 	setCookie('defaultColor', '#ffa500', 1);
 	setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
 	setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
-	setFromCookies('all');
+	applyFromCookies('all');
 };
 
 // Util function for creating elements with possible multiple attributes
@@ -57,7 +57,7 @@ function getCookie(name) {
 }
 
 // Function to fetch and APPLY particular app setting stored in cookies
-const setFromCookies = (specifier) => {
+const applyFromCookies = (specifier) => {
 	const currentPage = document.documentElement;
 
 	//@ COLORS SETTINGS------------------------------------------
@@ -119,7 +119,7 @@ const refreshWallet = () => {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-	setFromCookies('all');
+	applyFromCookies('all');
 
 	//@ COLOR PICKER -----------------------------------------------------------------
 	// Catch color picker input
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			setCookie('defaultColor', `${newColor}`, 1);
 			setCookie('shadowColor1', `${setOpacity(alpha1)}`, 1);
 			setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
-			setFromCookies('colors');
+			applyFromCookies('colors');
 		});
 	} catch (error) {}
 
