@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 	refreshWallet();
 	const portfolio = JSON.parse(getCookie('portfolio'));
-
+	console.log(`portfolio ${portfolio}`);
 	const table = document.querySelector('table');
 
 	const updateStocks = async () => {
@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				const response = await fetch(`/fetchedStocks?name=${portfolioStock.name}`);
 				const data = await response.json();
 				const allValues = data.chart.result[0].indicators.quote[0].open;
-				const currentPrice = allValues[allValues.length - 1];
+				const currentPrice = allValues[allValues.length - 1]
+					? allValues[allValues.length - 1]
+					: allValues[allValues.length - 2];
 				portfolioStock.currentPrice = currentPrice;
 				portfolioWithValues.push(portfolioStock);
 			}),
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	const generateTable = async () => {
 		const portfolioWithValues = await updateStocks();
+		console.log(portfolioWithValues);
 		portfolioWithValues.sort(
 			(stock1, stock2) =>
 				stock2.amount * stock2.currentPrice - stock1.amount * stock1.currentPrice,
@@ -47,6 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			tr.appendChild(td4);
 
 			table.appendChild(tr);
+		});
+
+		portfolioWithValues.forEach((stock) => {
+			inputAddFunction('', stock.name);
 		});
 	};
 

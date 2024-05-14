@@ -41,8 +41,10 @@ class MyChart {
 		this.initializeStartEndDates();
 		this.filterData('main', this.startDate, this.endDate, this.chartDates, this.chartValues);
 		this.produceChartBody();
-		this.currentPrice = values[values.length - 1];
-		console.log(this.currentPrice);
+		this.currentPrice = values[values.length - 1]
+			? values[values.length - 1]
+			: values[values.length - 2];
+		console.log(`this.currentPrice(${this.name}) ${this.currentPrice}`);
 	};
 
 	initializeStartEndDates = () => {
@@ -223,7 +225,7 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 	const targetedStock = portfolio[targetedStockIndex] || {};
 	const enoughStock = targetedStock.amount >= tradeAmount ? true : false;
 	const enoughMoney = tradeValue <= walletValue ? true : false;
-
+	console.log(enoughMoney);
 	if (buyOrSell == '+' && enoughMoney) {
 		// customer + stock to portfolio or update
 		if (stockInPortfolio) {
@@ -268,7 +270,7 @@ const trade = (buyOrSell, amount, StockValue, stockName) => {
 	if (newBudget) {
 		logJavalin([`Reloaded`, ' ']);
 
-		setCookie('wallet', newBudget, 0.1);
+		setCookie('wallet', newBudget.toFixed(4), 0.1);
 		setCookie('portfolio', JSON.stringify(portfolio), 1);
 		// Refresh the page
 		window.location.href = window.location.href;
