@@ -12,7 +12,7 @@ import sad.User.Interface.ILogin;
 //Stock data is stored in here for graphical updates, it also allows the stocks to remain even if an internet connection error occurs
 public class Database implements IStoreData, IReadData, ILogin{
 
-  private List<IGetStocks> stocksList = new ArrayList<>();
+  List<IGetStocks> stocksList = new ArrayList<>();
   public static List<UserDetails> usersList = new ArrayList<>();
 
   //Stores the stock data and formats it
@@ -28,12 +28,6 @@ public class Database implements IStoreData, IReadData, ILogin{
     return usersList;
   }
 
-
-  public void addUserToList(String login, String password) {
-    UserDetails newUser = new UserDetails(login, password);
-    usersList.add(newUser);
-}
-
 @Override
 public boolean validateCredentials() {
     // Implementation
@@ -43,8 +37,21 @@ public boolean validateCredentials() {
 
 @Override
 public void addUser(String login, String password) {
+  UserDetails newUser = new UserDetails(login, password);
+  usersList.add(newUser);
+}
+
+
+@Override
+public String GetDataFromDB(String stockName) {
   // TODO Auto-generated method stub
-  throw new UnsupportedOperationException("Unimplemented method 'addUser'");
+  throw new UnsupportedOperationException("Unimplemented method 'GetDataFromDB'");
+}
+
+
+public boolean checkUser(String login, String password) {
+  // TODO Auto-generated method stub
+  throw new UnsupportedOperationException("Unimplemented method 'checkUser'");
 }
 
 }

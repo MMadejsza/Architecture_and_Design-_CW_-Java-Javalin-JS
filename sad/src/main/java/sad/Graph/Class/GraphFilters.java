@@ -32,22 +32,12 @@ public class GraphFilters implements IPlotGraph, IRetrieveData {
     );
   }
 
-  public void visualizeData() {
-    List<IGetStocks> stocksList = dataRetrieved.getStocksList();
-    getGraphData(stocksList);
-  }
-
   @Override
   public void getStockData(String stockName, float stockValue) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
   }
 
-  @Override
-  public List<IGetStocks> getStocksList() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getStocksList'");
-  }
 
   @Override
   public boolean checkUser(String login, String password) {

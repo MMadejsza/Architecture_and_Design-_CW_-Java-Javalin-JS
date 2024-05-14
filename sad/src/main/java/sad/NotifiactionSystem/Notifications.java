@@ -3,7 +3,6 @@ package sad.NotifiactionSystem;
 import java.util.List;
 
 import sad.Database.Interface.IRetrieveData;
-import sad.Stocks.IGetStocks;
 import sad.User.Class.UserDetails;
 import sad.User.Interface.ISetWatchPrice;
 
@@ -21,12 +20,6 @@ public class Notifications implements INotifications, ISetWatchPrice, IRetrieveD
   public void getStockData(String stockName, float stockValue) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
-  }
-
-  @Override
-  public List<IGetStocks> getStocksList() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getStocksList'");
   }
 
   @Override
@@ -58,6 +51,5 @@ public class Notifications implements INotifications, ISetWatchPrice, IRetrieveD
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'pushNotification'");
   }
-
 
 }
