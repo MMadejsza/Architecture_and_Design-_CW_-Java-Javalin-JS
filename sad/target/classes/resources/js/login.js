@@ -13,89 +13,84 @@ const login = (nameInput, passwordInput) => {
 	window.location.href = '/stocks';
 };
 
+// Define validation rule in regex for emails -> must be @, '.', and cannot be double quotes
+let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Util function do perform 'submit' on given inputs
+const submitAction = (emailInput, passwordInput) => {
+	// If empty form submitted
+	if (!emailInput || !passwordInput) {
+		alert('Please fill up the registration form.');
+	} else if (!emailRegex.test(emailInput.value)) {
+		// Handle invalid email format
+		alert('Please enter a valid email address with "@" and domain.');
+		return;
+	} else {
+		// If successes
+		// Call backend to validate user credentials
+		fetch(`/loginCredentialsCheck?name=${emailInput.value}&password=${passwordInput.value}`)
+			.then((response) => response.json())
+			.then((data) => {
+				// Return JSON with 'authorized' boolean
+				if (data.authorized) {
+					login(emailInput, passwordInput);
+				} else {
+					logout();
+				}
+			});
+	}
+};
+
 document.addEventListener('DOMContentLoaded', function () {
 	applyFromCookies('all');
-	const checkbox = document.getElementById('registerInput');
-	const registerForm = document.querySelector('.registerForm');
-	const loginBtn = document.querySelector('.loginBtn[name="login"]');
-	const registerBtn = document.querySelector('.loginBtn[name="register"]');
-	// LOGIN
-	try {
-		checkbox.addEventListener('change', function () {
-			if (checkbox.checked) {
-				registerForm.classList.add('active');
-				loginBtn.classList.toggle('hideBtn');
-				registerBtn.classList.toggle('hideBtn');
-			} else {
-				registerForm.classList.remove('active');
-				registerBtn.classList.toggle('hideBtn');
-				loginBtn.classList.toggle('hideBtn');
-			}
-		});
-	} catch (error) {}
 
-	// LOGIN LISTENER
-	document.querySelector('.loginBtn[name="login"]').addEventListener('click', () => {
+	//@ LOGIN LISTENER ---------------------------------------------------------------------
+	// Catch desired elements
+	const loginBtn = document.querySelector('.loginBtn[name="login"]');
+
+	loginBtn.addEventListener('click', () => {
+		// Catch desired LOGIN form elements
 		let nameInput = document.querySelector('.login');
 		let passwordInput = document.querySelector('.password');
 
-		let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!nameInput || !passwordInput) {
-			alert('Please fill up the registration form.');
-		} else if (!emailRegex.test(nameInput.value)) {
-			// Handle invalid email format
-			alert('Please enter a valid email address with "@" and domain. (Login)');
-			return;
-		} else {
-			fetch(`/loginCredentialsCheck?name=${nameInput.value}&password=${passwordInput.value}`)
-				.then((response) => response.json())
-				.then((data) => {
-					if (data.authorized) {
-						login(nameInput, passwordInput);
-					} else {
-						logout();
-					}
-				});
-		}
+		submitAction(nameInput, passwordInput);
 	});
 
-	// REGISTER LISTENER
-	document.querySelector('.loginBtn[name="register"]').addEventListener('click', () => {
+	//@ CHECKBOX ---------------------------------------------------------------------
+	// Catch desired elements
+	const checkbox = document.getElementById('registerInput');
+	const registerForm = document.querySelector('.registerForm');
+
+	// Util function to short actions notation
+	const toggleForms = () => {
+		registerForm.classList.toggle('active');
+		registerBtn.classList.toggle('hideBtn');
+		loginBtn.classList.toggle('hideBtn');
+	};
+
+	try {
+		checkbox.addEventListener('change', function () {
+			if (checkbox.checked) {
+				// Register checked? -> show register button
+				toggleForms();
+			} else {
+				// Checkbox left default? -> keep showing / show login button
+				toggleForms();
+			}
+		});
+	} catch (error) {
+		alert('Error at forms toggling.');
+	}
+
+	//@ REGISTER LISTENER -------------------------------------------------------
+	// Catch desired elements
+	const registerBtn = document.querySelector('.loginBtn[name="register"]');
+
+	registerBtn.addEventListener('click', () => {
+		// Catch desired REGISTER form elements
 		let nameInput = document.querySelector('.login[name="register"]');
 		let passwordInput = document.querySelector('.password[name="register"]');
 
-		let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!nameInput.value || !passwordInput.value) {
-			alert('Please fill up the registration form.');
-		} else if (!emailRegex.test(nameInput.value)) {
-			// Handle invalid email format
-			alert('Please enter a valid email address with "@" and domain. (Registration)');
-			return;
-		} else {
-			// Construct the request body
-			let requestBody = {
-				name: nameInput.value,
-				password: passwordInput.value,
-			};
-
-			fetch(`/register`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(requestBody),
-			})
-				.then((response) => response.json())
-				.then((confirmation) => {
-					if (confirmation.status == 1) {
-						nameInput.value = '';
-						passwordInput.value = '';
-						alert(confirmation.msg);
-						window.location.href = window.location.href;
-					} else {
-						alert(confirmation.msg);
-					}
-				});
-		}
+		submitAction(nameInput, passwordInput);
 	});
 });
