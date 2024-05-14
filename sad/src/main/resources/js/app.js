@@ -4,6 +4,14 @@ const logJavalin = (arr) => {
 		fetch(`/log?value=${element}`);
 	});
 };
+// Util function to log out when button is all across pugs -> function accessed from 1 file
+const logout = () => {
+	setCookie('logged', 'false', 1);
+	setCookie('defaultColor', '#ffa500', 1);
+	setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
+	setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
+	checkFromCookies();
+};
 
 // Util function for creating elements
 const createEl = (el, attributes) => {
@@ -124,6 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// LOG OUT
 	logoutBtn.addEventListener('click', () => {
-		setCookie('logged', 'false', 1);
+		logout();
 	});
 });

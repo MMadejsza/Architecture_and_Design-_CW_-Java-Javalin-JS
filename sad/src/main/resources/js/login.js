@@ -1,3 +1,13 @@
+const login = (nameInput, passwordInput) => {
+	setCookie('logged', 'true', 1);
+	setCookie('wallet', '3000', 0.1);
+	setCookie('portfolio', `[{"name": "AAPL", "amount": 200},{"name": "TSLA", "amount": 300}]`, 1);
+
+	checkFromCookies();
+	nameInput.value = passwordInput.value = '';
+	window.location.href = '/stocks';
+};
+
 document.addEventListener('DOMContentLoaded', function () {
 	checkFromCookies();
 	const checkbox = document.getElementById('registerInput');
@@ -36,24 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.authorized) {
-						setCookie('logged', 'true', 1);
-						setCookie('wallet', '3000', 0.1);
-						setCookie(
-							'portfolio',
-							`[{"name": "AAPL", "amount": 200},{"name": "TSLA", "amount": 300}]`,
-							1,
-						);
-
-						checkFromCookies();
-						nameInput.value = passwordInput.value = '';
-						window.location.href = '/stocks';
+						login(nameInput, passwordInput);
 					} else {
-						setCookie('logged', 'false', 1);
-						setCookie('defaultColor', '#ffa500', 1);
-						setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
-						setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
-						alert('Wrong credentials.');
-						checkFromCookies();
+						logout();
 					}
 				});
 		}
