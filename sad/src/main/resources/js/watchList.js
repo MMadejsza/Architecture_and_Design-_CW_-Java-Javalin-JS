@@ -1,8 +1,11 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
+	// When content loaded apply settings
 	applyFromCookies('all');
+	// Refresh wallet to reflect changes
 	refreshWallet();
+	// Fetch WatchList
 	const watchListArray = getWatchList('bookmarked');
-	console.log(`wtachlist: ${getWatchList('bookmarked')}`);
+	// Display chart for each shortlisted stock
 	watchListArray.forEach((stock) => {
 		inputAddFunction('', stock);
 	});
