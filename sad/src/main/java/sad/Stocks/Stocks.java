@@ -38,8 +38,7 @@ public class Stocks implements IGetStocks {
   }
 
   @Override
-  public String GetStocksInfo() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'GetStocksInfo'");
-  }
+public String GetStocksInfo() {
+    return null;
+}
 }

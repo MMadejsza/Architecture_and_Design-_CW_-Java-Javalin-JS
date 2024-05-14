@@ -2,6 +2,7 @@ package sad.Graph.Class;
 
 import java.util.List;
 
+import sad.Database.Class.Database;
 import sad.Database.Interface.IRetrieveData;
 import sad.Graph.Interface.IPlotGraph;
 import sad.Stocks.IGetStocks;
@@ -32,22 +33,22 @@ public class GraphFilters implements IPlotGraph, IRetrieveData {
     );
   }
 
+ // Retrieve stock data from the Database class
   @Override
   public void getStockData(String stockName, float stockValue) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getStockData'");
+      dataRetrieved.getStockData(stockName, stockValue);
   }
 
-
+// Check user credentials using Database class
   @Override
   public boolean checkUser(String login, String password) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'checkUser'");
+      return new Database().checkUser(login, password);
   }
 
+// Retrieve users list from the Database class
   @Override
   public List<UserDetails> getUsersList() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUsersList'");
+      
+      return new Database().getUsersList();
   }
 }
