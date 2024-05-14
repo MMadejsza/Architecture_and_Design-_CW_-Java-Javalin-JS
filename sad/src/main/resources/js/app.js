@@ -1,4 +1,4 @@
-// Log util to Javalin
+// Log util logging to Javalin server
 const logJavalin = (arr) => {
 	arr.forEach((element) => {
 		fetch(`/log?value=${element}`);
@@ -13,16 +13,17 @@ const logout = () => {
 	checkFromCookies();
 };
 
-// Util function for creating elements
+// Util function for creating elements with possible multiple attributes
 const createEl = (el, attributes) => {
 	const element = document.createElement(el);
+	// Attributes is objects with prop=value elements
 	for (var key in attributes) {
 		element.setAttribute(key, attributes[key]);
 	}
 	return element;
 };
 
-// Function to set a cookie
+// Function to set a cookie with expiry time (seen working in wallet element - very short)
 function setCookie(name, value, days) {
 	let expires = '';
 	if (days) {
@@ -35,14 +36,20 @@ function setCookie(name, value, days) {
 
 // Function to get a cookie value by name
 function getCookie(name) {
+	// Define name 'equation' '[name]=' which is typical format of storing cookie
 	let nameEQ = name + '=';
+	// Split all cookies as they're single string separated by semicolons
 	let cookies = document.cookie.split(';');
+
 	for (let i = 0; i < cookies.length; i++) {
 		let cookie = cookies[i];
+		// Remove any leading whitespace from cookie
 		while (cookie.charAt(0) == ' ') {
 			cookie = cookie.substring(1, cookie.length);
 		}
+		// When cookie at iteration is the desired one
 		if (cookie.indexOf(nameEQ) == 0) {
+			// Return value - substring from end of name till the end of cookie
 			return cookie.substring(nameEQ.length, cookie.length);
 		}
 	}
