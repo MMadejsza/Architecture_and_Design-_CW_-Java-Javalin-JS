@@ -7,17 +7,29 @@ import sad.User.Interface.IWatchlist;
 
 public class Watchlist implements IWatchlist {
 
-  List<Watchlist> watchList = new ArrayList<>();
+    private List<Stock> watchList = new ArrayList<>();
 
-  public Watchlist() {}
+    public Watchlist() {}
 
-  @Override
-  public void addStockToWatchList(Watchlist stock) {
-    watchList.add(stock);
-  }
+    @Override
+    public void addStockToWatchList(String stockName, Double price) {
+        Stock stock = new Stock(stockName, price);
+        watchList.add(stock);
+    }
 
-  @Override
-  public void deleteStockInWatchList(Watchlist stock) {
-    watchList.remove(stock);
-  }
+    @Override
+    public void deleteStockInWatchList(String stockName) {
+        watchList.removeIf(stock -> stock.getName().equals(stockName));
+    }
+
+    private class Stock {
+        private String name;
+        public Stock(String name, double price) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }
