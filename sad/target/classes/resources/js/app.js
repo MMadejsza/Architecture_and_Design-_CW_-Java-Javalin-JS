@@ -136,19 +136,27 @@ document.addEventListener('DOMContentLoaded', function () {
 			const root = document.documentElement;
 			// Catch picked color at this change
 			let newColor = e.target.value;
+			console.log(newColor);
 			// Catch desired opacity from CSS
 			let alpha1 = getComputedStyle(root).getPropertyValue('--shadowAlpha1');
 			let alpha2 = getComputedStyle(root).getPropertyValue('--shadowAlpha2');
 
-			// Set CSS variables for shadows with picked opacity
+			// Function for making shadows from picked color
 			const setOpacity = (alpha) =>
-				`${newColor}${Math.floor(alpha * 255)
-					.toString(16)
-					.padStart(2, 0)}`;
-			// Set new shadow colors
+				// Create string of hex color + alpha
+				`${newColor}${
+					// Calculate alpha, change to hex and add leading 0 if shorten then 2 symbols which is not allowed in hex
+					Math.floor(alpha * 255)
+						.toString(16)
+						.padStart(2, 0)
+				}`;
+
+			// Set / save new shadow colors
 			setCookie('defaultColor', `${newColor}`, 1);
 			setCookie('shadowColor1', `${setOpacity(alpha1)}`, 1);
 			setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
+
+			// Apply new colors
 			applyFromCookies('colors');
 		});
 	} catch (error) {}
