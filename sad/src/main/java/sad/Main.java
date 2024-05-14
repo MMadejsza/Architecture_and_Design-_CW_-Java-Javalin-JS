@@ -4,7 +4,10 @@ import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.javalin.Javalin;
 import java.io.File;
+import java.io.File;
 import java.util.HashMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,10 +104,10 @@ public class Main {
         // Sample data
 
         //Make the function selfcontaining, and when the stock is called produce the data
-        boolean test = databaseManager.checkUser(login, password);
+
         // Create a JSON object representing the result
         // Construct JSON string representing the result
-        String resultJson = "{\"authorized\": " + test + "}";
+        String resultJson = "{\"authorized\": }";
 
         ctx.contentType("application/json").result(resultJson);
       }
