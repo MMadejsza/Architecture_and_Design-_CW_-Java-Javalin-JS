@@ -17,7 +17,7 @@ const login = (nameInput, passwordInput) => {
 let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Util function do perform 'submit' on given inputs
-const submitAction = (emailInput, passwordInput) => {
+const submitAction = (type, emailInput, passwordInput) => {
 	// If empty form submitted
 	if (!emailInput || !passwordInput) {
 		alert('Please fill up the registration form.');
@@ -27,17 +27,44 @@ const submitAction = (emailInput, passwordInput) => {
 		return;
 	} else {
 		// If successes
-		// Call backend to validate user credentials
-		fetch(`/loginCredentialsCheck?name=${emailInput.value}&password=${passwordInput.value}`)
-			.then((response) => response.json())
-			.then((data) => {
-				// Return JSON with 'authorized' boolean
-				if (data.authorized) {
-					login(emailInput, passwordInput);
-				} else {
-					logout();
-				}
-			});
+		if (type == 'login') {
+			// Call backend to validate user credentials
+			fetch(`/loginCredentialsCheck?name=${emailInput.value}&password=${passwordInput.value}`)
+				.then((response) => response.json())
+				.then((data) => {
+					// Return JSON with 'authorized' boolean
+					if (data.authorized) {
+						login(emailInput, passwordInput);
+					} else {
+						logout();
+					}
+				});
+		} else if (type == 'register') {
+			// Construct the request body
+			let requestBody = {
+				name: emailInput.value,
+				password: passwordInput.value,
+			};
+
+			fetch(`/register`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(requestBody),
+			})
+				.then((response) => response.json())
+				.then((confirmation) => {
+					if (confirmation.status == 1) {
+						emailInput.value = '';
+						passwordInput.value = '';
+						alert(confirmation.msg);
+						window.location.href = window.location.href;
+					} else {
+						alert(confirmation.msg);
+					}
+				});
+		}
 	}
 };
 
@@ -53,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		let nameInput = document.querySelector('.login');
 		let passwordInput = document.querySelector('.password');
 
-		submitAction(nameInput, passwordInput);
+		submitAction('login', nameInput, passwordInput);
 	});
 
 	//@ CHECKBOX ---------------------------------------------------------------------
@@ -91,6 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		let nameInput = document.querySelector('.login[name="register"]');
 		let passwordInput = document.querySelector('.password[name="register"]');
 
-		submitAction(nameInput, passwordInput);
+		submitAction('register', nameInput, passwordInput);
 	});
 });
