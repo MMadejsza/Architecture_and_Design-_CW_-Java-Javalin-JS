@@ -28,9 +28,27 @@ public class UserDetails implements IUser, ILogin,IPortfolio, IStockOptions, IWa
   }
 
   @Override
-  public void portfolioView() {
+  public void addStockToWatchList(String stock, Double price) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'portfolioView'");
+    throw new UnsupportedOperationException("Unimplemented method 'addStockToWatchList'");
+  }
+
+  @Override
+  public void deleteStockInWatchList(String stock) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteStockInWatchList'");
+  }
+
+  @Override
+  public void BuyStock(StockOptions company, int quantity) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'BuyStock'");
+  }
+
+  @Override
+  public void SellStock() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'SellStock'");
   }
 
   @Override
@@ -52,32 +70,10 @@ public class UserDetails implements IUser, ILogin,IPortfolio, IStockOptions, IWa
   }
 
   @Override
-  public void grantAccess() {
+  public void addUser(String login, String password) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'grantAccess'");
+    throw new UnsupportedOperationException("Unimplemented method 'addUser'");
   }
 
-  @Override
-  public void BuyStock(StockOptions company, int quantity) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'BuyStock'");
-  }
-
-  @Override
-  public void SellStock() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'SellStock'");
-  }
-
-  @Override
-  public void addStockToWatchList(String stock, Double price) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'addStockToWatchList'");
-  }
-
-  @Override
-  public void deleteStockInWatchList(String stock) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteStockInWatchList'");
-  }
+ 
 }
