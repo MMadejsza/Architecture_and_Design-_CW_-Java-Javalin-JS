@@ -1,19 +1,6 @@
-// Catch "Global" elements
-const portfolio = document.querySelector('.contentBox');
-const addInput = document.querySelector('.addInput');
-
-// Create a new Date object representing the current date
-const currentDate = new Date();
-const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
-
-// Set the date two years from now
-const dateTwoYearsBefore = new Date(currentDate);
-dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
-
-// Format the date components into a human-readable string
-const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
-
+// Create class to model and maintain fetched CDN chart service
 class MyChart {
+	// Define all needed later class props
 	constructor(chartID, name) {
 		this.baseColor = getComputedStyle(document.documentElement).getPropertyValue(
 			'--defaultColor',
@@ -33,32 +20,6 @@ class MyChart {
 		this.chartsToCompare = [];
 		this.initializeData();
 	}
-
-	initializeData = async () => {
-		const {dates, values} = await this.fetchChartData(this.name);
-		this.chartDates = dates;
-		this.chartValues = values;
-		this.initializeStartEndDates();
-		this.filterData('main', this.startDate, this.endDate, this.chartDates, this.chartValues);
-		this.produceChartBody();
-		this.currentPrice = values[values.length - 1]
-			? values[values.length - 1]
-			: values[values.length - 2];
-		console.log(`this.currentPrice(${this.name}) ${this.currentPrice}`);
-	};
-
-	initializeStartEndDates = () => {
-		// Create a new Date object representing the current date
-		const currentDate = new Date();
-		this.endDate = currentDate.toISOString().slice(0, 10);
-
-		// Set the date two years from now
-		const dateTwoYearsBefore = new Date(currentDate);
-		dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
-
-		// Format the date components into a human-readable string
-		this.startDate = dateTwoYearsBefore.toISOString().slice(0, 10);
-	};
 
 	fetchChartData = async (name) => {
 		const response = await fetch(`/fetchedStocks?name=${name}`);
@@ -175,10 +136,54 @@ class MyChart {
 		}, 500);
 	};
 
+	// Assume starting dates 2 years back from now and apply them
+	initializeStartEndDates = () => {
+		// Create a new Date object representing the current date
+		const currentDate = new Date();
+		this.endDate = currentDate.toISOString().slice(0, 10);
+
+		// Set the date two years from now
+		const dateTwoYearsBefore = new Date(currentDate);
+		dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
+
+		// Format the date components into a human-readable string
+		this.startDate = dateTwoYearsBefore.toISOString().slice(0, 10);
+	};
+
+	// Initialize the props after when instantiating a class
+	initializeData = async () => {
+		const {dates, values} = await this.fetchChartData(this.name);
+		this.chartDates = dates;
+		this.chartValues = values;
+		this.initializeStartEndDates();
+		this.filterData('main', this.startDate, this.endDate, this.chartDates, this.chartValues);
+		this.produceChartBody();
+		this.currentPrice = values[values.length - 1]
+			? values[values.length - 1]
+			: values[values.length - 2];
+		console.log(`this.currentPrice(${this.name}) ${this.currentPrice}`);
+	};
+
+	// Even if all props in js by default are public - I decided to make 1 getter for now for readability later on in the code
 	getDataset = () => {
 		return this.dataset;
 	};
 }
+
+// Catch "Global" elements
+const portfolio = document.querySelector('.contentBox');
+const addInput = document.querySelector('.addInput');
+
+// Create a new Date object representing the current date
+const currentDate = new Date();
+const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
+
+// Set the date two years from now
+const dateTwoYearsBefore = new Date(currentDate);
+dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
+
+// Format the date components into a human-readable string
+const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
 
 // APP LAYOUT CHANGE ON DELETION
 const changeGrid = () => {
