@@ -13,9 +13,10 @@ dateTwoYearsBefore.setFullYear(currentDate.getFullYear() - 2);
 // Format the date components into a human-readable string
 const formattedDateTwoYearsBefore = dateTwoYearsBefore.toISOString().slice(0, 10);
 
-// APP LAYOUT CHANGE ON DELETION
+// Util function to change the layout grid based on amount of charts
 const changeGrid = () => {
 	if (portfolio.childElementCount <= 2) {
+		// If 2 or fewer charts - change to 1 column
 		portfolio.style.setProperty('grid-template-columns', 'minmax(560px, 800px)');
 	} else
 		portfolio.style.setProperty(
@@ -24,93 +25,128 @@ const changeGrid = () => {
 		);
 };
 
-const addBookmark = (stockName) => {
-	// if some bookmark already exists(not null)
+// Util function to bookmark the stock charts
+const bookmarkStock = (stockName) => {
+	//# If some bookmark already exists (returned not null)---------------
 	if (getWatchList('bookmarked')) {
+		// Get all stored bookmarks
 		const watchListArray = getWatchList('bookmarked');
+		// Localize the given one
 		const stockNamePosition = watchListArray.indexOf(stockName);
-		// if clicked graph isn't bookmarked
+		//- AND THEN If clicked graph isn't bookmarked yet ---------------
 		if (stockNamePosition == -1) {
+			// Add it
 			watchListArray.push(stockName);
 			setCookie('bookmarked', watchListArray, 1);
-			// if clicked graph is already bookmarked
+			//-OR If clicked graph is already bookmarked -----------------
 		} else {
+			// Remove it
 			watchListArray.splice(stockNamePosition, 1);
 			setCookie('bookmarked', watchListArray, 1);
+			// Refresh the page to reflect the changes
 			window.location.href = window.location.href;
 		}
-		// if no bookmarks yet - just add clicked graph
 	} else {
+		//# If no bookmarks yet - just add given graph---------------------
 		setCookie('bookmarked', stockName, 1);
 	}
 };
 
-const trade = (buyOrSell, amount, StockValue, stockName) => {
+// Util function to handle selling and buying
+const trade = (buyOrSell, amount, stockValue, stockName) => {
+	// Log if error
 	buyOrSell && amount && StockValue == false ? console.log('Trade wrong parameters') : null;
+
+	// Define used later variables
 	let newBudget;
+	// Parse data from cookie strings
 	let tradeAmount = parseFloat(amount);
-	let currentStockValue = parseFloat(StockValue);
-	let tradeValue = tradeAmount * currentStockValue;
+	let stockPrice = parseFloat(stockValue);
+	let tradeValue = tradeAmount * stockPrice;
 	let walletValue = parseFloat(getCookie('wallet'));
 	const portfolio = JSON.parse(getCookie('portfolio'));
 	const targetedStockIndex = portfolio.findIndex((stock) => stock.name == stockName);
-	const stockInPortfolio = targetedStockIndex > -1 ? true : false;
 	const targetedStock = portfolio[targetedStockIndex] || {};
+	// Status variables
+	const stockInPortfolio = targetedStockIndex > -1 ? true : false;
 	const enoughStock = targetedStock.amount >= tradeAmount ? true : false;
 	const enoughMoney = tradeValue <= walletValue ? true : false;
-	console.log(enoughMoney);
+	// @ Trade LOGIC -------------------------------------------------------------------
+	//# If BUY and we have money -------------------------------------------------------
 	if (buyOrSell == '+' && enoughMoney) {
-		// customer + stock to portfolio or update
 		if (stockInPortfolio) {
+			//- If already in posses of this stock
+			// Just top up amount
 			targetedStock.amount += tradeAmount;
 		} else {
+			//- If new stock in your collection
+			// Add as new record to your portfolio
 			portfolio.push({name: stockName, amount: tradeAmount, value: tradeValue});
+			// Log into server
 			logJavalin([`portfolio.push\n ${JSON.stringify(portfolio)}\n`, ' ']);
 		}
-		// customer + wallet update
+
+		// Update wallet value
 		newBudget = walletValue - parseFloat(tradeValue.toFixed(4));
+
+		//# If SELL and we stock for it ------------------------------------------------
 	} else if (buyOrSell == '-' && enoughStock) {
-		// customer + stock to portfolio or update
+		//- If more enough than in stock
 		if (targetedStock.amount > tradeAmount) {
+			// Just decrease amount
 			targetedStock.amount -= tradeAmount;
+
+			//- If stock right for a need
 		} else if (targetedStock.amount == tradeAmount) {
-			// delete from stock
+			// Delete from stock after trading
 			portfolio.splice(targetedStockIndex, 1);
 		}
-		// customer - wallet update
+		// Update wallet value
 		newBudget = walletValue + parseFloat(tradeValue.toFixed(4));
+
+		//# If CANNOT trade -----------------------------------------------------------
 	} else {
+		// Create container for got faults objects
 		const faultStatuses = [];
 		if (buyOrSell == '-') {
+			// When SELL attempt - set fault with msg based on status
 			const faultObj = stockInPortfolio
 				? {fault: !enoughStock, msg: 'No ENOUGH stock in portfolio!'}
 				: {fault: !stockInPortfolio, msg: 'No stock in portfolio!'};
 			faultStatuses.push(faultObj);
 		} else if (buyOrSell == '+') {
+			// When BUY attempt - 1 fault possible
 			faultStatuses.push({fault: !enoughMoney, msg: 'No enough money!'});
 		}
 
+		// Create container for tested msgs
 		const alertMsgs = [];
 
+		// Test which fault status occurred and note it
 		faultStatuses.forEach((faultStatus) => {
 			if (faultStatus.fault == true) {
 				alertMsgs.push(faultStatus.msg);
 			}
 		});
+
+		// Alert all of the noted ones
 		alert(alertMsgs.join('\n'));
 	}
 
+	// @ Budget UPDATE after trading -------------------------------------------------
 	if (newBudget) {
 		logJavalin([`Reloaded`, ' ']);
 
+		// Set changes
 		setCookie('wallet', newBudget.toFixed(4), 0.1);
 		setCookie('portfolio', JSON.stringify(portfolio), 1);
-		// Refresh the page
+
+		// Refresh the page what will apply them
 		window.location.href = window.location.href;
 	}
 };
 
-// -------------------- ADD COMPANY INPUT ---------------------------
+//@ -------------------- ADD COMPANY INPUT ---------------------------
 const inputAddFunction = (e, startStockName) => {
 	// Util value catching
 	const stockName = startStockName || e.target.value.toUpperCase();
@@ -162,7 +198,7 @@ const inputAddFunction = (e, startStockName) => {
 	// Bookmark addEventListener
 	bookmark.addEventListener('click', (e) => {
 		bookmark.classList.toggle('ticked');
-		addBookmark(stockName);
+		bookmarkStock(stockName);
 	});
 
 	// buyBtn create

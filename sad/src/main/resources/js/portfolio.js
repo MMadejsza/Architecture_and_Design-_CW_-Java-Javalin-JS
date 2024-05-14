@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		return portfolioWithValues;
 	};
 
-	// altered data format for the table (to have name, current price, hold amount and total value)
 	// Main function to calculate and generate portfolio table values
 	const generateTable = async () => {
 		// Get portfolio with prices
