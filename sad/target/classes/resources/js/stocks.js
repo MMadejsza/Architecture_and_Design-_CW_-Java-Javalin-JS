@@ -193,8 +193,8 @@ const changeGrid = () => {
 
 const addBookmark = (stockName) => {
 	// if some bookmark already exists(not null)
-	if (getCookiesArray('bookmarked')) {
-		const watchListArray = getCookiesArray('bookmarked');
+	if (getWatchList('bookmarked')) {
+		const watchListArray = getWatchList('bookmarked');
 		const stockNamePosition = watchListArray.indexOf(stockName);
 		// if clicked graph isn't bookmarked
 		if (stockNamePosition == -1) {
@@ -323,7 +323,7 @@ const inputAddFunction = (e, startStockName) => {
 	const bookmark = createEl('div', {class: 'bookmark'});
 	bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
 	// Toggle class to notify status
-	if (getCookiesArray('bookmarked').indexOf(stockName) > -1) {
+	if (getWatchList('bookmarked').indexOf(stockName) > -1) {
 		bookmark.classList.add('ticked');
 	}
 	// Bookmark addEventListener

@@ -56,48 +56,60 @@ function getCookie(name) {
 	return null;
 }
 
+// Function to fetch particular app setting stored in cookies
 const checkFromCookies = () => {
 	const currentPage = document.documentElement;
 
-	// COLORS SETTINGS
+	//@ COLORS SETTINGS------------------------------------------
+	// Get colors
 	let defaultColor = getCookie('defaultColor');
 	let shadowColor1 = getCookie('shadowColor1');
 	let shadowColor2 = getCookie('shadowColor2');
+	// Assign got colors
 	currentPage.style.setProperty('--defaultColor', defaultColor);
 	currentPage.style.setProperty('--shadowColor1', shadowColor1);
 	currentPage.style.setProperty('--shadowColor2', shadowColor2);
 
-	// LOGIN STATUS SETTINGS
+	//@ LOGIN STATUS SETTINGS--------------------------------------
+	// Get login status
 	let status = getCookie('logged');
 	console.log('logged', status);
+
+	// If logged in
 	if (status == 'true') {
-		// document.querySelector('.stocksElement').style.display = 'block';
+		// Show html elements with display: var(--loginStatus)
 		currentPage.style.setProperty('--loginStatus', `block`);
 	} else {
-		// 	document.querySelector('.stocksElement').style.display = 'none';
+		// Hide them if not logged in
 		currentPage.style.setProperty('--loginStatus', `none`);
 	}
 
+	// Return default color value
 	return getCookie('defaultColor');
 };
 
+// Function to fetch particularly wallet value stored in cookies
 const getWalletValue = () => {
 	let budget = getCookie('wallet');
 	return budget;
 };
 
+// Function to fetch particularly wallet value and reapply it to HTML
 const refreshWallet = () => {
 	let budget = getWalletValue();
 	let wallet = document.querySelector('.walletValue');
 	wallet.innerHTML = parseFloat(budget);
 };
 
-const getCookiesArray = (target) => {
+const getWatchList = (target) => {
+	// Get watchlist string (expecting array)
 	const watchList = getCookie(target);
 	if (watchList) {
+		// Make it array object
 		const watchListArray = watchList.split(',');
 		return watchListArray;
 	} else {
+		// Return empty but array object instead of string
 		return [];
 	}
 };
