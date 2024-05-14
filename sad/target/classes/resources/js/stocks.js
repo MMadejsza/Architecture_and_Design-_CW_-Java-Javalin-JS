@@ -1,6 +1,7 @@
+//@ --------------- Loose variables and utils for other js files relaying on stock.js ------------------
 // Catch "Global" elements
 const portfolio = document.querySelector('.contentBox');
-const addInput = document.querySelector('.addInput');
+const searchCompanyInput = document.querySelector('.addInput');
 
 // Create a new Date object representing the current date
 const currentDate = new Date();
@@ -146,67 +147,95 @@ const trade = (buyOrSell, amount, stockValue, stockName) => {
 	}
 };
 
-//@ -------------------- ADD COMPANY INPUT ---------------------------
-const inputAddFunction = (e, startStockName) => {
-	// Util value catching
+//@ -------------------- Generate GraphBox ---------------------------
+const generateGraphBox = (e, startStockName) => {
+	// Catching stock name based on if called on input or as util function
 	const stockName = startStockName || e.target.value.toUpperCase();
 
 	// Util function for validating number input
 	const validateNumberInput = (val) => {
+		// If number
 		if (parseFloat(val)) {
 			return true;
+			// If not
 		} else {
+			// Log alerts
 			alert('Wrong number / Not a number');
 			logJavalin(['Wrong number / Not a number', ' ']);
 			return false;
 		}
 	};
-
+	//# -------------------- STRUCTURE ---------------------------------
+	//-------------------- Main graphBox -------------------------------
 	// Create graphBox element
 	const graphBox = createEl('div', {class: 'graphBox'});
 
-	//----------- Create graphBox inner structure/content---------------
+	//-------------------- graph Container -----------------------------
+	const graph = createEl('div', {class: 'graph'});
 
-	// graphBox.innerHTML = `<button class="delete">X</button>
-	// <div class="graph">
-	// 	<canvas id="myChart" width="100%">
-	// </div>
-	// <div class="graph-label">
-	// 	<input class = "startDateInput" type="date" />
-	// 	<h2 class = "graph-label-name">${e.target.value}</h2>
-	// 	<input class = "endDateInput" type="date" />
-	// </div>`;
+	// Unique Id for each chart for further actions on it
+	const canvas = createEl('canvas', {id: `myChart${stockName}`, class: `myChart`});
 
+	// Input compare
+	const compareWith = createEl('input', {
+		class: 'compareWithInput',
+		placeholder: 'Compare With',
+	});
+
+	//-------------------- graphButtons --------------------------------
 	// Container for graph buttons
 	const graphButtons = createEl('div', {class: 'graphButtons'});
 
-	// X create
+	// Btn X
 	const X = createEl('div', {class: 'delete'});
 	X.innerText = 'X';
+
+	// Btn Bookmark
+	const bookmark = createEl('div', {class: 'bookmark'});
+	bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
+
+	// Btn buy
+	const buyBtn = createEl('div', {class: 'buyBtn'});
+	buyBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
+	const buyBtnInput = createEl('input', {class: 'buyBtnInput', placeholder: 'Units'});
+	buyBtn.appendChild(buyBtnInput);
+
+	// Btn sell
+	const sellBtn = createEl('div', {class: 'sellBtn'});
+	sellBtn.innerHTML = '<i class="fas fa-hand-holding-usd"></i>';
+	const sellBtnInput = createEl('input', {class: 'sellBtnInput', placeholder: 'Units'});
+	sellBtn.appendChild(sellBtnInput);
+
+	//---------------------- graph-label -------------------------------
+	const graphLabel = createEl('div', {class: 'graph-label'});
+	const graphLabelName = createEl('h2', {class: 'graph-label-name'});
+	graphLabelName.innerText = stockName;
+
+	// Input START
+	const inputStart = createEl('input', {type: 'month', class: 'startDateInput'});
+
+	// Input END
+	const inputEnd = createEl('input', {type: 'month', class: 'endDateInput'});
+
+	//# ----------------- LISTENERS AND FUNCTIONS-----------------------------------
+	//------------------------------- Btn X ----------------------------------------
 	// Btn addEventListener
 	X.addEventListener('click', () => {
 		graphBox.remove();
 	});
 
-	// Bookmark create
-	const bookmark = createEl('div', {class: 'bookmark'});
-	bookmark.innerHTML = '<i class="far fa-bookmark"></i>';
+	//------------------------------- Btn Bookmark ---------------------------------
 	// Toggle class to notify status
 	if (getWatchList('bookmarked').indexOf(stockName) > -1) {
 		bookmark.classList.add('ticked');
 	}
-	// Bookmark addEventListener
+
 	bookmark.addEventListener('click', (e) => {
 		bookmark.classList.toggle('ticked');
 		bookmarkStock(stockName);
 	});
 
-	// buyBtn create
-	const buyBtn = createEl('div', {class: 'buyBtn'});
-	buyBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
-	const buyBtnInput = createEl('input', {class: 'buyBtnInput', placeholder: 'Units'});
-	buyBtn.appendChild(buyBtnInput);
-	// buyBtn addEventListener
+	//------------------------------- Btn Buy -------------------------------------
 	buyBtnInput.addEventListener('change', (e) => {
 		const inputValue = e.target.value;
 		if (validateNumberInput(inputValue)) trade('+', inputValue, chart.currentPrice, stockName);
@@ -215,12 +244,7 @@ const inputAddFunction = (e, startStockName) => {
 		}
 	});
 
-	// sellBtn create
-	const sellBtn = createEl('div', {class: 'sellBtn'});
-	sellBtn.innerHTML = '<i class="fas fa-hand-holding-usd"></i>';
-	const sellBtnInput = createEl('input', {class: 'sellBtnInput', placeholder: 'Units'});
-	sellBtn.appendChild(sellBtnInput);
-	// sellBtn addEventListener
+	//------------------------------- Btn Sell ------------------------------------
 	sellBtnInput.addEventListener('change', (e) => {
 		const inputValue = e.target.value;
 		if (validateNumberInput(inputValue)) trade('-', inputValue, chart.currentPrice, stockName);
@@ -229,42 +253,24 @@ const inputAddFunction = (e, startStockName) => {
 		}
 	});
 
-	// Graph container create
-	const graph = createEl('div', {class: 'graph'});
+	//------------------------------ Input COMPARE --------------------------------
+	compareWith.addEventListener('change', (e) => {
+		chart.compareChartWith(e.target.value.toUpperCase());
+	});
 
-	// Unique Id for each chart for further actions on it
-	const canvas = createEl('canvas', {id: `myChart${stockName}`, class: `myChart`});
-
-	// Graph label structure create
-	const graphLabel = createEl('div', {class: 'graph-label'});
-	const graphLabelName = createEl('h2', {class: 'graph-label-name'});
-	graphLabelName.innerText = stockName;
-
-	// Input START
-	const inputStart = createEl('input', {type: 'month', class: 'startDateInput'});
+	//------------------------------- Input START ----------------------------------
 	inputStart.addEventListener('input', (e) => {
 		const otherInputVal = inputEnd.value;
 		chart.alterGraphDates(e.target.value, otherInputVal ? otherInputVal : undefined);
 	});
 
-	// Input END
-	const inputEnd = createEl('input', {type: 'month', class: 'endDateInput'});
+	//-------------------------------- Input END -----------------------------------
 	inputEnd.addEventListener('input', (e) => {
 		const otherInputVal = inputStart.value;
 		chart.alterGraphDates(otherInputVal ? otherInputVal : undefined, e.target.value);
 	});
 
-	// Input compare
-	const compareWith = createEl('input', {
-		class: 'compareWithInput',
-		placeholder: 'Compare With',
-	});
-
-	compareWith.addEventListener('change', (e) => {
-		chart.compareChartWith(e.target.value.toUpperCase());
-	});
-
-	// ASSEMBLE the graphBox
+	//# ------------------------------- ASSEMBLE -----------------------------------
 	graphLabel.appendChild(inputStart);
 	graphLabel.appendChild(graphLabelName);
 	graphLabel.appendChild(inputEnd);
@@ -280,16 +286,14 @@ const inputAddFunction = (e, startStockName) => {
 	graphBox.appendChild(graph);
 	graphBox.appendChild(graphLabel);
 
-	//----------- END Create graphBox inner structure/content---------------
-
 	// Insert as first child
 	portfolio.insertBefore(graphBox, portfolio.firstChild);
 
+	//# ------------------------------- POPULATE CHART -----------------------------------
 	// Generate Graph with default dates
 	const chart = new MyChart(`myChart${stockName}`, stockName);
-	console.log(chart);
 
-	// Check and change layout depended on amount of graphs
+	// Check and change layout after generating new box
 	changeGrid();
 
 	// Clear input
@@ -298,12 +302,15 @@ const inputAddFunction = (e, startStockName) => {
 	}
 };
 
+//@ -------------------- When content loaded ---------------------------
 document.addEventListener('DOMContentLoaded', function () {
+	// Start of refreshing the wallet
 	refreshWallet();
 
+	// Assign graph box generation to searchCompanyInput input
 	try {
-		addInput.addEventListener('change', (e) => {
-			inputAddFunction(e);
+		searchCompanyInput.addEventListener('change', (e) => {
+			generateGraphBox(e);
 		});
 	} catch (error) {}
 

@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Additionally for each record generate chart to allow performing actions on purchased stocks. Kept inside this table function due to await 'portfolioWithValues' feature
 		portfolioWithValues.forEach((stock) => {
-			inputAddFunction('', stock.name);
+			generateGraphBox('', stock.name);
 		});
 	};
 

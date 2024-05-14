@@ -7,6 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const watchListArray = getWatchList('bookmarked');
 	// Display chart for each shortlisted stock
 	watchListArray.forEach((stock) => {
-		inputAddFunction('', stock);
+		generateGraphBox('', stock);
 	});
 });
