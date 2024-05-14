@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// COLOR PICKER
 	const colorInput = document.querySelector('#inputColor');
+	const logoutBtn = document.querySelector('.logout');
 	const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
 	colorInput.value = baseColor;
 	try {
@@ -120,4 +121,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
 		});
 	} catch (error) {}
+
+	// LOG OUT
+	logoutBtn.addEventListener('click', () => {
+		setCookie('logged', 'false', 1);
+	});
 });

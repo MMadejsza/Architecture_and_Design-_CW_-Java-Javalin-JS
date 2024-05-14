@@ -61,6 +61,7 @@ img {
 .nav ul li {
 	position: relative;
 	min-width: 50px;
+	text-align: center;
 	overflow: hidden;
 }
 
@@ -120,6 +121,10 @@ li:hover {
 	background-color: var(--itemBcg);
 	overflow: hidden;
 	transition: 0.3s ease-in-out;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 }
 .wrench:hover .colorSettingsList {
 	max-height: 6rem;
