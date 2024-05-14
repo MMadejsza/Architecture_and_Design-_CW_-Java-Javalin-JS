@@ -10,7 +10,7 @@ const logout = () => {
 	setCookie('defaultColor', '#ffa500', 1);
 	setCookie('shadowColor1', 'rgba(255, 165, 0, 0.3)', 1);
 	setCookie('shadowColor2', 'rgba(255, 165, 0, 0.22)', 1);
-	checkFromCookies();
+	setFromCookies('all');
 };
 
 // Util function for creating elements with possible multiple attributes
@@ -56,34 +56,37 @@ function getCookie(name) {
 	return null;
 }
 
-// Function to fetch particular app setting stored in cookies
-const checkFromCookies = () => {
+// Function to fetch and APPLY particular app setting stored in cookies
+const setFromCookies = (specifier) => {
 	const currentPage = document.documentElement;
 
 	//@ COLORS SETTINGS------------------------------------------
-	// Get colors
-	let defaultColor = getCookie('defaultColor');
-	let shadowColor1 = getCookie('shadowColor1');
-	let shadowColor2 = getCookie('shadowColor2');
-	// Assign got colors
-	currentPage.style.setProperty('--defaultColor', defaultColor);
-	currentPage.style.setProperty('--shadowColor1', shadowColor1);
-	currentPage.style.setProperty('--shadowColor2', shadowColor2);
-
-	//@ LOGIN STATUS SETTINGS--------------------------------------
-	// Get login status
-	let status = getCookie('logged');
-	console.log('logged', status);
-
-	// If logged in
-	if (status == 'true') {
-		// Show html elements with display: var(--loginStatus)
-		currentPage.style.setProperty('--loginStatus', `block`);
-	} else {
-		// Hide them if not logged in
-		currentPage.style.setProperty('--loginStatus', `none`);
+	if (specifier == 'colors' || specifier == 'all') {
+		// Get colors
+		let defaultColor = getCookie('defaultColor');
+		let shadowColor1 = getCookie('shadowColor1');
+		let shadowColor2 = getCookie('shadowColor2');
+		// Assign got colors
+		currentPage.style.setProperty('--defaultColor', defaultColor);
+		currentPage.style.setProperty('--shadowColor1', shadowColor1);
+		currentPage.style.setProperty('--shadowColor2', shadowColor2);
 	}
 
+	//@ LOGIN STATUS SETTINGS--------------------------------------
+	if (specifier == 'login' || specifier == 'all') {
+		// Get login status
+		let status = getCookie('logged');
+		console.log('logged', status);
+
+		// If logged in
+		if (status == 'true') {
+			// Show html elements with display: var(--loginStatus)
+			currentPage.style.setProperty('--loginStatus', `block`);
+		} else {
+			// Hide them if not logged in
+			currentPage.style.setProperty('--loginStatus', `none`);
+		}
+	}
 	// Return default color value
 	return getCookie('defaultColor');
 };
@@ -94,13 +97,7 @@ const getWalletValue = () => {
 	return budget;
 };
 
-// Function to fetch particularly wallet value and reapply it to HTML
-const refreshWallet = () => {
-	let budget = getWalletValue();
-	let wallet = document.querySelector('.walletValue');
-	wallet.innerHTML = parseFloat(budget);
-};
-
+// Function to fetch particularly user watchlist
 const getWatchList = (target) => {
 	// Get watchlist string (expecting array)
 	const watchList = getCookie(target);
@@ -114,42 +111,50 @@ const getWatchList = (target) => {
 	}
 };
 
+// Function to reapply wallet value from cookies to HTML
+const refreshWallet = () => {
+	let budget = getWalletValue();
+	let wallet = document.querySelector('.walletValue');
+	wallet.innerHTML = parseFloat(budget);
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-	checkFromCookies();
+	setFromCookies('all');
 
-	// COLOR PICKER
+	//@ COLOR PICKER -----------------------------------------------------------------
+	// Catch color picker input
 	const colorInput = document.querySelector('#inputColor');
-	const logoutBtn = document.querySelector('.logout');
+	// Method getComputedStyle to get final computed value of the variable
 	const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--defaultColor');
+	// Set picker start value to indicate current setting
 	colorInput.value = baseColor;
+
 	try {
+		// On every color pick/change, do:
 		colorInput.addEventListener('input', (e) => {
-			// make shortcut for html element
+			// Catch HTML element for shortcut
 			const root = document.documentElement;
-			// catch picked color
+			// Catch picked color at this change
 			let newColor = e.target.value;
-
-			// substitute css variable with picked color
-			root.style.setProperty('--defaultColor', `${newColor}`);
-
-			// catch desired opacity from css
+			// Catch desired opacity from CSS
 			let alpha1 = getComputedStyle(root).getPropertyValue('--shadowAlpha1');
 			let alpha2 = getComputedStyle(root).getPropertyValue('--shadowAlpha2');
-			// substitute css variable for shadows with picked opacity
+
+			// Set CSS variables for shadows with picked opacity
 			const setOpacity = (alpha) =>
 				`${newColor}${Math.floor(alpha * 255)
 					.toString(16)
 					.padStart(2, 0)}`;
-			// set new shadow colors
-			root.style.setProperty('--shadowColor1', `${setOpacity(alpha1)}`);
-			root.style.setProperty('--shadowColor2', `${setOpacity(alpha2)}`);
+			// Set new shadow colors
 			setCookie('defaultColor', `${newColor}`, 1);
 			setCookie('shadowColor1', `${setOpacity(alpha1)}`, 1);
 			setCookie('shadowColor2', `${setOpacity(alpha2)}`, 1);
+			setFromCookies('colors');
 		});
 	} catch (error) {}
 
-	// LOG OUT
+	//@ LOG OUT -----------------------------------------------------------------
+	const logoutBtn = document.querySelector('.logout');
 	logoutBtn.addEventListener('click', () => {
 		logout();
 	});

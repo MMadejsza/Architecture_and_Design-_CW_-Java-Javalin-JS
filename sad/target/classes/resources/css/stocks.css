@@ -15,8 +15,6 @@ header > * {
 	width: 90%;
 	min-height: 85vh;
 	margin: 0 auto 0;
-	padding: 4vh;
-	padding-top: 10vh;
 	border-radius: var(--bRadius);
 	box-shadow: var(--activeBoxShadow);
 	background-color: var(--itemBcg);
@@ -32,7 +30,7 @@ header > * {
 }
 .addCompanyBox,
 .walletDisplay {
-	/* height: 14rem; */
+	margin-top: 5rem;
 	font-size: 3rem;
 	color: white;
 	grid-row: 1;

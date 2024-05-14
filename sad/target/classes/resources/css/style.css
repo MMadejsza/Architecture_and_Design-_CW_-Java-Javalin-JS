@@ -166,6 +166,7 @@ header {
 header > * {
 	position: absolute;
 }
+
 .walletDisplay div {
 	padding-top: 2rem;
 	font-size: 2.5rem;

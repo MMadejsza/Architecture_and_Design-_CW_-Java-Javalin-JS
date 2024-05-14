@@ -3,13 +3,13 @@ const login = (nameInput, passwordInput) => {
 	setCookie('wallet', '3000', 0.1);
 	setCookie('portfolio', `[{"name": "AAPL", "amount": 200},{"name": "TSLA", "amount": 300}]`, 1);
 
-	checkFromCookies();
+	setFromCookies('all');
 	nameInput.value = passwordInput.value = '';
 	window.location.href = '/stocks';
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-	checkFromCookies();
+	setFromCookies('all');
 	const checkbox = document.getElementById('registerInput');
 	const registerForm = document.querySelector('.registerForm');
 	const loginBtn = document.querySelector('.loginBtn[name="login"]');
