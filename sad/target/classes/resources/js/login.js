@@ -1,10 +1,15 @@
+// Util function to log in
 const login = (nameInput, passwordInput) => {
+	// Set demo data
 	setCookie('logged', 'true', 1);
 	setCookie('wallet', '3000', 0.1);
 	setCookie('portfolio', `[{"name": "AAPL", "amount": 200},{"name": "TSLA", "amount": 300}]`, 1);
 
+	// Apply start data
 	applyFromCookies('all');
+	// Clear input
 	nameInput.value = passwordInput.value = '';
+	// Get straight to apps core -> stocks
 	window.location.href = '/stocks';
 };
 
