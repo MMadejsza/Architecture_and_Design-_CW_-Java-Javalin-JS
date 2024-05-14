@@ -8,10 +8,11 @@ A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IPortfolio.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IStoreData.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Interface\IRetrieveGraph.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\ICustomerMgt.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\Portfolio.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IUserPreferences.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IReadData.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Interface\IPlotGraph.java
+A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\ISetWatchPrice.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\ILogin.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\NotifiactionSystem\Notifications.java
 A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Main.java
