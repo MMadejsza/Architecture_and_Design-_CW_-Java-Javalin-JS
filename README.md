@@ -1,3 +1,8 @@
+![image](https://github.com/MMadejsza/Architecture_and_Design-_CW_-Java-Javalin-JS/assets/71176618/86356151-31ed-4f72-b941-77f65c9f4054)
+![image](https://github.com/MMadejsza/Architecture_and_Design-_CW_-Java-Javalin-JS/assets/71176618/dd2b089d-7040-4ad2-81d3-ee14718b2ace)
+
+
+
 # Architecture and Design - Coursework
 
 ## Welcome to our Share Price Comparison Web Application
