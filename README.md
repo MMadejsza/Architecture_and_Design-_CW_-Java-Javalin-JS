@@ -24,7 +24,7 @@ Let us slightly introduce project and files workflow... :blush:
 
 * All static files - frontend directory
 
-  * JS, CSS files, pug templates
+  * JS, CSS files
 
 ### :mag_right: Documentation
 
