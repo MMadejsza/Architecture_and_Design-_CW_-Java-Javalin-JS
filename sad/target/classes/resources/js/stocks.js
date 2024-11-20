@@ -56,7 +56,7 @@ const bookmarkStock = (stockName) => {
 // Util function to handle selling and buying
 const trade = (buyOrSell, amount, stockValue, stockName) => {
 	// Log if error
-	buyOrSell && amount && StockValue == false ? console.log('Trade wrong parameters') : null;
+	buyOrSell && amount && stockValue == false ? console.log('Trade wrong parameters') : null;
 
 	// Define used later variables
 	let newBudget;

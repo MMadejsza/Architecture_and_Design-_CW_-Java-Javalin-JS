@@ -15,6 +15,7 @@ header > * {
 	width: 90%;
 	min-height: 85vh;
 	margin: 0 auto 0;
+	padding: 2.5rem;
 	border-radius: var(--bRadius);
 	box-shadow: var(--activeBoxShadow);
 	background-color: var(--itemBcg);

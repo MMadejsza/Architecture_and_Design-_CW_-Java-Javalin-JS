@@ -1,27 +1,27 @@
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\Watchlist.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Class\PlotGraph.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IWatchlist.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\StockOptions.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IUser.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Stocks\IGetStocks.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\NotifiactionSystem\INotifications.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IPortfolio.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IStoreData.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Interface\IRetrieveGraph.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\Portfolio.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IUserPreferences.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IReadData.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Interface\IPlotGraph.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\ISetWatchPrice.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\ILogin.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\NotifiactionSystem\Notifications.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Main.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Stocks\Stocks.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\Login.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Class\GraphFilters.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IRetrieveData.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Class\Database.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Class\RetrieveData.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Class\UpdateDatabase.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IStockOptions.java
-A:\Desktop\Courseworks\Arch\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\UserDetails.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Class\Database.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Main.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Interface\IPlotGraph.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\UserDetails.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\StockOptions.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IUser.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IRetrieveData.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\Login.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\Watchlist.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IStockOptions.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\NotifiactionSystem\Notifications.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Class\GraphFilters.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\ILogin.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IStoreData.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\ISetWatchPrice.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IUserPreferences.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Class\RetrieveData.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Class\Portfolio.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Stocks\Stocks.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Interface\IRetrieveGraph.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\NotifiactionSystem\INotifications.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Interface\IReadData.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IPortfolio.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Graph\Class\PlotGraph.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Stocks\IGetStocks.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\User\Interface\IWatchlist.java
+C:\Users\macie\OneDrive - University of Roehampton\TERM_4_-_01-24\SAD\Architecture_and_Design-_--_Coursework\sad\src\main\java\sad\Database\Class\UpdateDatabase.java
